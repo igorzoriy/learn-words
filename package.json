@@ -1,0 +1,8 @@
+{
+  "name": "teach-new-words",
+  "version": "0.0.1",
+  "description": "Teach nw words",
+  "private": true,
+  "author": "Igor Zoriy <common@igorzoriy.com>",
+  "license": "MIT"
+}

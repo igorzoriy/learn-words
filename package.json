@@ -1,7 +1,7 @@
 {
   "name": "teach-new-words",
   "version": "0.0.1",
-  "description": "Teach nw words",
+  "description": "Web App for teaching new foreign words",
   "private": true,
   "author": "Igor Zoriy <common@igorzoriy.com>",
   "license": "MIT"

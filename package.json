@@ -1,7 +1,7 @@
 {
-  "name": "teach-new-words",
+  "name": "learn-words",
   "version": "0.0.1",
-  "description": "Web App for teaching new foreign words",
+  "description": "Web App for learning new foreign words",
   "private": true,
   "author": "Igor Zoriy <common@igorzoriy.com>",
   "license": "MIT",

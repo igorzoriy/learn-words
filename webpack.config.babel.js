@@ -1,7 +1,7 @@
 /* eslint-env node */
 
 export default {
-    context: `${__dirname}/app/scripts`,
+    context: `${__dirname}/src`,
     entry: './init.js',
     output: {
         path: `${__dirname}/tmp`,

@@ -1,5 +1,5 @@
 import {createStore, combineReducers } from 'redux'
-import { vocabularyReducer } from './vocabulary/reducer'
+import vocabularyReducer from './vocabulary/reducer'
 import { addVocabularyItem, removeVocabularyItem } from './vocabulary/actions'
 
 const rootReducer = combineReducers({

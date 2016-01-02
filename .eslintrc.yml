@@ -12,6 +12,7 @@ ecmaFeatures:
     modules: true
     spread: true
     templateStrings: true
+    experimentalObjectRestSpread: true
 
 rules:
     comma-dangle: [2, "always-multiline"]

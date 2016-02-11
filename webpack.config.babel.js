@@ -2,7 +2,7 @@
 
 export default {
     context: `${__dirname}/src`,
-    entry: './init.js',
+    entry: './index.js',
     output: {
         path: `${__dirname}/tmp`,
         filename: 'bundle.js',
@@ -10,7 +10,7 @@ export default {
     module: {
         loaders: [
             {
-                test: /\.jsx?$/,
+                test: /\.js$/,
                 loader: 'babel',
                 exclude: /(node_modules)/,
             },

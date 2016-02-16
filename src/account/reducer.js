@@ -1,17 +1,15 @@
-import { getAuth } from '../firebase'
+import merge from 'lodash/merge'
 import { ACCOUNT_DATA_UPDATE } from './actions'
 
-const authData = getAuth()
-
 const initialState = {
-    uid: authData ? authData.uid : null,
+    uid: null,
 }
 
 export default function accountReducer (state = initialState, action) {
     const { type } = action
     switch (type) {
         case ACCOUNT_DATA_UPDATE:
-            return Object.assign({}, state, {
+            return merge({}, state, {
                 uid: action.uid,
             })
         default:

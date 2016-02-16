@@ -3,9 +3,12 @@ import { browserHistory } from 'react-router'
 import { syncHistory } from 'react-router-redux'
 import reducer from './reducer'
 
-const middlewares = [
-    syncHistory(browserHistory),
-]
-const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore)
+export default function (initialState = {}) {
+    const middlewares = [
+        syncHistory(browserHistory),
+    ]
 
-export default createStoreWithMiddleware(reducer)
+    const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore)
+
+    return createStoreWithMiddleware(reducer, initialState)
+}

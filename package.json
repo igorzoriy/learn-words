@@ -7,14 +7,15 @@
   "license": "MIT",
   "scripts": {
     "build": "webpack",
-    "dev:serve": "webpack-dev-server",
-    "dev:test": "npm test -- -w",
-    "lint": "eslint *.babel.js src tests",
-    "test": "mocha tests --recursive --compilers js:babel-register --reporter dot"
+    "dev": "webpack-dev-server",
+    "lint": "eslint *.babel.js src",
+    "test": "mocha --opts mocha.opts",
+    "test:watch": "mocha --opts mocha.opts --watch"
   },
   "dependencies": {
     "firebase": "^2.4.0",
     "immutable": "^3.7.6",
+    "lodash": "^4.4.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "react-redux": "^4.4.0",

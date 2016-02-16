@@ -3,26 +3,11 @@ import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
 import store from './store'
-import { addVocabularyItem, removeVocabularyItem } from './vocabulary/actions'
+import App from './layout/App'
+import LoginPage from './account/LoginPage'
 
-
-store.dispatch(addVocabularyItem('phrase1', 'translation1'))
-store.dispatch(addVocabularyItem('phrase2', 'translation2'))
-store.dispatch(addVocabularyItem('phrase3', 'translation3'))
-store.dispatch(removeVocabularyItem(1))
-console.log(store.getState())
-
-class App extends React.Component {
-    render () {
-        return (
-            <div>
-                <div>
-                    Header
-                </div>
-                { this.props.children }
-            </div>
-        )
-    }
+if (!store.getState().account.uid) {
+    browserHistory.push('/login')
 }
 
 class IndexPage extends React.Component {
@@ -40,6 +25,7 @@ render(
         <Router history={ browserHistory }>
             <Route path="/" component={ App }>
                 <IndexRoute component={ IndexPage } />
+                <Route path="login" component={ LoginPage } />
             </Route>
         </Router>
     </Provider>,

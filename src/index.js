@@ -7,6 +7,7 @@ import { getAuth } from './firebase'
 import { updateUserData } from './account/actions'
 import App from './layout/App'
 import LoginPage from './account/LoginPage'
+import NewVocabularyItemPage from './vocabulary/NewItemPage'
 
 const store = createStore()
 
@@ -35,6 +36,7 @@ render(
             <Route path="/" component={ App }>
                 <IndexRoute component={ IndexPage } />
                 <Route path="login" component={ LoginPage } />
+                <Route path="vocabulary/new" component={ NewVocabularyItemPage } />
             </Route>
         </Router>
     </Provider>,

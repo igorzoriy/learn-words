@@ -1,3 +1,4 @@
+import injectTapEventPlugin from 'react-tap-event-plugin'
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
@@ -9,6 +10,7 @@ import App from './layout/App'
 import LoginPage from './account/LoginPage'
 import NewVocabularyItemPage from './vocabulary/NewItemPage'
 
+injectTapEventPlugin()
 const store = createStore()
 
 

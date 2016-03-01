@@ -1,21 +1,21 @@
 /* eslint-env node */
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import postcssImport from 'postcss-import'
-import autoprefixer from 'autoprefixer'
+import LessAutoprefixer from 'less-plugin-autoprefix'
 
 export default {
     plugins: [
         new ExtractTextPlugin('[name].css'),
     ],
-    context: `${__dirname}/src`,
+    devtool: 'inline-source-map',
+    context: __dirname,
     entry: {
-        bundle: './index.js',
-        styles: `./styles.css`,
-        publicPath: '/',
+        bundle: './src/index.js',
+        styles: `./styles/styles.less`,
     },
     output: {
         path: `${__dirname}/tmp`,
         filename: '[name].js',
+        publicPath: '/',
     },
     module: {
         loaders: [
@@ -25,23 +25,21 @@ export default {
                 exclude: /(node_modules)/,
             },
             {
-                test: /\.css$/,
-                loader: ExtractTextPlugin.extract('style-loader', ['css-loader?sourceMap', 'postcss-loader']),
+                test: /\.less$/,
+                loader: ExtractTextPlugin.extract('style-loader', ['css-loader?sourceMap', 'less-loader?sourceMap']),
             },
         ],
     },
-    postcss: (webpack) => {
-        return [
-            postcssImport({
-                addDependencyTo: webpack,
-            }),
-            autoprefixer({
+    lessLoader: {
+        lessPlugins: [
+            new LessAutoprefixer({
                 browsers: ['Android >= 4, iOS >= 7'],
             }),
-        ]
+        ],
     },
     devServer: {
         contentBase: `${__dirname}/app`,
         port: 8888,
+        historyApiFallback: true,
     },
 }

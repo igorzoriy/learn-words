@@ -20,21 +20,11 @@ if (authData) {
     browserHistory.push('/login')
 }
 
-class IndexPage extends React.Component {
-    render () {
-        return (
-            <div>
-                index page
-            </div>
-        )
-    }
-}
-
 render(
     <Provider store={ store }>
         <Router history={ browserHistory }>
             <Route path="/" component={ App }>
-                <IndexRoute component={ IndexPage } />
+                <IndexRoute component={ NewVocabularyItemPage } />
                 <Route path="login" component={ LoginPage } />
                 <Route path="vocabulary/new" component={ NewVocabularyItemPage } />
             </Route>

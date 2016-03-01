@@ -4,10 +4,12 @@ export default class App extends Component {
     render () {
         return (
             <div>
-                <div>
+                <header className="header">
                     Header
-                </div>
-                { this.props.children }
+                </header>
+                <main className="content">
+                    { this.props.children }
+                </main>
             </div>
         )
     }

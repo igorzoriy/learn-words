@@ -1,17 +1,16 @@
-import React, { Component, PropTypes } from 'react'
+import React, { Component } from 'react'
 import { connect } from 'react-redux'
+import { routeActions } from 'react-router-redux'
 import { login, logout } from './actions'
 
 export class LoginPage extends Component {
-    static contextTypes = {
-        router: PropTypes.object.isRequired,
-    };
-
     handleLoginClick = (e) => {
         e.preventDefault()
 
         const { dispatch } = this.props
-        dispatch(login())
+        dispatch(login()).then(() => {
+            dispatch(routeActions.push('/'))
+        })
     }
 
     handleLogoutClick = (e) => {
@@ -21,7 +20,20 @@ export class LoginPage extends Component {
         dispatch(logout())
     }
 
+    renderError (error) {
+        if (error.length === 0) {
+            return
+        }
+        return (
+            <div>
+                { error }
+            </div>
+        )
+    }
+
     render () {
+        const { error } = this.props
+
         return (
             <div>
                 Login Page
@@ -31,13 +43,16 @@ export class LoginPage extends Component {
                 <button type="button" onClick={ this.handleLogoutClick }>
                     logout
                 </button>
+                { this.renderError(error) }
             </div>
         )
     }
 }
 
-function select () {
-    return {}
+function select (state) {
+    return {
+        error: state.account.error,
+    }
 }
 
 export default connect(select)(LoginPage)

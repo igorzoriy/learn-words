@@ -33,8 +33,9 @@ export function createFirebaseMiddleware ({ url }) {
                 status: STATUS_REQUEST,
                 params,
             }
+            next(action)
 
-            promise.then(
+            return promise.then(
                 (data) => {
                     dispatch({
                         type,

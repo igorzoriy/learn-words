@@ -4,10 +4,12 @@ import {
     ACTION_LOGIN,
     ACTION_LOGOUT,
     STATUS_SUCCESS,
+    STATUS_FAILURE,
 } from '../api/constants'
 
 const initialState = {
     uid: null,
+    error: '',
 }
 
 export default function accountReducer (state = initialState, action) {
@@ -16,6 +18,10 @@ export default function accountReducer (state = initialState, action) {
     if (type === ACTION_GET_USER_DATA || (type === ACTION_LOGIN && status === STATUS_SUCCESS)) {
         return merge({}, state, {
             uid: data && data.uid || null,
+        })
+    } else if (type === ACTION_LOGIN && status === STATUS_FAILURE) {
+        return merge({}, state, {
+            error: data.message,
         })
     } else if (type === ACTION_LOGOUT && status === STATUS_SUCCESS) {
         return merge({}, state, {

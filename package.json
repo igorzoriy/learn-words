@@ -9,6 +9,7 @@
     "build": "webpack",
     "dev": "webpack-dev-server",
     "lint": "eslint *.babel.js src",
+    "precommit": "npm run lint && npm run test",
     "test": "mocha --opts mocha.opts",
     "test:watch": "mocha --opts mocha.opts --watch"
   },
@@ -40,6 +41,7 @@
     "eslint-plugin-react": "^3.14.0",
     "expect.js": "^0.3.1",
     "extract-text-webpack-plugin": "^1.0.1",
+    "husky": "^0.11.4",
     "less": "^2.6.0",
     "less-loader": "^2.2.2",
     "less-plugin-autoprefix": "^1.5.1",

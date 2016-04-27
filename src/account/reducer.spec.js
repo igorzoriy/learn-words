@@ -12,6 +12,7 @@ describe('account reducer', () => {
     it('should return initial state', () => {
         expect(reducer(undefined, {})).to.be.eql({
             uid: null,
+            error: '',
         })
     })
 

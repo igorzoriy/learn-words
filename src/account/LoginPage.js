@@ -1,34 +1,35 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import { auth } from '../firebase'
-import { updateUserData } from './actions'
+import { login, logout } from './actions'
 
 export class LoginPage extends Component {
     static contextTypes = {
         router: PropTypes.object.isRequired,
     };
 
-    handleAuth = (error, authData) => {
-        const { dispatch } = this.props
+    handleLoginClick = (e) => {
+        e.preventDefault()
 
-        if (error) {
-            console.log("Login Failed!", error)
-        } else {
-            dispatch(updateUserData(authData))
-            this.context.router.push('/')
-        }
+        const { dispatch } = this.props
+        dispatch(login())
     }
 
-    handleClick = () => {
-        auth(this.handleAuth)
+    handleLogoutClick = (e) => {
+        e.preventDefault()
+
+        const { dispatch } = this.props
+        dispatch(logout())
     }
 
     render () {
         return (
             <div>
                 Login Page
-                <button type="button" onClick={ this.handleClick }>
+                <button type="button" onClick={ this.handleLoginClick }>
                     login
+                </button>
+                <button type="button" onClick={ this.handleLogoutClick }>
+                    logout
                 </button>
             </div>
         )

@@ -1,13 +1,30 @@
 import expect from 'expect.js'
-import { ACCOUNT_DATA_UPDATE, updateUserData } from './actions'
+import { login, logout, getUserData } from './actions'
+import {
+    ACTION_LOGIN,
+    ACTION_LOGOUT,
+    ACTION_GET_USER_DATA,
+} from '../api/constants'
 
 describe('account actions', () => {
-    it('should create an action to updatr user data', () => {
-        expect(updateUserData({
-            uid: 'my-unique-id',
+    it('should create an action to login', () => {
+        expect(login({
         })).to.eql({
-            type: ACCOUNT_DATA_UPDATE,
-            uid: 'my-unique-id',
+            type: ACTION_LOGIN,
+        })
+    })
+
+    it('should create an action to logout', () => {
+        expect(logout({
+        })).to.eql({
+            type: ACTION_LOGOUT,
+        })
+    })
+
+    it('should create an action to get user data', () => {
+        expect(getUserData({
+        })).to.eql({
+            type: ACTION_GET_USER_DATA,
         })
     })
 })

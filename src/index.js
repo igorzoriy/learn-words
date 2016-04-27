@@ -3,23 +3,20 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
+import { routeActions } from 'react-router-redux'
 import createStore from './store'
-import { getAuth } from './firebase'
-import { updateUserData } from './account/actions'
+import { getUserData } from './account/actions'
 import App from './layout/App'
 import LoginPage from './account/LoginPage'
 import NewVocabularyItemPage from './vocabulary/NewItemPage'
 
 injectTapEventPlugin()
+
 const store = createStore()
-
-
-const authData = getAuth()
-
-if (authData) {
-    store.dispatch(updateUserData(authData.uid))
-} else {
-    browserHistory.push('/login')
+store.dispatch(getUserData())
+const state = store.getState()
+if (state.account.uid === null) {
+    store.dispatch(routeActions.push('/login'))
 }
 
 render(

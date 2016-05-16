@@ -1,8 +1,5 @@
 import React, { Component } from 'react'
-import { AppBar, LeftNav, Menu, MenuItem } from 'material-ui'
 import { Link } from 'react-router'
-
-const SIDEBAR_WIDTH = 250
 
 export default class App extends Component {
     state = {
@@ -15,26 +12,39 @@ export default class App extends Component {
         })
     }
 
+    renderMenu () {
+        return (
+            <ul className="nav navbar-nav">
+                <li className="navbar-nav-item">
+                    <Link className="nav-link" to="/vocabulary/new">
+                        Add new item
+                    </Link>
+                </li>
+                <li className="navbar-nav-item">
+                    <Link className="nav-link" to="/vocabulary">
+                        Vocabulary list
+                    </Link>
+                </li>
+            </ul>
+        )
+    }
+
     render () {
         return (
             <div>
-                <LeftNav width={ SIDEBAR_WIDTH } open={ this.state.open } openRight={ true }>
-                    <Menu>
-                        <MenuItem>
-                            <Link to="vocabulary/new">
-                                Add new word
-                            </Link>
-                        </MenuItem>
-                        <MenuItem>
-                            <Link to="vocabulary">
-                                Vocabulary list
-                            </Link>
-                        </MenuItem>
-                    </Menu>
-                </LeftNav>
-                <AppBar
-                    title="Learn Words"
-                    onLeftIconButtonTouchTap={ this.handleToggle } />
+                <nav className="navbar navbar-dark bg-inverse">
+                    <button
+                        type="button"
+                        className="navbar-toggler"
+                        onClick={ this.handleToggle }
+                        >
+                        &#9776;
+                    </button>
+                    <Link to="/" className="navbar-brand">
+                        Learn Words
+                    </Link>
+                    { this.state.open ? this.renderMenu() : '' }
+                </nav>
                 <main className="content">
                     { this.props.children }
                 </main>

@@ -1,6 +1,6 @@
 /* eslint-env node */
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import LessAutoprefixer from 'less-plugin-autoprefix'
+import autoprefixer from 'autoprefixer'
 
 export default {
     plugins: [
@@ -10,7 +10,7 @@ export default {
     context: __dirname,
     entry: {
         bundle: './src/index.js',
-        styles: `./styles/styles.less`,
+        styles: `./styles/styles.scss`,
     },
     output: {
         path: `${__dirname}/tmp`,
@@ -25,17 +25,19 @@ export default {
                 exclude: /(node_modules)/,
             },
             {
-                test: /\.less$/,
-                loader: ExtractTextPlugin.extract('style-loader', ['css-loader?sourceMap', 'less-loader?sourceMap']),
+                test: /\.scss$/,
+                loader: ExtractTextPlugin.extract('style-loader', [
+                    'css-loader?sourceMap',
+                    'postcss-loader?sourceMap',
+                    'sass-loader?sourceMap',
+                ]),
             },
         ],
     },
-    lessLoader: {
-        lessPlugins: [
-            new LessAutoprefixer({
-                browsers: ['Android >= 4, iOS >= 7'],
-            }),
-        ],
+    postcss: () => {
+        return [autoprefixer({
+            browsers: ['Android >= 4, iOS >= 7'],
+        })]
     },
     devServer: {
         contentBase: `${__dirname}/app`,

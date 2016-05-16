@@ -1,0 +1,27 @@
+@import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/normalize';
+
+@import '~bootstrap/scss/reboot';
+@import '~bootstrap/scss/type';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/forms';
+@import '~bootstrap/scss/buttons';
+
+@import '~bootstrap/scss/navbar';
+
+@import '~bootstrap/scss/utilities-background';
+
+.navbar-brand {
+    float: none;
+}
+
+.navbar-nav {
+    display: block;
+    margin: 1rem;
+    padding: 0;
+}
+
+.navbar-nav-item {
+    display: block;
+}

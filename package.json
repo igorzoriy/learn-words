@@ -14,10 +14,11 @@
     "test:watch": "mocha --opts mocha.opts --watch"
   },
   "dependencies": {
+    "bootstrap": "^4.0.0-alpha.2",
     "firebase": "^2.4.0",
     "immutable": "^3.7.6",
     "lodash": "^4.4.0",
-    "material-ui": "^0.14.4",
+    "node-sass": "^3.7.0",
     "react": "^0.14.7",
     "react-dom": "^0.14.7",
     "react-redux": "^4.4.0",
@@ -25,10 +26,11 @@
     "react-router-redux": "^3.0.0",
     "react-tap-event-plugin": "^0.2.2",
     "redux": "^3.0.5",
-    "redux-logger": "^2.5.2"
+    "redux-logger": "^2.5.2",
+    "sass-loader": "^3.2.0"
   },
   "devDependencies": {
-    "autoprefixer": "^6.3.3",
+    "autoprefixer": "^6.3.6",
     "babel-core": "^6.5.2",
     "babel-eslint": "^4.1.8",
     "babel-loader": "^6.2.2",
@@ -42,12 +44,11 @@
     "expect.js": "^0.3.1",
     "extract-text-webpack-plugin": "^1.0.1",
     "husky": "^0.11.4",
-    "less": "^2.6.0",
-    "less-loader": "^2.2.2",
-    "less-plugin-autoprefix": "^1.5.1",
     "mocha": "^2.3.4",
+    "node-sass": "^3.7.0",
     "postcss-import": "^8.0.2",
-    "postcss-loader": "^0.8.1",
+    "postcss-loader": "^0.8.2",
+    "sass-loader": "^3.2.0",
     "style-loader": "^0.13.0",
     "webpack": "^1.12.9",
     "webpack-dev-server": "^1.14.0"

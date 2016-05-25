@@ -56,6 +56,72 @@ export default class MockupPage extends Component {
                         The phrase has been added successfully.
                     </div>
                 </form>
+
+                <h1>
+                    Phrases list
+                </h1>
+                <ul className="list-group">
+                    <li className="list-group-item">
+                        <div className="list-item-phrase">
+                            Phrase 1
+                        </div>
+                        <div className="list-item-translation">
+                            Translation 1
+                        </div>
+                        <div>
+                            <a href="#" className="list-item-control">
+                                <svg className="icon-edit">
+                                    <use xlinkHref="#icon-edit" />
+                                </svg>
+                            </a>
+                            <a href="#" className="list-item-control">
+                                <svg className="icon-remove">
+                                    <use xlinkHref="#icon-remove" />
+                                </svg>
+                            </a>
+                        </div>
+                    </li>
+                    <li className="list-group-item">
+                        <div className="list-item-phrase">
+                            Phrase 2
+                        </div>
+                        <div className="list-item-translation">
+                            Translation 2
+                        </div>
+                        <div>
+                            <a href="#" className="list-item-control">
+                                <svg className="icon-edit">
+                                    <use xlinkHref="#icon-edit" />
+                                </svg>
+                            </a>
+                            <a href="#" className="list-item-control">
+                                <svg className="icon-remove">
+                                    <use xlinkHref="#icon-remove" />
+                                </svg>
+                            </a>
+                        </div>
+                    </li>
+                    <li className="list-group-item">
+                        <div className="list-item-phrase">
+                            Phrase 3
+                        </div>
+                        <div className="list-item-translation">
+                            Translation 3
+                        </div>
+                        <div>
+                            <a href="#" className="list-item-control">
+                                <svg className="icon-edit">
+                                    <use xlinkHref="#icon-edit" />
+                                </svg>
+                            </a>
+                            <a href="#" className="list-item-control">
+                                <svg className="icon-remove">
+                                    <use xlinkHref="#icon-remove" />
+                                </svg>
+                            </a>
+                        </div>
+                    </li>
+                </ul>
             </div>
         )
     }

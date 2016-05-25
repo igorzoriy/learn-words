@@ -38,7 +38,9 @@ export default class App extends Component {
                         className="navbar-toggler"
                         onClick={ this.handleToggle }
                         >
-                        &#9776;
+                        <svg className="icon-menu">
+                            <use xlinkHref="#icon-menu" />
+                        </svg>
                     </button>
                     <Link to="/" className="navbar-brand">
                         Learn Words

@@ -43,9 +43,15 @@ h1 {
     display: block;
 }
 
-.icon {
+.icon-refresh {
     width: 24px;
     height: 24px;
+}
+
+.icon-menu {
+    fill: $navbar-dark-active-color;
+    width: 16px;
+    height: 16px;
 }
 
 .spinner {

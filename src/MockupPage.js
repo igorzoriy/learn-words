@@ -24,7 +24,7 @@ export default class MockupPage extends Component {
                     <button type="submit" className="btn btn-primary" disabled>
                         Add
                     </button>
-                    <svg className="icon spinner">
+                    <svg className="icon-refresh spinner">
                         <use xlinkHref="#icon-refresh" />
                     </svg>
                 </form>

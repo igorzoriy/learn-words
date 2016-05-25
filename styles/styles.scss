@@ -1,16 +1,33 @@
 @import '~bootstrap/scss/mixins';
 @import '~bootstrap/scss/variables';
-@import '~bootstrap/scss/normalize';
+$font-size-h1: 2rem;
 
+@import '~bootstrap/scss/normalize';
 @import '~bootstrap/scss/reboot';
 @import '~bootstrap/scss/type';
 @import '~bootstrap/scss/grid';
 @import '~bootstrap/scss/forms';
 @import '~bootstrap/scss/buttons';
-
 @import '~bootstrap/scss/navbar';
-
+@import '~bootstrap/scss/alert';
 @import '~bootstrap/scss/utilities-background';
+
+
+h1 {
+    margin: 1rem 0;
+    text-align: center;
+}
+
+.form-control {
+    margin: 1rem 0;
+}
+
+.btn {
+    display: block;
+    width: 100%;
+    margin: 1rem 0;
+}
+
 
 .navbar-brand {
     float: none;
@@ -24,4 +41,22 @@
 
 .navbar-nav-item {
     display: block;
+}
+
+.icon {
+    width: 24px;
+    height: 24px;
+}
+
+.spinner {
+    animation: spin 1.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

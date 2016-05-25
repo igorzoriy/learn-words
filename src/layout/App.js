@@ -45,7 +45,7 @@ export default class App extends Component {
                     </Link>
                     { this.state.open ? this.renderMenu() : '' }
                 </nav>
-                <main className="content">
+                <main className="container-fluid">
                     { this.props.children }
                 </main>
             </div>

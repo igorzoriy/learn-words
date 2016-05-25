@@ -7,6 +7,7 @@ import { routeActions } from 'react-router-redux'
 import createStore from './store'
 import { getUserData } from './account/actions'
 import App from './layout/App'
+import MockupPage from './MockupPage'
 import LoginPage from './account/LoginPage'
 import NewVocabularyItemPage from './vocabulary/NewItemPage'
 
@@ -23,7 +24,7 @@ render(
     <Provider store={ store }>
         <Router history={ browserHistory }>
             <Route path="/" component={ App }>
-                <IndexRoute component={ NewVocabularyItemPage } />
+                <IndexRoute component={ MockupPage } />
                 <Route path="login" component={ LoginPage } />
                 <Route path="vocabulary/new" component={ NewVocabularyItemPage } />
             </Route>

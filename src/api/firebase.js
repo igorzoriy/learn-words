@@ -1,6 +1,6 @@
-import Firebase from 'firebase'
+import firebase from 'firebase'
 import {
-    ACTION_GET_USER_DATA,
+    ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
     ACTION_LOGOUT,
     STATUS_REQUEST,
@@ -8,53 +8,59 @@ import {
     STATUS_FAILURE,
 } from './constants'
 
-export function createFirebaseMiddleware ({ url }) {
-    const ref = new Firebase(url)
+export function createFirebaseMiddleware (config) {
+    firebase.initializeApp(config)
 
-    return ({ dispatch }) => (next) => (action) => {
-        const { type, status, params } = action
-
-        let promise = null
-        if (type === ACTION_GET_USER_DATA) {
-            const data = ref.getAuth()
-            action = {
-                type,
-                data,
-            }
-        } else if (type === ACTION_LOGIN && !status) {
-            promise = ref.authWithOAuthPopup('facebook')
-        } else if (type === ACTION_LOGOUT && !status) {
-            promise = ref.unauth()
-        }
-
-        if (promise instanceof Promise) {
-            action = {
-                type,
-                status: STATUS_REQUEST,
-                params,
-            }
-            next(action)
-
-            return promise.then(
-                (data) => {
-                    dispatch({
-                        type,
-                        status: STATUS_SUCCESS,
-                        params,
-                        data,
-                    })
+    return ({ dispatch }) => {
+        firebase.auth().onAuthStateChanged((user) => {
+            dispatch({
+                type: ACTION_UPDATE_USER_DATA,
+                data: {
+                    user,
                 },
-                (data) => {
-                    dispatch({
-                        type,
-                        status: STATUS_FAILURE,
-                        params,
-                        data,
-                    })
-                }
-            )
-        }
+            })
+        })
 
-        return next(action)
+        return (next) => (action) => {
+            const { type, status, params } = action
+
+            let promise = null
+            if (type === ACTION_LOGIN && !status) {
+                const provider = new firebase.auth.FacebookAuthProvider()
+                promise = firebase.auth().signInWithPopup(provider)
+            } else if (type === ACTION_LOGOUT && !status) {
+                promise = firebase.auth().signOut()
+            }
+
+            if (promise && promise.then) {
+                action = {
+                    type,
+                    status: STATUS_REQUEST,
+                    params,
+                }
+                next(action)
+
+                return promise.then(
+                    (data) => {
+                        dispatch({
+                            type,
+                            status: STATUS_SUCCESS,
+                            params,
+                            data,
+                        })
+                    },
+                    (data) => {
+                        dispatch({
+                            type,
+                            status: STATUS_FAILURE,
+                            params,
+                            data,
+                        })
+                    }
+                )
+            }
+
+            return next(action)
+        }
     }
 }

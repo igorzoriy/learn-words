@@ -1,6 +1,6 @@
 import merge from 'lodash/merge'
 import {
-    ACTION_GET_USER_DATA,
+    ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
     ACTION_LOGOUT,
     STATUS_SUCCESS,
@@ -15,9 +15,9 @@ const initialState = {
 export default function accountReducer (state = initialState, action) {
     const { type, status, data } = action
 
-    if (type === ACTION_GET_USER_DATA || (type === ACTION_LOGIN && status === STATUS_SUCCESS)) {
+    if (type === ACTION_UPDATE_USER_DATA || (type === ACTION_LOGIN && status === STATUS_SUCCESS)) {
         return merge({}, state, {
-            uid: data && data.uid || null,
+            uid: data && data.user && data.user.uid || null,
         })
     } else if (type === ACTION_LOGIN && status === STATUS_FAILURE) {
         return merge({}, state, {

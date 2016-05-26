@@ -1,7 +1,7 @@
 import expect from 'expect.js'
 import reducer from './reducer'
 import {
-    ACTION_GET_USER_DATA,
+    ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
     ACTION_LOGOUT,
     STATUS_SUCCESS,
@@ -16,11 +16,13 @@ describe('account reducer', () => {
         })
     })
 
-    it('should handle ACTION_GET_USER_DATA', () => {
+    it('should handle ACTION_UPDATE_USER_DATA', () => {
         const state = reducer(undefined, {
-            type: ACTION_GET_USER_DATA,
+            type: ACTION_UPDATE_USER_DATA,
             data: {
-                uid: 'unique-id',
+                user: {
+                    uid: 'unique-id',
+                },
             },
         })
         expect(state.uid).to.be('unique-id')
@@ -31,7 +33,9 @@ describe('account reducer', () => {
             type: ACTION_LOGIN,
             status: STATUS_SUCCESS,
             data: {
-                uid: 'unique-id',
+                user: {
+                    uid: 'unique-id',
+                },
             },
         })
         expect(state.uid).to.be('unique-id')

@@ -1,26 +1,64 @@
 import expect from 'expect.js'
-import Immutable from 'immutable'
-import reducer from '../../src/vocabulary/reducer'
-import * as actionTypes from '../../src/vocabulary/actionTypes'
-
+import reducer from './reducer'
+import {
+    ACTION_GET_VOCABULARY_LIST,
+    STATUS_INIT,
+    STATUS_REQUEST,
+    STATUS_SUCCESS,
+    STATUS_FAILURE,
+} from '../api/constants'
 
 describe('vocabulary reducer', () => {
     it('should return initial state', () => {
-        expect(
-            Immutable.is(reducer(undefined, {}),
-            Immutable.List())
-        ).to.be.true
+        expect(reducer(undefined, {})).to.be.eql({
+            list: {
+                items: [],
+                status: STATUS_INIT,
+            },
+        })
     })
 
-    it('should handle ADD_VOCABULARY_ITEM', () => {
-        const [phrase, translation] = ['item', 'translated-item']
-        const vocabulary = reducer(undefined, {
-            type: actionTypes.ADD_VOCABULARY_ITEM,
-            phrase,
-            translation,
+    it('should handle ACTION_GET_VOCABULARY_LIST', () => {
+        let state = reducer(undefined, {
+            type: ACTION_GET_VOCABULARY_LIST,
+            status: STATUS_REQUEST,
         })
-        expect(vocabulary.size).to.be(1)
-        expect(vocabulary.get(0).phrase).to.be(phrase)
-        expect(vocabulary.get(0).translation).to.be(translation)
+        expect(state.list.status).to.be(STATUS_REQUEST)
+        expect(state.list.items).to.be.eql([])
+
+        state = reducer(undefined, {
+            type: ACTION_GET_VOCABULARY_LIST,
+            status: STATUS_FAILURE,
+        })
+        expect(state.list.status).to.be(STATUS_FAILURE)
+        expect(state.list.items).to.be.eql([])
+
+        state = reducer(undefined, {
+            type: ACTION_GET_VOCABULARY_LIST,
+            status: STATUS_SUCCESS,
+            data: {
+                id1: {
+                    phrase: 'phrase1',
+                    translation: 'translation1',
+                },
+                id2: {
+                    phrase: 'phrase2',
+                    translation: 'translation2',
+                },
+            },
+        })
+        expect(state.list.status).to.be(STATUS_SUCCESS)
+        expect(state.list.items).to.be.eql([
+            {
+                id: 'id1',
+                phrase: 'phrase1',
+                translation: 'translation1',
+            },
+            {
+                id: 'id2',
+                phrase: 'phrase2',
+                translation: 'translation2',
+            },
+        ])
     })
 })

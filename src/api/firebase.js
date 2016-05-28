@@ -3,6 +3,7 @@ import {
     ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
     ACTION_LOGOUT,
+    ACTION_GET_VOCABULARY_LIST,
     STATUS_REQUEST,
     STATUS_SUCCESS,
     STATUS_FAILURE,
@@ -11,7 +12,7 @@ import {
 export function createFirebaseMiddleware (config) {
     firebase.initializeApp(config)
 
-    return ({ dispatch }) => {
+    return ({ dispatch, getState }) => {
         firebase.auth().onAuthStateChanged((user) => {
             dispatch({
                 type: ACTION_UPDATE_USER_DATA,
@@ -30,37 +31,44 @@ export function createFirebaseMiddleware (config) {
                 promise = firebase.auth().signInWithPopup(provider)
             } else if (type === ACTION_LOGOUT && !status) {
                 promise = firebase.auth().signOut()
+            } else if (type === ACTION_GET_VOCABULARY_LIST && !status) {
+                const uid = getState().account.uid
+                promise = firebase.database().ref(`/${uid}/vocabulary`).once('value')
             }
 
-            if (promise && promise.then) {
-                action = {
-                    type,
-                    status: STATUS_REQUEST,
-                    params,
-                }
-                next(action)
+            if (!promise) {
+                return next(action)
+            }
 
-                return promise.then(
-                    (data) => {
-                        dispatch({
-                            type,
-                            status: STATUS_SUCCESS,
-                            params,
-                            data,
-                        })
-                    },
-                    (data) => {
-                        dispatch({
-                            type,
-                            status: STATUS_FAILURE,
-                            params,
-                            data,
-                        })
+            action = {
+                type,
+                status: STATUS_REQUEST,
+                params,
+            }
+            next(action)
+            promise.then(
+                (data) => {
+                    if (data.val) {
+                        data = data.val()
                     }
-                )
-            }
+                    dispatch({
+                        type,
+                        status: STATUS_SUCCESS,
+                        params,
+                        data,
+                    })
+                },
+                (data) => {
+                    dispatch({
+                        type,
+                        status: STATUS_FAILURE,
+                        params,
+                        data,
+                    })
+                }
+            )
 
-            return next(action)
+            return promise
         }
     }
 }

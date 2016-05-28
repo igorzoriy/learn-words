@@ -3,17 +3,18 @@ import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'
 import { Router, Route, IndexRoute, browserHistory } from 'react-router'
-import { routeActions } from 'react-router-redux'
+//import { routeActions } from 'react-router-redux'
 import createStore from './store'
 import App from './layout/App'
 import MockupPage from './MockupPage'
 import LoginPage from './account/LoginPage'
+import ListVocabularyItemsPage from './vocabulary/ListPage'
 import NewVocabularyItemPage from './vocabulary/NewItemPage'
 
 injectTapEventPlugin()
 
 const store = createStore()
-store.dispatch(routeActions.push('/login'))
+//store.dispatch(routeActions.push('/login'))
 
 render(
     <Provider store={ store }>
@@ -21,6 +22,7 @@ render(
             <Route path="/" component={ App }>
                 <IndexRoute component={ MockupPage } />
                 <Route path="login" component={ LoginPage } />
+                <Route path="vocabulary/list" component={ ListVocabularyItemsPage } />
                 <Route path="vocabulary/new" component={ NewVocabularyItemPage } />
             </Route>
         </Router>

@@ -81,3 +81,14 @@ h1 {
 .list-item-control {
     padding: 0.5rem;
 }
+
+.preloader {
+    display: block;
+    text-align: center;
+}
+
+.preloader-image {
+    width: 2rem;
+    height: 2rem;
+    animation: spin 2.5s linear infinite;
+}

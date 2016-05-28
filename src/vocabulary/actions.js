@@ -1,16 +1,9 @@
-import * as actionTypes from './actionTypes'
+import {
+    ACTION_GET_VOCABULARY_LIST,
+} from '../api/constants'
 
-export function addVocabularyItem (phrase, translation) {
+export function getVocabularyList () {
     return {
-        type: actionTypes.ADD_VOCABULARY_ITEM,
-        phrase,
-        translation,
-    }
-}
-
-export function removeVocabularyItem (id) {
-    return {
-        type: actionTypes.REMOVE_VOCABULARY_ITEM,
-        id,
+        type: ACTION_GET_VOCABULARY_LIST,
     }
 }

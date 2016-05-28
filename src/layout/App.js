@@ -21,7 +21,7 @@ export default class App extends Component {
                     </Link>
                 </li>
                 <li className="navbar-nav-item">
-                    <Link className="nav-link" to="/vocabulary">
+                    <Link className="nav-link" to="/vocabulary/list">
                         Vocabulary list
                     </Link>
                 </li>

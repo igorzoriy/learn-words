@@ -61,25 +61,16 @@ h1 {
     height: 1rem;
 }
 
-.spinner {
-    animation: spin 1.5s linear infinite;
-}
-
-@keyframes spin {
-    0% {
-        transform: rotate(0deg);
-    }
-    100% {
-        transform: rotate(360deg);
-    }
-}
-
 .list-item-phrase {
     font-weight: 700;
 }
 
 .list-item-control {
+    border: 0;
     padding: 0.5rem;
+    background: transparent;
+    width: 2rem;
+    height: 2rem;
 }
 
 .preloader {
@@ -91,4 +82,13 @@ h1 {
     width: 2rem;
     height: 2rem;
     animation: spin 2.5s linear infinite;
+}
+
+@keyframes spin {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
+    }
 }

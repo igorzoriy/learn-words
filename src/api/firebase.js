@@ -5,6 +5,7 @@ import {
     ACTION_LOGOUT,
     ACTION_GET_VOCABULARY_LIST,
     ACTION_ADD_VOCABULARY_ITEM,
+    ACTION_REMOVE_VOCABULARY_ITEM,
     STATUS_REQUEST,
     STATUS_SUCCESS,
     STATUS_FAILURE,
@@ -38,6 +39,9 @@ export function createFirebaseMiddleware (config) {
             } else if (type === ACTION_ADD_VOCABULARY_ITEM && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary`).push(params)
+            } else if (type === ACTION_REMOVE_VOCABULARY_ITEM && !status) {
+                const uid = getState().account.uid
+                promise = firebase.database().ref(`/${uid}/vocabulary/${params.id}`).remove()
             }
 
             if (!promise) {
@@ -52,7 +56,7 @@ export function createFirebaseMiddleware (config) {
             next(action)
             promise.then(
                 (data) => {
-                    if (data.val) {
+                    if (data && data.val) {
                         data = data.val()
                     }
                     dispatch({

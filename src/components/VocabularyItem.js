@@ -5,10 +5,12 @@ export default class VocabularyItem extends Component {
     static propTypes = {
         phrase: PropTypes.string.isRequired,
         translation: PropTypes.string.isRequired,
+        handleEdit: PropTypes.func.isRequired,
+        handleRemove: PropTypes.func.isRequired,
     }
 
     render () {
-        const { phrase, translation } = this.props
+        const { id, phrase, translation, handleEdit, handleRemove } = this.props
 
         return (
             <li className="list-group-item">
@@ -19,16 +21,16 @@ export default class VocabularyItem extends Component {
                     { translation }
                 </div>
                 <div>
-                    <a href="#" className="list-item-control">
+                    <button type="button" className="list-item-control" onClick={ handleEdit.bind(null, id) }>
                         <svg className="icon-edit">
                             <use xlinkHref="#icon-edit" />
                         </svg>
-                    </a>
-                    <a href="#" className="list-item-control">
+                    </button>
+                    <button type="button" className="list-item-control" onClick={ handleRemove.bind(null, id) }>
                         <svg className="icon-remove">
                             <use xlinkHref="#icon-remove" />
                         </svg>
-                    </a>
+                    </button>
                 </div>
             </li>
         )

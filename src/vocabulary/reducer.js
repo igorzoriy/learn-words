@@ -1,10 +1,12 @@
 import merge from 'lodash/merge'
+import mergeWith from 'lodash/mergeWith'
 import {
     STATUS_INIT,
     STATUS_REQUEST,
     STATUS_SUCCESS,
     ACTION_GET_VOCABULARY_LIST,
     ACTION_ADD_VOCABULARY_ITEM,
+    ACTION_REMOVE_VOCABULARY_ITEM,
 } from '../api/constants'
 
 const initialState = {
@@ -37,34 +39,59 @@ function prepareListData (data) {
 
 export default function vocabularyReducer (state = initialState, action) {
     const { type, status, params, data } = action
-    let newState = {}
+    let nextState = {}
     switch (type) {
         case ACTION_GET_VOCABULARY_LIST:
-            newState = {
+            nextState = {
                 list: {
                     status,
                 },
             }
             if (status === STATUS_SUCCESS) {
-                newState.list.items = prepareListData(data)
+                nextState.list.items = prepareListData(data)
             } else {
-                newState.list.items = []
+                nextState.list.items = []
             }
-            return merge({}, state, newState)
+
+            return mergeWith({}, state, nextState, (stateValue, nextStateValue, key) => {
+                if (key === 'items') {
+                    return nextStateValue
+                }
+            })
+
+        case ACTION_REMOVE_VOCABULARY_ITEM:
+            if (status !== STATUS_SUCCESS) {
+                return state
+            } else {
+                nextState = {
+                    list: {
+                        items: state.list.items.filter((item) => item.id !== params.id),
+                    },
+                }
+                return mergeWith({}, state, nextState, (stateValue, nextStateValue, key) => {
+                    if (key === 'items') {
+                        return nextStateValue
+                    }
+                })
+            }
+            break
+
         case ACTION_ADD_VOCABULARY_ITEM:
-            newState = {
+            nextState = {
                 new: {
                     status,
                 },
             }
             if (status === STATUS_REQUEST) {
-                newState.new.phrase = params.phrase
-                newState.new.translation = params.translation
+                nextState.new.phrase = params.phrase
+                nextState.new.translation = params.translation
             } else if (status === STATUS_INIT || status === STATUS_SUCCESS) {
-                newState.new.phrase = ''
-                newState.new.translation = ''
+                nextState.new.phrase = ''
+                nextState.new.translation = ''
             }
-            return merge({}, state, newState)
+
+            return merge({}, state, nextState)
+
         default:
             return state
     }

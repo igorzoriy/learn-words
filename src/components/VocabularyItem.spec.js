@@ -7,6 +7,8 @@ function setup () {
     const props = {
         phrase: 'get',
         translation: 'get trans',
+        handleEdit: () => {},
+        handleRemove: () => {},
     }
 
     const renderer = TestUtils.createRenderer()

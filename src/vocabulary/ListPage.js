@@ -10,7 +10,7 @@ import PageTitle from '../components/PageTitle'
 import VocabularyList from '../components/VocabularyList'
 import Preloader from '../components/Preloader'
 import Alert from '../components/Alert'
-import { getVocabularyList } from './actions'
+import { getVocabularyList, removeVocabularyItem } from './actions'
 
 export class ListPage extends Component {
     static propTypes = {
@@ -25,6 +25,25 @@ export class ListPage extends Component {
         dispatch(getVocabularyList())
     }
 
+    handleEdit (id) {
+        console.log(id)
+    }
+
+    handleRemove = (id) => {
+        const { dispatch } = this.props
+        dispatch(removeVocabularyItem(id))
+    }
+
+    renderList (items) {
+        return (
+            <VocabularyList
+                items={ items }
+                handleEdit={ this.handleEdit }
+                handleRemove={ this.handleRemove }
+                key="list" />
+        )
+    }
+
     render () {
         const { items, status } = this.props
         const content = []
@@ -35,7 +54,7 @@ export class ListPage extends Component {
                 content.push(<Preloader key="preloader" />)
                 break
             case STATUS_SUCCESS:
-                content.push(<VocabularyList items={ items } key="list" />)
+                content.push(this.renderList(items))
                 break
             case STATUS_FAILURE:
                 content.push(<Alert key="error" type="warning" message="Failed to load vocabulary list." />)

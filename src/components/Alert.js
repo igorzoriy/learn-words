@@ -1,4 +1,5 @@
-import React, { Component, PropTypes } from 'react'
+import React, { PropTypes } from 'react'
+import Component from './Component'
 
 export default class Alert extends Component {
     static propTypes = {

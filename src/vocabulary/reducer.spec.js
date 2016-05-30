@@ -2,6 +2,7 @@ import expect from 'expect.js'
 import reducer from './reducer'
 import {
     ACTION_GET_VOCABULARY_LIST,
+    ACTION_ADD_VOCABULARY_ITEM,
     STATUS_INIT,
     STATUS_REQUEST,
     STATUS_SUCCESS,
@@ -14,6 +15,11 @@ describe('vocabulary reducer', () => {
             list: {
                 items: [],
                 status: STATUS_INIT,
+            },
+            new: {
+                status: STATUS_INIT,
+                phrase: '',
+                translation: '',
             },
         })
     })
@@ -60,5 +66,57 @@ describe('vocabulary reducer', () => {
                 translation: 'translation2',
             },
         ])
+    })
+
+    it('should handle ACTION_ADD_VOCABULARY_ITEM', () => {
+        // init
+        let state = reducer(undefined, {
+            type: ACTION_ADD_VOCABULARY_ITEM,
+            status: STATUS_INIT,
+        })
+        expect(state.new.status).to.be(STATUS_INIT)
+        expect(state.new.phrase).to.be('')
+        expect(state.new.translation).to.be('')
+
+        // request
+        state = reducer(undefined, {
+            type: ACTION_ADD_VOCABULARY_ITEM,
+            status: STATUS_REQUEST,
+            params: {
+                phrase: 'phrase1',
+                translation: 'translation1',
+            },
+        })
+        expect(state.new.status).to.be(STATUS_REQUEST)
+        expect(state.new.phrase).to.be('phrase1')
+        expect(state.new.translation).to.be('translation1')
+
+        // success
+        state = reducer({
+            new: {
+                phrase: 'phrase2',
+                translation: 'translation2',
+            },
+        }, {
+            type: ACTION_ADD_VOCABULARY_ITEM,
+            status: STATUS_SUCCESS,
+        })
+        expect(state.new.status).to.be(STATUS_SUCCESS)
+        expect(state.new.phrase).to.be('')
+        expect(state.new.translation).to.be('')
+
+        // failure
+        state = reducer({
+            new: {
+                phrase: 'phrase3',
+                translation: 'translation3',
+            },
+        }, {
+            type: ACTION_ADD_VOCABULARY_ITEM,
+            status: STATUS_FAILURE,
+        })
+        expect(state.new.status).to.be(STATUS_FAILURE)
+        expect(state.new.phrase).to.be('phrase3')
+        expect(state.new.translation).to.be('translation3')
     })
 })

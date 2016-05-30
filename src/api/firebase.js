@@ -4,6 +4,7 @@ import {
     ACTION_LOGIN,
     ACTION_LOGOUT,
     ACTION_GET_VOCABULARY_LIST,
+    ACTION_ADD_VOCABULARY_ITEM,
     STATUS_REQUEST,
     STATUS_SUCCESS,
     STATUS_FAILURE,
@@ -34,6 +35,9 @@ export function createFirebaseMiddleware (config) {
             } else if (type === ACTION_GET_VOCABULARY_LIST && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary`).once('value')
+            } else if (type === ACTION_ADD_VOCABULARY_ITEM && !status) {
+                const uid = getState().account.uid
+                promise = firebase.database().ref(`/${uid}/vocabulary`).push(params)
             }
 
             if (!promise) {

@@ -1,15 +1,16 @@
 import expect from 'expect.js'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
-import ErrorMessage from './ErrorMessage'
+import Alert from './Alert'
 
-function setup (message) {
+function setup (message, type) {
     const props = {
         message,
+        type,
     }
 
     const renderer = TestUtils.createRenderer()
-    renderer.render(<ErrorMessage { ...props } />)
+    renderer.render(<Alert { ...props } />)
     const output = renderer.getRenderOutput()
 
     return {
@@ -18,12 +19,12 @@ function setup (message) {
     }
 }
 
-describe('ErrorMessage component', () => {
+describe('Alert component', () => {
     it('should render correctly', () => {
-        const { output } = setup('error message')
+        const { output } = setup('message', 'info')
 
         expect(output.type).to.be('div')
-        expect(output.props.className).to.be('alert alert-danger')
-        expect(output.props.children).to.be('error message')
+        expect(output.props.className).to.be('alert alert-info')
+        expect(output.props.children).to.be('message')
     })
 })

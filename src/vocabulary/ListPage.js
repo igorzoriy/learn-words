@@ -6,9 +6,10 @@ import {
     STATUS_SUCCESS,
     STATUS_FAILURE,
 } from '../api/constants'
+import PageTitle from '../components/PageTitle'
 import VocabularyList from '../components/VocabularyList'
 import Preloader from '../components/Preloader'
-import ErrorMessage from '../components/ErrorMessage'
+import Alert from '../components/Alert'
 import { getVocabularyList } from './actions'
 
 export class ListPage extends Component {
@@ -37,15 +38,13 @@ export class ListPage extends Component {
                 content.push(<VocabularyList items={ items } key="list" />)
                 break
             case STATUS_FAILURE:
-                content.push(<ErrorMessage key="error" message="Failed to load vocabulary list." />)
+                content.push(<Alert key="error" type="warning" message="Failed to load vocabulary list." />)
                 break
         }
 
         return (
             <div>
-                <h1>
-                    Vocabulary list
-                </h1>
+                <PageTitle title="Vocabulary list" />
                 { content }
             </div>
         )

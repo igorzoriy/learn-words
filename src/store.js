@@ -1,4 +1,4 @@
-import { createStore, applyMiddleware } from 'redux'
+import { createStore, applyMiddleware, compose } from 'redux'
 import { browserHistory } from 'react-router'
 import { syncHistory } from 'react-router-redux'
 import createLogger from 'redux-logger'
@@ -18,7 +18,7 @@ export default function (initialState = {}) {
         }),
     ]
 
-    const createStoreWithMiddleware = applyMiddleware(...middlewares)(createStore)
-
-    return createStoreWithMiddleware(reducer, initialState)
+    return createStore(reducer, initialState, compose(
+        applyMiddleware(...middlewares)
+    ))
 }

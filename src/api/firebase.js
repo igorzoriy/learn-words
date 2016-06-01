@@ -1,6 +1,5 @@
 import firebase from 'firebase'
 import {
-    ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
     ACTION_LOGOUT,
     ACTION_GET_VOCABULARY_LIST,
@@ -15,15 +14,6 @@ export function createFirebaseMiddleware (config) {
     firebase.initializeApp(config)
 
     return ({ dispatch, getState }) => {
-        firebase.auth().onAuthStateChanged((user) => {
-            dispatch({
-                type: ACTION_UPDATE_USER_DATA,
-                data: {
-                    user,
-                },
-            })
-        })
-
         return (next) => (action) => {
             const { type, status, params } = action
 

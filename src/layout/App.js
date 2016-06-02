@@ -1,15 +1,12 @@
 import React, { Component } from 'react'
+import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { openSidebar, closeSidebar } from './actions'
 
-export default class App extends Component {
-    state = {
-        open: false,
-    }
-
+export class App extends Component {
     handleToggle = () => {
-        this.setState({
-            open: !this.state.open,
-        })
+        const { dispatch, sidebarOpen } = this.props
+        dispatch(sidebarOpen ? closeSidebar() : openSidebar())
     }
 
     renderMenu () {
@@ -30,6 +27,8 @@ export default class App extends Component {
     }
 
     render () {
+        const { sidebarOpen } = this.props
+
         return (
             <div>
                 <nav className="navbar navbar-dark bg-inverse">
@@ -45,7 +44,7 @@ export default class App extends Component {
                     <Link to="/" className="navbar-brand">
                         Learn Words
                     </Link>
-                    { this.state.open ? this.renderMenu() : '' }
+                    { sidebarOpen ? this.renderMenu() : '' }
                 </nav>
                 <main className="container-fluid">
                     { this.props.children }
@@ -54,3 +53,11 @@ export default class App extends Component {
         )
     }
 }
+
+function mapStateToProps (state) {
+    return {
+        sidebarOpen: state.layout.sidebarOpen,
+    }
+}
+
+export default connect(mapStateToProps)(App)

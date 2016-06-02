@@ -103,7 +103,7 @@ export class NewItemPage extends Component {
     }
 }
 
-function select (state) {
+function mapStateToProps (state) {
     return {
         status: state.vocabulary.new.status,
         phrase: state.vocabulary.new.phrase,
@@ -111,4 +111,4 @@ function select (state) {
     }
 }
 
-export default connect(select)(NewItemPage)
+export default connect(mapStateToProps)(NewItemPage)

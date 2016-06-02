@@ -70,11 +70,11 @@ export class ListPage extends Component {
     }
 }
 
-function select (state) {
+function mapStateToProps (state) {
     return {
         status: state.vocabulary.list.status,
         items: state.vocabulary.list.items,
     }
 }
 
-export default connect(select)(ListPage)
+export default connect(mapStateToProps)(ListPage)

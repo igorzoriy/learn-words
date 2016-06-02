@@ -19,7 +19,7 @@ describe('layout reducer', () => {
         expect(state.sidebarOpen).to.be(true)
     })
 
-    it('should handle CLOSE_SIDEBAR', () => {
+    it('should handle CLOSE_SIDEBAR and UPDATE_LOCATION', () => {
         const action = {
             type: CLOSE_SIDEBAR,
         }

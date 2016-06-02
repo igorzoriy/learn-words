@@ -57,7 +57,7 @@ export class ListPage extends Component {
                 content.push(this.renderList(items))
                 break
             case STATUS_FAILURE:
-                content.push(<Alert key="error" type="warning" message="Failed to load vocabulary list." />)
+                content.push(<Alert key="error" type="danger" message="Failed to load vocabulary list." />)
                 break
         }
 

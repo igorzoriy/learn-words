@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { routeActions } from 'react-router-redux'
-import { login, logout } from './actions'
+import { login } from './actions'
+import PageTitle from '../components/PageTitle'
+import Alert from '../components/Alert'
 
 export class LoginPage extends Component {
     handleLoginClick = (e) => {
@@ -13,37 +15,16 @@ export class LoginPage extends Component {
         })
     }
 
-    handleLogoutClick = (e) => {
-        e.preventDefault()
-
-        const { dispatch } = this.props
-        dispatch(logout())
-    }
-
-    renderError (error) {
-        if (error.length === 0) {
-            return
-        }
-        return (
-            <div>
-                { error }
-            </div>
-        )
-    }
-
     render () {
         const { error } = this.props
 
         return (
             <div>
-                Login Page
-                <button type="button" onClick={ this.handleLoginClick }>
-                    login
+                <PageTitle title="Login" />
+                <button type="button" className="btn btn-primary btn-lg" onClick={ this.handleLoginClick }>
+                    Using Facebook
                 </button>
-                <button type="button" onClick={ this.handleLogoutClick }>
-                    logout
-                </button>
-                { this.renderError(error) }
+                { error.length ? <Alert key="error" type="danger" message={ error } /> : '' }
             </div>
         )
     }

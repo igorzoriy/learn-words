@@ -8,17 +8,23 @@ import {
 } from '../api/constants'
 
 const initialState = {
+    isAnonymous: true,
     uid: null,
     error: '',
 }
 
 export default function accountReducer (state = initialState, action) {
     const { type, status, data } = action
+    let nextState = {}
 
     if (type === ACTION_UPDATE_USER_DATA || (type === ACTION_LOGIN && status === STATUS_SUCCESS)) {
-        return merge({}, state, {
-            uid: data && data.user && data.user.uid || null,
-        })
+        if (data && data.user) {
+            nextState = {
+                isAnonymous: false,
+                uid: data.user.uid,
+            }
+            return merge({}, state, nextState)
+        }
     } else if (type === ACTION_LOGIN && status === STATUS_FAILURE) {
         return merge({}, state, {
             error: data.message,
@@ -26,6 +32,7 @@ export default function accountReducer (state = initialState, action) {
     } else if (type === ACTION_LOGOUT && status === STATUS_SUCCESS) {
         return merge({}, state, {
             uid: null,
+            isAnonymous: true,
         })
     }
 

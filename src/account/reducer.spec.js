@@ -11,6 +11,7 @@ import {
 describe('account reducer', () => {
     it('should return initial state', () => {
         expect(reducer(undefined, {})).to.be.eql({
+            isAnonymous: true,
             uid: null,
             error: '',
         })
@@ -21,11 +22,16 @@ describe('account reducer', () => {
             type: ACTION_UPDATE_USER_DATA,
             data: {
                 user: {
-                    uid: 'unique-id',
+                    isAnonymous: false,
+                    uid: 'unique-id1',
                 },
             },
         })
-        expect(state.uid).to.be('unique-id')
+        expect(state).to.be.eql({
+            isAnonymous: false,
+            uid: 'unique-id1',
+            error: '',
+        })
     })
 
     it('should handle ACTION_LOGIN', () => {
@@ -34,11 +40,16 @@ describe('account reducer', () => {
             status: STATUS_SUCCESS,
             data: {
                 user: {
-                    uid: 'unique-id',
+                    isAnonymous: false,
+                    uid: 'unique-id2',
                 },
             },
         })
-        expect(state.uid).to.be('unique-id')
+        expect(state).to.be.eql({
+            isAnonymous: false,
+            uid: 'unique-id2',
+            error: '',
+        })
     })
 
     it('should handle ACTION_LOGOUT', () => {

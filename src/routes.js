@@ -8,18 +8,28 @@ import NewVocabularyItemPage from './vocabulary/NewItemPage'
 function requireAuth (dispatch, nextState, replace, callback) {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
         unsubscribe()
-
         if (!user) {
             replace('/login')
         }
         dispatch(updateUserData(user))
+        callback()
+    })
+}
 
+function requireAnon (dispatch, nextState, replace, callback) {
+    const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
+        unsubscribe()
+        if (user) {
+            replace('/')
+        }
+        dispatch(updateUserData(user))
         callback()
     })
 }
 
 export default function getRoutes (dispatch) {
     const requireAuthCurried = requireAuth.bind(null, dispatch)
+    const requireAnonCurried = requireAnon.bind(null, dispatch)
 
     return {
         path: '/',
@@ -27,10 +37,12 @@ export default function getRoutes (dispatch) {
         indexRoute: {
             onEnter: (nextState, replace) => replace('/vocabulary/list'),
         },
+
         childRoutes: [
             {
                 path: '/login',
                 component: LoginPage,
+                onEnter: requireAnonCurried,
             },
             {
                 path: '/vocabulary/list',

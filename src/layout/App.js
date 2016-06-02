@@ -1,7 +1,9 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
+import { routeActions } from 'react-router-redux'
 import { openSidebar, closeSidebar } from './actions'
+import { logout } from '../account/actions'
 
 export class App extends Component {
     handleToggle = () => {
@@ -9,7 +11,23 @@ export class App extends Component {
         dispatch(sidebarOpen ? closeSidebar() : openSidebar())
     }
 
-    renderMenu () {
+    handleLogoutClick = (e) => {
+        e.preventDefault()
+        const { dispatch } = this.props
+        dispatch(logout()).then(() => {
+            dispatch(routeActions.push('/login'))
+        })
+    }
+
+    renderMenu (isAnonymous) {
+        const logout = (
+            <li className="navbar-nav-item">
+                <button type="button" className="navbar-nav-item-button" onClick={ this.handleLogoutClick }>
+                    Logout
+                </button>
+            </li>
+        )
+
         return (
             <ul className="nav navbar-nav">
                 <li className="navbar-nav-item">
@@ -22,12 +40,13 @@ export class App extends Component {
                         Vocabulary list
                     </Link>
                 </li>
+                { !isAnonymous ? logout : '' }
             </ul>
         )
     }
 
     render () {
-        const { sidebarOpen } = this.props
+        const { sidebarOpen, isAnonymous } = this.props
 
         return (
             <div>
@@ -44,7 +63,7 @@ export class App extends Component {
                     <Link to="/" className="navbar-brand">
                         Learn Words
                     </Link>
-                    { sidebarOpen ? this.renderMenu() : '' }
+                    { sidebarOpen ? this.renderMenu(isAnonymous) : '' }
                 </nav>
                 <main className="container-fluid">
                     { this.props.children }
@@ -57,6 +76,7 @@ export class App extends Component {
 function mapStateToProps (state) {
     return {
         sidebarOpen: state.layout.sidebarOpen,
+        isAnonymous: state.account.isAnonymous,
     }
 }
 

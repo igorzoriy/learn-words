@@ -44,9 +44,18 @@ h1 {
     display: block;
 }
 
-.icon-refresh {
-    width: 1.5rem;
-    height: 1.5rem;
+.navbar-nav-item-button {
+    display: block;
+    width: 100%;
+    border: none;
+    background-color: transparent;
+    color: rgba(255, 255, 255, 0.5);
+    text-align: left;
+    padding: 0.425rem 0;
+}
+
+.navbar-nav-item-button:hover {
+    text-decoration: underline;
 }
 
 .icon-menu {

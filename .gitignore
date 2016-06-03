@@ -1,2 +1,4 @@
 node_modules
-tmp
+public/bundle.js
+public/styles.js
+public/styles.css

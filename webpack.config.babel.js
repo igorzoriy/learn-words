@@ -13,7 +13,7 @@ export default {
         styles: `./styles/styles.scss`,
     },
     output: {
-        path: `${__dirname}/tmp`,
+        path: `${__dirname}/public`,
         filename: '[name].js',
         publicPath: '/',
     },
@@ -40,7 +40,7 @@ export default {
         })]
     },
     devServer: {
-        contentBase: `${__dirname}/app`,
+        contentBase: `${__dirname}/public`,
         port: 8888,
         historyApiFallback: true,
     },

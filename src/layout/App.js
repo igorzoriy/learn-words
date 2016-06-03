@@ -31,13 +31,13 @@ export class App extends Component {
         return (
             <ul className="nav navbar-nav">
                 <li className="navbar-nav-item">
-                    <Link className="nav-link" to="/vocabulary/new">
-                        Add new item
+                    <Link className="nav-link" to="/vocabulary/list">
+                        Vocabulary list
                     </Link>
                 </li>
                 <li className="navbar-nav-item">
-                    <Link className="nav-link" to="/vocabulary/list">
-                        Vocabulary list
+                    <Link className="nav-link" to="/vocabulary/add">
+                        Add new item
                     </Link>
                 </li>
                 { !isAnonymous ? logout : '' }

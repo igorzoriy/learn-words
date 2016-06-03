@@ -25,10 +25,6 @@ export class ListPage extends Component {
         dispatch(getVocabularyList())
     }
 
-    handleEdit (id) {
-        console.log(id)
-    }
-
     handleRemove = (id) => {
         const { dispatch } = this.props
         dispatch(removeVocabularyItem(id))
@@ -38,7 +34,6 @@ export class ListPage extends Component {
         return (
             <VocabularyList
                 items={ items }
-                handleEdit={ this.handleEdit }
                 handleRemove={ this.handleRemove }
                 key="list" />
         )
@@ -71,10 +66,7 @@ export class ListPage extends Component {
 }
 
 function mapStateToProps (state) {
-    return {
-        status: state.vocabulary.list.status,
-        items: state.vocabulary.list.items,
-    }
+    return state.vocabularyList
 }
 
 export default connect(mapStateToProps)(ListPage)

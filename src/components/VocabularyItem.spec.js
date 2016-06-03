@@ -7,7 +7,6 @@ function setup () {
     const props = {
         phrase: 'get',
         translation: 'get trans',
-        handleEdit: () => {},
         handleRemove: () => {},
     }
 

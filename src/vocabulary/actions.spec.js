@@ -1,9 +1,21 @@
 import expect from 'expect.js'
-import { getVocabularyList, addVocabularyItem, removeVocabularyItem } from './actions'
+import {
+    ACTION_CLEAR_VOCABULARITY_FORM,
+    ACTION_UPDATE_VOCABULARY_FORM,
+    getVocabularyList,
+    addVocabularyItem,
+    editVocabularyItem,
+    removeVocabularyItem,
+    fillVocabularyForm,
+    clearVocabularyform,
+    updateVocabularyForm,
+} from './actions'
 import {
     ACTION_GET_VOCABULARY_LIST,
     ACTION_ADD_VOCABULARY_ITEM,
+    ACTION_EDIT_VOCABULARY_ITEM,
     ACTION_REMOVE_VOCABULARY_ITEM,
+    ACTION_FILL_VOCABULARY_FORM,
 } from '../api/constants'
 
 describe('vocabulary actions', () => {
@@ -23,11 +35,47 @@ describe('vocabulary actions', () => {
         })
     })
 
-    it('should create an action to remove vocabulary item', () => {
-        expect(removeVocabularyItem('id')).to.eql({
-            type: ACTION_REMOVE_VOCABULARY_ITEM,
+    it('should create an action to edit vocabulary item', () => {
+        expect(editVocabularyItem('id', 'foo', 'bar')).to.eql({
+            type: ACTION_EDIT_VOCABULARY_ITEM,
             params: {
                 id: 'id',
+                phrase: 'foo',
+                translation: 'bar',
+            },
+        })
+    })
+
+    it('should create an action to remove vocabulary item', () => {
+        expect(removeVocabularyItem('id1')).to.eql({
+            type: ACTION_REMOVE_VOCABULARY_ITEM,
+            params: {
+                id: 'id1',
+            },
+        })
+    })
+
+    it('should create an action to fill vocabulary form', () => {
+        expect(fillVocabularyForm('id2')).to.eql({
+            type: ACTION_FILL_VOCABULARY_FORM,
+            params: {
+                id: 'id2',
+            },
+        })
+    })
+
+    it('should create an action to clear vocabulary form', () => {
+        expect(clearVocabularyform()).to.eql({
+            type: ACTION_CLEAR_VOCABULARITY_FORM,
+        })
+    })
+
+    it('should create an action to update vocabulary form', () => {
+        expect(updateVocabularyForm('foo2', 'bar2')).to.eql({
+            type: ACTION_UPDATE_VOCABULARY_FORM,
+            params: {
+                phrase: 'foo2',
+                translation: 'bar2',
             },
         })
     })

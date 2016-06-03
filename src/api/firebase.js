@@ -4,7 +4,9 @@ import {
     ACTION_LOGOUT,
     ACTION_GET_VOCABULARY_LIST,
     ACTION_ADD_VOCABULARY_ITEM,
+    ACTION_EDIT_VOCABULARY_ITEM,
     ACTION_REMOVE_VOCABULARY_ITEM,
+    ACTION_FILL_VOCABULARY_FORM,
     STATUS_REQUEST,
     STATUS_SUCCESS,
     STATUS_FAILURE,
@@ -32,6 +34,15 @@ export function createFirebaseMiddleware (config) {
             } else if (type === ACTION_REMOVE_VOCABULARY_ITEM && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary/${params.id}`).remove()
+            } else if (type === ACTION_FILL_VOCABULARY_FORM && !status) {
+                const uid = getState().account.uid
+                promise = firebase.database().ref(`/${uid}/vocabulary/${params.id}`).once('value')
+            } else if (type === ACTION_EDIT_VOCABULARY_ITEM && !status) {
+                const uid = getState().account.uid
+                promise = firebase.database().ref(`/${uid}/vocabulary/${params.id}`).update({
+                    phrase: params.phrase,
+                    translation: params.translation,
+                })
             }
 
             if (!promise) {

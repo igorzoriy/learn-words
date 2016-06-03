@@ -14,6 +14,7 @@
     "test:watch": "mocha --opts mocha.opts --watch"
   },
   "dependencies": {
+    "atom-ui-reporter": "0.0.1",
     "bootstrap": "^4.0.0-alpha.2",
     "firebase": "^3.0.3",
     "lodash": "^4.4.0",

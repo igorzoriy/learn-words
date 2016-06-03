@@ -6,7 +6,6 @@ import VocabularyList from './VocabularyList'
 function setup () {
     const props = {
         items: [],
-        handleEdit: () => {},
         handleRemove: () => {},
     }
 

@@ -7,25 +7,37 @@ import {
     STATUS_SUCCESS,
     STATUS_FAILURE,
 } from '../api/constants'
-import { addVocabularyItem } from './actions'
+import { clearVocabularyform, addVocabularyItem, updateVocabularyForm } from './actions'
 import PageTitle from '../components/PageTitle'
 import FormInputText from '../components/FormInputText'
 import FormSubmit from '../components/FormSubmit'
 import Preloader from '../components/Preloader'
 import Alert from '../components/Alert'
 
-export class NewItemPage extends Component {
+export class AddItemPage extends Component {
     static propTypes = {
         status: PropTypes.string.isRequired,
         phrase: PropTypes.string.isRequired,
         translation: PropTypes.string.isRequired,
     }
 
-    handleSubmit = (e) => {
-        e.preventDefault()
+    constructor (props) {
+        super(props)
+        const { dispatch } = props
+        dispatch(clearVocabularyform())
+    }
 
+    renderTitle () {
+        return (
+            <PageTitle title="Add new phrase" />
+        )
+    }
+
+    handleFormChange = () => {
         const { dispatch } = this.props
-        dispatch(addVocabularyItem(findDOMNode(this.refs.phrase).value, findDOMNode(this.refs.translation).value))
+        const phrase = findDOMNode(this.refs.phrase).value
+        const translation = findDOMNode(this.refs.translation).value
+        dispatch(updateVocabularyForm(phrase, translation))
     }
 
     renderPhrase (value, disabled = false) {
@@ -35,8 +47,9 @@ export class NewItemPage extends Component {
                 key="phrase"
                 placeholder="Phrase"
                 required={ true }
-                defaultValue={ value }
                 disabled={ disabled }
+                value={ value }
+                onChange={ this.handleFormChange }
             />
         )
     }
@@ -48,14 +61,30 @@ export class NewItemPage extends Component {
                 key="translation"
                 placeholder="Translation"
                 required={ true }
-                defaultValue={ value }
                 disabled={ disabled }
+                value={ value }
+                onChange={ this.handleFormChange }
+            />
+        )
+    }
+
+    handleFormSubmit = (e) => {
+        e.preventDefault()
+        const { dispatch, phrase, translation } = this.props
+        dispatch(addVocabularyItem(phrase, translation))
+    }
+
+    renderSubmit () {
+        return (
+            <FormSubmit
+                key="submit"
+                title="Add"
             />
         )
     }
 
     render () {
-        const { status, phrase, translation } = this.props
+        const { status, phrase, translation, errorMessage, successMessage } = this.props
         const formContent = []
 
         switch (status) {
@@ -63,52 +92,54 @@ export class NewItemPage extends Component {
                 formContent.push(
                     this.renderPhrase(phrase),
                     this.renderTranslation(translation),
-                    <FormSubmit title="Add" key="submit" />
+                    this.renderSubmit()
                 )
                 break
+
             case STATUS_REQUEST:
                 formContent.push(
                     this.renderPhrase(phrase, true),
                     this.renderTranslation(translation, true),
-                    <FormSubmit title="Add" key="submit" disabled={ true } />,
                     <Preloader key="preloader" />
                 )
                 break
+
             case STATUS_FAILURE:
                 formContent.push(
                     this.renderPhrase(phrase),
                     this.renderTranslation(translation),
-                    <FormSubmit title="Add" key="submit" />,
-                    <Alert key="error" type="warning" message="Item not saved. Try again." />
+                    this.renderSubmit()
                 )
                 break
+
             case STATUS_SUCCESS:
                 formContent.push(
                     this.renderPhrase(phrase),
                     this.renderTranslation(translation),
-                    <FormSubmit title="Add" key="submit" />,
-                    <Alert key="success" type="success" message="Item has beed saved successfully." />
+                    this.renderSubmit()
                 )
                 break
         }
 
         return (
             <div>
-                <PageTitle title="Add new phrase" />
-                <form onSubmit={ this.handleSubmit } method="post">
+                { this.renderTitle() }
+                <form onSubmit={ this.handleFormSubmit } method="post">
                     { formContent }
                 </form>
+                { errorMessage.length ?
+                    <Alert key="error" type="danger" message={ errorMessage } /> :
+                    '' }
+                { successMessage.length ?
+                    <Alert key="success" type="success" message={ successMessage } /> :
+                    '' }
             </div>
         )
     }
 }
 
-function mapStateToProps (state) {
-    return {
-        status: state.vocabulary.new.status,
-        phrase: state.vocabulary.new.phrase,
-        translation: state.vocabulary.new.translation,
-    }
+export function mapStateToProps (state) {
+    return state.vocabularyForm
 }
 
-export default connect(mapStateToProps)(NewItemPage)
+export default connect(mapStateToProps)(AddItemPage)

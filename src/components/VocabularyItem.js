@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react'
 import Component from './Component'
+import { Link } from 'react-router'
 
 export default class VocabularyItem extends Component {
     static propTypes = {
         phrase: PropTypes.string.isRequired,
         translation: PropTypes.string.isRequired,
-        handleEdit: PropTypes.func.isRequired,
         handleRemove: PropTypes.func.isRequired,
     }
 
     render () {
-        const { id, phrase, translation, handleEdit, handleRemove } = this.props
+        const { id, phrase, translation, handleRemove } = this.props
 
         return (
             <li className="list-group-item">
@@ -21,11 +21,11 @@ export default class VocabularyItem extends Component {
                     { translation }
                 </div>
                 <div>
-                    <button type="button" className="list-item-control" onClick={ handleEdit.bind(null, id) }>
+                    <Link to={ `/vocabulary/edit/${id}` } className="list-item-control">
                         <svg className="icon-edit">
                             <use xlinkHref="#icon-edit" />
                         </svg>
-                    </button>
+                    </Link>
                     <button type="button" className="list-item-control" onClick={ handleRemove.bind(null, id) }>
                         <svg className="icon-remove">
                             <use xlinkHref="#icon-remove" />

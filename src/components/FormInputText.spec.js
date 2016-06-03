@@ -3,9 +3,10 @@ import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import FormInputText from './FormInputText'
 
-function setup (placeholder) {
+function setup (placeholder, value) {
     const props = {
         placeholder,
+        value,
     }
 
     const renderer = TestUtils.createRenderer()
@@ -20,11 +21,12 @@ function setup (placeholder) {
 
 describe('FormInputText component', () => {
     it('should render correctly', () => {
-        const { output } = setup('pholder')
+        const { output } = setup('pholder', 'vlue')
 
         expect(output.type).to.be('input')
         expect(output.props.type).to.be('text')
         expect(output.props.className).to.be('form-control')
         expect(output.props.placeholder).to.be('pholder')
+        expect(output.props.value).to.be('vlue')
     })
 })

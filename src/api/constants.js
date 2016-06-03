@@ -5,7 +5,9 @@ export const ACTION_LOGIN = `${ACTION_PREFIX}/login`
 export const ACTION_LOGOUT = `${ACTION_PREFIX}/logout`
 export const ACTION_GET_VOCABULARY_LIST = `${ACTION_PREFIX}/get-vocabulary-list`
 export const ACTION_ADD_VOCABULARY_ITEM = `${ACTION_PREFIX}/add-vocabulary-item`
+export const ACTION_EDIT_VOCABULARY_ITEM = `${ACTION_PREFIX}/edit-vocabulary-item`
 export const ACTION_REMOVE_VOCABULARY_ITEM = `${ACTION_PREFIX}/remove-vocabulary-item`
+export const ACTION_FILL_VOCABULARY_FORM = `${ACTION_PREFIX}/fill-vocabulary-form`
 
 export const STATUS_INIT = 'firebase/status/init'
 export const STATUS_REQUEST = 'firebase/status/request'

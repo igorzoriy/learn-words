@@ -4,6 +4,7 @@ import { Link } from 'react-router'
 
 export default class VocabularyItem extends Component {
     static propTypes = {
+        id: PropTypes.string.isRequired,
         phrase: PropTypes.string.isRequired,
         translation: PropTypes.string.isRequired,
         handleRemove: PropTypes.func.isRequired,

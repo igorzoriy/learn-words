@@ -1,6 +1,6 @@
 import merge from 'lodash/merge'
 import { OPEN_SIDEBAR, CLOSE_SIDEBAR } from './actions'
-import { UPDATE_LOCATION } from 'react-router-redux'
+import { LOCATION_CHANGE } from 'react-router-redux'
 
 const initialState = {
     sidebarOpen: false,
@@ -15,7 +15,7 @@ export default function layoutReducer (state = initialState, action) {
             })
 
         case CLOSE_SIDEBAR:
-        case UPDATE_LOCATION:
+        case LOCATION_CHANGE:
             return merge({}, state, {
                 sidebarOpen: false,
             })

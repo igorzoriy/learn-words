@@ -1,10 +1,12 @@
 import expect from 'expect.js'
-import { updateUserData, login, logout } from './actions'
 import {
     ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
     ACTION_LOGOUT,
-} from '../api/constants'
+    updateUserData,
+    login,
+    logout,
+} from './actions'
 
 describe('account actions', () => {
     it('should create an action to update user data', () => {

@@ -4,6 +4,8 @@ import {
     ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
     ACTION_LOGOUT,
+} from './actions'
+import {
     STATUS_SUCCESS,
 } from '../api/constants'
 

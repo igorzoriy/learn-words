@@ -1,8 +1,13 @@
 import expect from 'expect.js'
 import {
+    ACTION_ADD_VOCABULARY_ITEM,
+    ACTION_EDIT_VOCABULARY_ITEM,
+    ACTION_REMOVE_VOCABULARY_ITEM,
     ACTION_CLEAR_VOCABULARITY_FORM,
     ACTION_UPDATE_VOCABULARY_FORM,
-    getVocabularyList,
+    ACTION_FILL_VOCABULARY_FORM,
+    ACTION_GET_VOCABULARY_ITEMS,
+    getVocabularyItems,
     addVocabularyItem,
     editVocabularyItem,
     removeVocabularyItem,
@@ -10,18 +15,11 @@ import {
     clearVocabularyform,
     updateVocabularyForm,
 } from './actions'
-import {
-    ACTION_GET_VOCABULARY_LIST,
-    ACTION_ADD_VOCABULARY_ITEM,
-    ACTION_EDIT_VOCABULARY_ITEM,
-    ACTION_REMOVE_VOCABULARY_ITEM,
-    ACTION_FILL_VOCABULARY_FORM,
-} from '../api/constants'
 
 describe('vocabulary actions', () => {
     it('should create an action to get vocabulary list', () => {
-        expect(getVocabularyList()).to.eql({
-            type: ACTION_GET_VOCABULARY_LIST,
+        expect(getVocabularyItems()).to.eql({
+            type: ACTION_GET_VOCABULARY_ITEMS,
         })
     })
 

@@ -1,8 +1,6 @@
-import {
-    ACTION_LOGIN,
-    ACTION_LOGOUT,
-    ACTION_UPDATE_USER_DATA,
-} from '../api/constants'
+export const ACTION_UPDATE_USER_DATA = 'account/update-user-data'
+export const ACTION_LOGIN = 'account/login'
+export const ACTION_LOGOUT = 'account/logout'
 
 export function updateUserData (user) {
     return {

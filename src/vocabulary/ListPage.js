@@ -1,5 +1,6 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
+import map from 'lodash/map'
 import {
     STATUS_INIT,
     STATUS_REQUEST,
@@ -10,7 +11,7 @@ import PageTitle from '../components/PageTitle'
 import VocabularyList from '../components/VocabularyList'
 import Preloader from '../components/Preloader'
 import Alert from '../components/Alert'
-import { getVocabularyList, removeVocabularyItem } from './actions'
+import { getVocabularyItems, removeVocabularyItem } from './actions'
 
 export class ListPage extends Component {
     static propTypes = {
@@ -22,7 +23,7 @@ export class ListPage extends Component {
         super(props)
 
         const { dispatch } = props
-        dispatch(getVocabularyList())
+        dispatch(getVocabularyItems())
     }
 
     handleRemove = (id) => {
@@ -66,7 +67,11 @@ export class ListPage extends Component {
 }
 
 function mapStateToProps (state) {
-    return state.vocabularyList
+    const items = map(state.vocabulary.entities, (item, id) => ({id, ...item}))
+    return {
+        status: state.vocabulary.list.status,
+        items,
+    }
 }
 
 export default connect(mapStateToProps)(ListPage)

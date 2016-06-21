@@ -139,7 +139,7 @@ export class AddItemPage extends Component {
 }
 
 export function mapStateToProps (state) {
-    return state.vocabularyForm
+    return state.vocabulary.form
 }
 
 export default connect(mapStateToProps)(AddItemPage)

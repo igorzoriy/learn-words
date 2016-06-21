@@ -1,17 +1,14 @@
-import {
-    ACTION_GET_VOCABULARY_LIST,
-    ACTION_ADD_VOCABULARY_ITEM,
-    ACTION_EDIT_VOCABULARY_ITEM,
-    ACTION_REMOVE_VOCABULARY_ITEM,
-    ACTION_FILL_VOCABULARY_FORM,
-} from '../api/constants'
-
+export const ACTION_ADD_VOCABULARY_ITEM = 'vocabulary/add-item'
+export const ACTION_EDIT_VOCABULARY_ITEM = 'vocabulary/edit-item'
+export const ACTION_REMOVE_VOCABULARY_ITEM = 'vocabulary/remove-item'
+export const ACTION_FILL_VOCABULARY_FORM = 'vocabulary/fill-form'
 export const ACTION_CLEAR_VOCABULARITY_FORM = 'vocabulary/clear-form'
 export const ACTION_UPDATE_VOCABULARY_FORM = 'vocabulary/update-form'
+export const ACTION_GET_VOCABULARY_ITEMS = 'vocabulary/get-items'
 
-export function getVocabularyList () {
+export function getVocabularyItems () {
     return {
-        type: ACTION_GET_VOCABULARY_LIST,
+        type: ACTION_GET_VOCABULARY_ITEMS,
     }
 }
 

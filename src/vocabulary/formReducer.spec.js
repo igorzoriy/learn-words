@@ -1,12 +1,12 @@
 import expect from 'expect.js'
-import {
-    ACTION_UPDATE_VOCABULARY_FORM,
-} from './actions'
 import reducer from './formReducer'
 import {
+    ACTION_UPDATE_VOCABULARY_FORM,
+    ACTION_FILL_VOCABULARY_FORM,
     ACTION_ADD_VOCABULARY_ITEM,
     ACTION_EDIT_VOCABULARY_ITEM,
-    ACTION_FILL_VOCABULARY_FORM,
+} from './actions'
+import {
     STATUS_INIT,
     STATUS_REQUEST,
     STATUS_SUCCESS,

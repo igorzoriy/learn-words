@@ -3,9 +3,9 @@ import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import VocabularyList from './VocabularyList'
 
-function setup () {
+function setup (items) {
     const props = {
-        items: [],
+        items,
         handleRemove: () => {},
     }
 
@@ -21,11 +21,25 @@ function setup () {
 }
 
 describe('VocabularyList component', () => {
-    it('should render correctly', () => {
-        const { output } = setup()
+    it('should render empty list correctly', () => {
+        const { output } = setup([])
+
+        expect(output.type.displayName).to.be('Alert')
+        expect(output.props.message).to.be('Your list of phrases is empty.')
+    })
+
+    it('should render list correctly', () => {
+        const { output } = setup([
+            {
+                id: 'id1',
+                phrase: 'phrase1',
+                translation: 'translation1',
+            },
+        ])
+        const [item1] = output.props.children
 
         expect(output.type).to.be('ul')
         expect(output.props.className).to.be('list-group')
-        expect(output.props.children).to.eql([])
+        expect(item1.type.displayName).to.be('VocabularyItem')
     })
 })

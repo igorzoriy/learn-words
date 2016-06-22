@@ -1,4 +1,6 @@
+/*eslint no-magic-numbers: 0 */
 import expect from 'expect.js'
+import sinon from 'sinon'
 import {
     ACTION_ADD_VOCABULARY_ITEM,
     ACTION_EDIT_VOCABULARY_ITEM,
@@ -7,6 +9,8 @@ import {
     ACTION_UPDATE_VOCABULARY_FORM,
     ACTION_FILL_VOCABULARY_FORM,
     ACTION_GET_VOCABULARY_ITEMS,
+    ACTION_SET_CURRENT_FLASHCARD,
+    ACTION_FLIP_CURRENT_FLASHCARD,
     getVocabularyItems,
     addVocabularyItem,
     editVocabularyItem,
@@ -14,6 +18,10 @@ import {
     fillVocabularyForm,
     clearVocabularyform,
     updateVocabularyForm,
+    setCurrentFlashcard,
+    resetCurrentFlashcard,
+    flipCurrentFlashcard,
+    swipeCurrentFlashcard,
 } from './actions'
 
 describe('vocabulary actions', () => {
@@ -74,6 +82,90 @@ describe('vocabulary actions', () => {
             params: {
                 phrase: 'foo2',
                 translation: 'bar2',
+            },
+        })
+    })
+
+    it('should create an action to set current flashcard', () => {
+        expect(setCurrentFlashcard('id')).to.eql({
+            type: ACTION_SET_CURRENT_FLASHCARD,
+            params: {
+                id: 'id',
+            },
+        })
+    })
+
+    it('should create an action to reset current flashcard', () => {
+        let getState = () => ({
+            vocabulary: {
+                entities: {
+                    ids: [],
+                },
+            },
+        })
+        let dispatch = sinon.spy()
+        resetCurrentFlashcard()(dispatch, getState)
+        expect(dispatch.args[0][0]).to.eql({
+            type: ACTION_SET_CURRENT_FLASHCARD,
+            params: {
+                id: null,
+            },
+        })
+
+        getState = () => ({
+            vocabulary: {
+                entities: {
+                    ids: ['id1', 'id2'],
+                },
+            },
+        })
+        dispatch = sinon.spy()
+        resetCurrentFlashcard()(dispatch, getState)
+        expect(dispatch.args[0][0]).to.eql({
+            type: ACTION_SET_CURRENT_FLASHCARD,
+            params: {
+                id: 'id1',
+            },
+        })
+    })
+
+    it('should create an action to flip current flashcard', () => {
+        expect(flipCurrentFlashcard()).to.eql({
+            type: ACTION_FLIP_CURRENT_FLASHCARD,
+        })
+    })
+
+    it('should create an action to swipe current flashcard', () => {
+        let getState = () => ({
+            vocabulary: {
+                entities: {
+                    ids: ['id1', 'id2', 'id3'],
+                    hash: {
+                        id1: {
+                            phrase: 'phrase1',
+                            translation: 'translation1',
+                        },
+                        id2: {
+                            phrase: 'phrase2',
+                            translation: 'translation2',
+                        },
+                        id3: {
+                            phrase: 'phrase3',
+                            translation: 'translation3',
+                        },
+                    },
+                },
+                flashcards: {
+                    currentId: 'id2',
+                },
+            },
+        })
+        let dispatch = sinon.spy()
+        swipeCurrentFlashcard()(dispatch, getState)
+        expect(dispatch.args[0][0]).to.eql({
+            type: ACTION_SET_CURRENT_FLASHCARD,
+            params: {
+                id: 'id3',
             },
         })
     })

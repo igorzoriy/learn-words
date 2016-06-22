@@ -1,4 +1,3 @@
-import merge from 'lodash/merge'
 import {
     ACTION_GET_VOCABULARY_ITEMS,
 } from './actions'
@@ -16,7 +15,7 @@ export default (state = initialState, action) => {
     switch (type) {
         case ACTION_GET_VOCABULARY_ITEMS:
             nextState.status = status
-            return merge({}, state, nextState)
+            return Object.assign({}, state, nextState)
         default:
             return state
     }

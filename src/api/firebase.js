@@ -1,11 +1,13 @@
 import firebase from 'firebase'
 import {
-    ACTION_LOGIN,
-    ACTION_LOGOUT,
     STATUS_REQUEST,
     STATUS_SUCCESS,
     STATUS_FAILURE,
 } from './constants'
+import {
+    ACTION_LOGIN,
+    ACTION_LOGOUT,
+} from '../account/actions'
 import {
     ACTION_ADD_VOCABULARY_ITEM,
     ACTION_EDIT_VOCABULARY_ITEM,

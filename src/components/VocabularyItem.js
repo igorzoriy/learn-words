@@ -3,6 +3,7 @@ import Component from './Component'
 import { Link } from 'react-router'
 
 export default class VocabularyItem extends Component {
+    static displayName = 'VocabularyItem'
     static propTypes = {
         id: PropTypes.string.isRequired,
         phrase: PropTypes.string.isRequired,

@@ -1,10 +1,12 @@
 import firebase from 'firebase'
 import { updateUserData } from './account/actions'
 import App from './layout/App'
+import NotFoundPage from './layout/NotFoundPage'
 import LoginPage from './account/LoginPage'
 import ListVocabularyItemsPage from './vocabulary/ListPage'
 import AddVocabularyItemPage from './vocabulary/AddItemPage'
 import EditVocabularyItemPage from './vocabulary/EditItemPage'
+import FlashcardsPage from './vocabulary/FlashcardsPage'
 
 function requireAuth (dispatch, nextState, replace, callback) {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
@@ -59,6 +61,15 @@ export default function getRoutes (dispatch) {
                 path: '/vocabulary/edit/:id',
                 component: EditVocabularyItemPage,
                 onEnter: requireAuthCurried,
+            },
+            {
+                path: '/flashcards',
+                component: FlashcardsPage,
+                onEnter: requireAuthCurried,
+            },
+            {
+                path: '*',
+                component: NotFoundPage,
             },
         ],
     }

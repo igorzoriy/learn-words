@@ -1,4 +1,3 @@
-import merge from 'lodash/merge'
 import {
     ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
@@ -25,14 +24,14 @@ export default function accountReducer (state = initialState, action) {
                 isAnonymous: false,
                 uid: data.user.uid,
             }
-            return merge({}, state, nextState)
+            return Object.assign({}, state, nextState)
         }
     } else if (type === ACTION_LOGIN && status === STATUS_FAILURE) {
-        return merge({}, state, {
+        return Object.assign({}, state, {
             error: data.message,
         })
     } else if (type === ACTION_LOGOUT && status === STATUS_SUCCESS) {
-        return merge({}, state, {
+        return Object.assign({}, state, {
             uid: null,
             isAnonymous: true,
         })

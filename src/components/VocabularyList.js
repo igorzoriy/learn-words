@@ -1,6 +1,7 @@
 import React, { PropTypes } from 'react'
 import Component from './Component'
 import VocabularyItem from './VocabularyItem'
+import Alert from './Alert'
 
 export default class VocabularyList extends Component {
     static propTypes = {
@@ -8,11 +9,15 @@ export default class VocabularyList extends Component {
         handleRemove: PropTypes.func.isRequired,
     };
 
-    render () {
-        const { handleRemove } = this.props
+    renderEmpty () {
+        return <Alert type="info" message="Your list of phrases is empty." />
+    }
+
+    renderList () {
+        const { items, handleRemove } = this.props
         return (
             <ul className="list-group">
-                { this.props.items.map((item) => {
+                { items.map((item) => {
                     return (
                         <VocabularyItem
                             { ...item }
@@ -22,5 +27,9 @@ export default class VocabularyList extends Component {
                 }) }
             </ul>
         )
+    }
+
+    render () {
+        return this.props.items.length ? this.renderList() : this.renderEmpty()
     }
 }

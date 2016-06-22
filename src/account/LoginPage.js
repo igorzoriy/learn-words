@@ -1,6 +1,6 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
-import { routeActions } from 'react-router-redux'
+import { push } from 'react-router-redux'
 import { login } from './actions'
 import PageTitle from '../components/PageTitle'
 import Alert from '../components/Alert'
@@ -11,7 +11,7 @@ export class LoginPage extends Component {
 
         const { dispatch } = this.props
         dispatch(login()).then(() => {
-            dispatch(routeActions.push('/'))
+            dispatch(push('/'))
         })
     }
 

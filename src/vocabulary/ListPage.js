@@ -1,6 +1,5 @@
 import React, { Component, PropTypes } from 'react'
 import { connect } from 'react-redux'
-import map from 'lodash/map'
 import {
     STATUS_INIT,
     STATUS_REQUEST,
@@ -67,7 +66,8 @@ export class ListPage extends Component {
 }
 
 function mapStateToProps (state) {
-    const items = map(state.vocabulary.entities, (item, id) => ({id, ...item}))
+    const { ids, hash } = state.vocabulary.entities
+    const items = ids.map((id) => ({id, ...hash[id]}))
     return {
         status: state.vocabulary.list.status,
         items,

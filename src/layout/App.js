@@ -1,7 +1,7 @@
 import React, { Component } from 'react'
 import { connect } from 'react-redux'
 import { Link } from 'react-router'
-import { routeActions } from 'react-router-redux'
+import { push } from 'react-router-redux'
 import { openSidebar, closeSidebar } from './actions'
 import { logout } from '../account/actions'
 
@@ -15,7 +15,7 @@ export class App extends Component {
         e.preventDefault()
         const { dispatch } = this.props
         dispatch(logout()).then(() => {
-            dispatch(routeActions.push('/login'))
+            dispatch(push('/login'))
         })
     }
 
@@ -38,6 +38,11 @@ export class App extends Component {
                 <li className="navbar-nav-item">
                     <Link className="nav-link" to="/vocabulary/add">
                         Add new item
+                    </Link>
+                </li>
+                <li className="navbar-nav-item">
+                    <Link className="nav-link" to="/flashcards">
+                        Flashcards
                     </Link>
                 </li>
                 { !isAnonymous ? logout : '' }

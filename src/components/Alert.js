@@ -2,6 +2,7 @@ import React, { PropTypes } from 'react'
 import Component from './Component'
 
 export default class Alert extends Component {
+    static displayName = 'Alert'
     static propTypes = {
         message: PropTypes.string.isRequired,
         type: PropTypes.string,

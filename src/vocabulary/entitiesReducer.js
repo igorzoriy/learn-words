@@ -1,5 +1,5 @@
-import merge from 'lodash/merge'
-import clone from 'lodash/clone'
+import keys from 'lodash/keys'
+import union from 'lodash/union'
 import {
     ACTION_GET_VOCABULARY_ITEMS,
     ACTION_REMOVE_VOCABULARY_ITEM,
@@ -8,7 +8,10 @@ import {
     STATUS_SUCCESS,
 } from '../api/constants'
 
-const initialState = {}
+const initialState = {
+    ids: [],
+    hash: {},
+}
 
 export default (state = initialState, action) => {
     const { type, status, params, data } = action
@@ -16,14 +19,18 @@ export default (state = initialState, action) => {
     switch (type) {
         case ACTION_GET_VOCABULARY_ITEMS:
             if (status === STATUS_SUCCESS) {
-                nextState = data
+                nextState = {
+                    ids: union(state.ids, keys(data)),
+                    hash: Object.assign({}, state.hash, data),
+                }
             }
-            return merge({}, state, nextState)
+            return Object.assign({}, state, nextState)
 
         case ACTION_REMOVE_VOCABULARY_ITEM:
             if (status === STATUS_SUCCESS) {
-                nextState = clone(state)
-                delete nextState[params.id]
+                nextState = Object.assign({}, state)
+                nextState.ids.splice(state.ids.indexOf(params.id), 1)
+                delete nextState.hash[params.id]
                 return nextState
             }
             return state

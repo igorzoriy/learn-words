@@ -1,12 +1,22 @@
 /* eslint-env node */
+import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 import autoprefixer from 'autoprefixer'
 
+
+let plugins = [
+    new ExtractTextPlugin('[name].css'),
+]
+if (process.env.NODE_ENV === 'production') {
+    plugins.push(
+        new webpack.optimize.DedupePlugin(),
+        new webpack.optimize.UglifyJsPlugin()
+    )
+}
+
 export default {
-    plugins: [
-        new ExtractTextPlugin('[name].css'),
-    ],
-    devtool: 'inline-source-map',
+    plugins,
+    devtool: process.env.NODE_ENV === 'development' ? 'inline-source-map' : '',
     context: __dirname,
     entry: {
         bundle: './src/index.js',

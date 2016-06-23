@@ -1,3 +1,5 @@
+import 'core-js/modules/es6.object.assign'
+
 import React from 'react'
 import { render } from 'react-dom'
 import { Provider } from 'react-redux'

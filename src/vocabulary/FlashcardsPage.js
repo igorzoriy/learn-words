@@ -32,11 +32,11 @@ export class FlashcardsPage extends Component {
     }
 
     handleSwipeLeft = () => {
-        this.props.dispatch(swipeCurrentFlashcard(false))
+        this.props.dispatch(swipeCurrentFlashcard(true))
     }
 
     handleSwipeRight = () => {
-        this.props.dispatch(swipeCurrentFlashcard(true))
+        this.props.dispatch(swipeCurrentFlashcard(false))
     }
 
     renderEmpty () {

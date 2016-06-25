@@ -22,7 +22,7 @@ export default class VocabularyItem extends Component {
                 <div className="list-item-translation">
                     { translation }
                 </div>
-                <div>
+                <div className="list-item-controls">
                     <Link to={ `/vocabulary/edit/${id}` } className="list-item-control">
                         <svg className="icon-edit">
                             <use xlinkHref="#icon-edit" />

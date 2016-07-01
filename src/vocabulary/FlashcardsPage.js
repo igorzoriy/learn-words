@@ -82,8 +82,8 @@ export class FlashcardsPage extends Component {
 }
 
 function select (state) {
-    const { ids, hash } = state.vocabulary.entities
-    const { status, currentId, showFront } = state.vocabulary.flashcards
+    const { status, ids, hash } = state.vocabulary.entities
+    const { currentId, showFront } = state.vocabulary.flashcards
 
     let currentCard = {}
     if (hash[currentId]) {

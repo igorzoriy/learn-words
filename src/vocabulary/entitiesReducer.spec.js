@@ -5,6 +5,9 @@ import {
     ACTION_REMOVE_VOCABULARY_ITEM,
 } from './actions'
 import {
+    STATUS_INIT,
+    STATUS_REQUEST,
+    STATUS_FAILURE,
     STATUS_SUCCESS,
 } from '../api/constants'
 
@@ -28,9 +31,26 @@ const testHash = {
 describe('vocabulary entities reducer', () => {
     it('should return initial state', () => {
         expect(reducer(undefined, {})).to.be.eql({
+            status: STATUS_INIT,
             ids: [],
             hash: {},
         })
+    })
+
+    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_REQUEST', () => {
+        const state = reducer(undefined, {
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
+            status: STATUS_REQUEST,
+        })
+        expect(state.status).to.be(STATUS_REQUEST)
+    })
+
+    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_FAILURE', () => {
+        const state = reducer(undefined, {
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
+            status: STATUS_FAILURE,
+        })
+        expect(state.status).to.be(STATUS_FAILURE)
     })
 
     it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_SUCCESS', () => {
@@ -40,6 +60,7 @@ describe('vocabulary entities reducer', () => {
             data: testHash,
         })
         expect(state).to.be.eql({
+            status: STATUS_SUCCESS,
             ids: testIds,
             hash: testHash,
         })
@@ -58,6 +79,7 @@ describe('vocabulary entities reducer', () => {
             data: testHash,
         })
         expect(state).to.be.eql({
+            status: STATUS_SUCCESS,
             ids: ['id0', 'id1', 'id2', 'id3'],
             hash: {
                 id0: {

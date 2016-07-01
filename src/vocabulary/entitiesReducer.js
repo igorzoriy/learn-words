@@ -5,10 +5,12 @@ import {
     ACTION_REMOVE_VOCABULARY_ITEM,
 } from './actions'
 import {
+    STATUS_INIT,
     STATUS_SUCCESS,
 } from '../api/constants'
 
 const initialState = {
+    status: STATUS_INIT,
     ids: [],
     hash: {},
 }
@@ -18,11 +20,10 @@ export default (state = initialState, action) => {
     let nextState = {}
     switch (type) {
         case ACTION_FETCH_VOCABULARY_ITEMS:
+            nextState.status = status
             if (status === STATUS_SUCCESS) {
-                nextState = {
-                    ids: union(state.ids, keys(data)),
-                    hash: Object.assign({}, state.hash, data),
-                }
+                nextState.ids = union(state.ids, keys(data))
+                nextState.hash = Object.assign({}, state.hash, data)
             }
             return Object.assign({}, state, nextState)
 

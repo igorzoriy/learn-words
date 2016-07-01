@@ -66,10 +66,10 @@ export class ListPage extends Component {
 }
 
 function mapStateToProps (state) {
-    const { ids, hash } = state.vocabulary.entities
+    const { status, ids, hash } = state.vocabulary.entities
     const items = ids.map((id) => ({id, ...hash[id]}))
     return {
-        status: state.vocabulary.list.status,
+        status,
         items,
     }
 }

@@ -8,9 +8,10 @@ import {
     ACTION_CLEAR_VOCABULARITY_FORM,
     ACTION_UPDATE_VOCABULARY_FORM,
     ACTION_FILL_VOCABULARY_FORM,
-    ACTION_GET_VOCABULARY_ITEMS,
+    ACTION_FETCH_VOCABULARY_ITEMS,
     ACTION_SET_CURRENT_FLASHCARD,
     ACTION_FLIP_CURRENT_FLASHCARD,
+    fetchVocabularyItems,
     getVocabularyItems,
     addVocabularyItem,
     editVocabularyItem,
@@ -25,10 +26,32 @@ import {
 } from './actions'
 
 describe('vocabulary actions', () => {
-    it('should create an action to get vocabulary list', () => {
-        expect(getVocabularyItems()).to.eql({
-            type: ACTION_GET_VOCABULARY_ITEMS,
+    it('should create an action to getch vocabulary list', () => {
+        expect(fetchVocabularyItems()).to.eql({
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
         })
+    })
+
+    it('should create an action to get vocabulary list', () => {
+        let dispatch = sinon.spy()
+        let getStateService = (ids) => {
+            return () => {
+                return {
+                    vocabulary: {
+                        entities: {
+                            ids,
+                        },
+                    },
+                }
+            }
+        }
+        getVocabularyItems()(dispatch, getStateService([]))
+        expect(dispatch.args[0][0]).to.eql({
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
+        })
+        expect(dispatch.callCount).to.eql(1)
+        getVocabularyItems()(dispatch, getStateService([1, 2, 3]))
+        expect(dispatch.callCount).to.eql(1)
     })
 
     it('should create an action to add vocabulary item', () => {

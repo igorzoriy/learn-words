@@ -1,7 +1,7 @@
 import expect from 'expect.js'
 import reducer from './entitiesReducer'
 import {
-    ACTION_GET_VOCABULARY_ITEMS,
+    ACTION_FETCH_VOCABULARY_ITEMS,
     ACTION_REMOVE_VOCABULARY_ITEM,
 } from './actions'
 import {
@@ -33,9 +33,9 @@ describe('vocabulary entities reducer', () => {
         })
     })
 
-    it('should handle ACTION_GET_VOCABULARY_ITEMS with STATUS_SUCCESS', () => {
+    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_SUCCESS', () => {
         let state = reducer(undefined, {
-            type: ACTION_GET_VOCABULARY_ITEMS,
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
             status: STATUS_SUCCESS,
             data: testHash,
         })
@@ -53,7 +53,7 @@ describe('vocabulary entities reducer', () => {
                 },
             },
         }, {
-            type: ACTION_GET_VOCABULARY_ITEMS,
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
             status: STATUS_SUCCESS,
             data: testHash,
         })

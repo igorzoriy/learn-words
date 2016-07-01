@@ -8,15 +8,26 @@ export const ACTION_REMOVE_VOCABULARY_ITEM = 'vocabulary/remove-item'
 export const ACTION_FILL_VOCABULARY_FORM = 'vocabulary/fill-form'
 export const ACTION_CLEAR_VOCABULARITY_FORM = 'vocabulary/clear-form'
 export const ACTION_UPDATE_VOCABULARY_FORM = 'vocabulary/update-form'
-export const ACTION_GET_VOCABULARY_ITEMS = 'vocabulary/get-items'
+export const ACTION_FETCH_VOCABULARY_ITEMS = 'vocabulary/fetch-items'
 export const ACTION_SET_CURRENT_FLASHCARD = 'vocabulary/set-current-flashcard'
 export const ACTION_FLIP_CURRENT_FLASHCARD = 'vocabulary/flip-current-flashcard'
 export const ACTION_NEXT_CURRENT_FLASHCARD = 'vocabulary/next-current-flashcard'
 export const ACTION_PREV_CURRENT_FLASHCARD = 'vocabulary/prev-current-flashcard'
 
-export function getVocabularyItems () {
+export function fetchVocabularyItems () {
     return {
-        type: ACTION_GET_VOCABULARY_ITEMS,
+        type: ACTION_FETCH_VOCABULARY_ITEMS,
+    }
+}
+
+export function getVocabularyItems () {
+    return (dispatch, getState) => {
+        const { ids } = getState().vocabulary.entities
+        if (ids.length) {
+            return Promise.resolve()
+        }
+
+        return dispatch(fetchVocabularyItems())
     }
 }
 

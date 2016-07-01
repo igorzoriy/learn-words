@@ -1,5 +1,5 @@
 import {
-    ACTION_GET_VOCABULARY_ITEMS,
+    ACTION_FETCH_VOCABULARY_ITEMS,
     ACTION_SET_CURRENT_FLASHCARD,
     ACTION_FLIP_CURRENT_FLASHCARD,
 } from './actions'
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     const { type, status, params } = action
     const nextState = {}
     switch (type) {
-        case ACTION_GET_VOCABULARY_ITEMS:
+        case ACTION_FETCH_VOCABULARY_ITEMS:
             nextState.status = status
             break
         case ACTION_SET_CURRENT_FLASHCARD:

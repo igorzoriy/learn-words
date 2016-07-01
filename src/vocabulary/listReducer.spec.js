@@ -1,7 +1,7 @@
 import expect from 'expect.js'
 import reducer from './listReducer'
 import {
-    ACTION_GET_VOCABULARY_ITEMS,
+    ACTION_FETCH_VOCABULARY_ITEMS,
 } from './actions'
 import {
     STATUS_INIT,
@@ -17,25 +17,25 @@ describe('vocabulary list reducer', () => {
         })
     })
 
-    it('should handle ACTION_GET_VOCABULARY_ITEMS with STATUS_REQUEST', () => {
+    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_REQUEST', () => {
         const state = reducer(undefined, {
-            type: ACTION_GET_VOCABULARY_ITEMS,
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
             status: STATUS_REQUEST,
         })
         expect(state.status).to.be(STATUS_REQUEST)
     })
 
-    it('should handle ACTION_GET_VOCABULARY_ITEMS with STATUS_FAILURE', () => {
+    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_FAILURE', () => {
         const state = reducer(undefined, {
-            type: ACTION_GET_VOCABULARY_ITEMS,
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
             status: STATUS_FAILURE,
         })
         expect(state.status).to.be(STATUS_FAILURE)
     })
 
-    it('should handle ACTION_GET_VOCABULARY_ITEMS with STATUS_SUCCESS', () => {
+    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_SUCCESS', () => {
         const state = reducer(undefined, {
-            type: ACTION_GET_VOCABULARY_ITEMS,
+            type: ACTION_FETCH_VOCABULARY_ITEMS,
             status: STATUS_SUCCESS,
         })
         expect(state.status).to.be(STATUS_SUCCESS)

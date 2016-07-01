@@ -1,7 +1,7 @@
 import keys from 'lodash/keys'
 import union from 'lodash/union'
 import {
-    ACTION_GET_VOCABULARY_ITEMS,
+    ACTION_FETCH_VOCABULARY_ITEMS,
     ACTION_REMOVE_VOCABULARY_ITEM,
 } from './actions'
 import {
@@ -17,7 +17,7 @@ export default (state = initialState, action) => {
     const { type, status, params, data } = action
     let nextState = {}
     switch (type) {
-        case ACTION_GET_VOCABULARY_ITEMS:
+        case ACTION_FETCH_VOCABULARY_ITEMS:
             if (status === STATUS_SUCCESS) {
                 nextState = {
                     ids: union(state.ids, keys(data)),

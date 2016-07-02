@@ -70,8 +70,8 @@ describe('vocabulary entities reducer', () => {
             ids: ['id0'],
             hash: {
                 id0: {
-                    phrase: 'phrase4',
-                    translation: 'translation4',
+                    phrase: 'phrase0',
+                    translation: 'translation0',
                 },
             },
         }, {
@@ -79,16 +79,12 @@ describe('vocabulary entities reducer', () => {
             status: STATUS_SUCCESS,
             data: testHash,
         })
+        expect(state.ids).to.not.contain('id0')
+        expect(state.hash).to.not.have.property('id0')
         expect(state).to.be.eql({
             status: STATUS_SUCCESS,
-            ids: ['id0', 'id1', 'id2', 'id3'],
-            hash: {
-                id0: {
-                    phrase: 'phrase4',
-                    translation: 'translation4',
-                },
-                ...testHash,
-            },
+            ids: testIds,
+            hash: testHash,
         })
     })
 

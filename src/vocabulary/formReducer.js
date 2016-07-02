@@ -41,7 +41,8 @@ export default (state = initialState, action) => {
                     nextState = initialState
                     break
                 case STATUS_REQUEST:
-                    nextState = params
+                    nextState.phrase = params.phrase
+                    nextState.translation = params.translation
                     nextState.errorMessage = ''
                     nextState.successMessage = ''
                     break
@@ -63,7 +64,8 @@ export default (state = initialState, action) => {
         case ACTION_EDIT_VOCABULARY_ITEM:
             switch (status) {
                 case STATUS_REQUEST:
-                    nextState = { ...params }
+                    nextState.phrase = params.phrase
+                    nextState.translation = params.translation
                     nextState.errorMessage = ''
                     nextState.successMessage = ''
                     break

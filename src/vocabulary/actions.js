@@ -1,6 +1,5 @@
-import {
-    calculateNewPosition,
-} from './utils'
+import { STATUS_SUCCESS } from '../api/constants'
+import { calculateNewPosition } from './utils'
 
 export const ACTION_ADD_VOCABULARY_ITEM = 'vocabulary/add-item'
 export const ACTION_EDIT_VOCABULARY_ITEM = 'vocabulary/edit-item'
@@ -22,8 +21,8 @@ export function fetchVocabularyItems () {
 
 export function getVocabularyItems () {
     return (dispatch, getState) => {
-        const { ids } = getState().vocabulary.entities
-        if (ids.length) {
+        const { status } = getState().vocabulary.entities
+        if (status === STATUS_SUCCESS) {
             return Promise.resolve()
         }
 

@@ -24,6 +24,7 @@ import {
     flipCurrentFlashcard,
     swipeCurrentFlashcard,
 } from './actions'
+import { STATUS_INIT, STATUS_SUCCESS } from '../api/constants'
 
 describe('vocabulary actions', () => {
     it('should create an action to getch vocabulary list', () => {
@@ -34,23 +35,26 @@ describe('vocabulary actions', () => {
 
     it('should create an action to get vocabulary list', () => {
         let dispatch = sinon.spy()
-        let getStateService = (ids) => {
+        let getStateService = (ids, status) => {
             return () => {
                 return {
                     vocabulary: {
                         entities: {
                             ids,
+                            status,
                         },
                     },
                 }
             }
         }
-        getVocabularyItems()(dispatch, getStateService([]))
+        getVocabularyItems()(dispatch, getStateService([], STATUS_INIT))
         expect(dispatch.args[0][0]).to.eql({
             type: ACTION_FETCH_VOCABULARY_ITEMS,
         })
         expect(dispatch.callCount).to.eql(1)
-        getVocabularyItems()(dispatch, getStateService([1, 2, 3]))
+        getVocabularyItems()(dispatch, getStateService([1, 2, 3], STATUS_SUCCESS))
+        expect(dispatch.callCount).to.eql(1)
+        getVocabularyItems()(dispatch, getStateService([], STATUS_SUCCESS))
         expect(dispatch.callCount).to.eql(1)
     })
 

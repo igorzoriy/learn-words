@@ -1,7 +1,7 @@
 import keys from 'lodash/keys'
-import union from 'lodash/union'
 import {
     ACTION_FETCH_VOCABULARY_ITEMS,
+    ACTION_ADD_VOCABULARY_ITEM,
     ACTION_EDIT_VOCABULARY_ITEM,
     ACTION_REMOVE_VOCABULARY_ITEM,
 } from './actions'
@@ -23,10 +23,23 @@ export default (state = initialState, action) => {
         case ACTION_FETCH_VOCABULARY_ITEMS:
             nextState.status = status
             if (status === STATUS_SUCCESS) {
-                nextState.ids = union(state.ids, keys(data))
-                nextState.hash = Object.assign({}, state.hash, data)
+                nextState.ids = keys(data)
+                nextState.hash = data
             }
             return Object.assign({}, state, nextState)
+
+        case ACTION_ADD_VOCABULARY_ITEM:
+            if (status === STATUS_SUCCESS) {
+                let id = data.key
+                nextState = Object.assign({}, state)
+                nextState.ids.push(id)
+                nextState.hash[id] = {
+                    phrase: params.phrase,
+                    translation: params.translation,
+                }
+                return nextState
+            }
+            return state
 
         case ACTION_EDIT_VOCABULARY_ITEM:
             if (status === STATUS_SUCCESS && state.hash[params.id]) {

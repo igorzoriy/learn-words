@@ -63,7 +63,7 @@ export default (state = initialState, action) => {
         case ACTION_EDIT_VOCABULARY_ITEM:
             switch (status) {
                 case STATUS_REQUEST:
-                    nextState = params
+                    nextState = { ...params }
                     nextState.errorMessage = ''
                     nextState.successMessage = ''
                     break

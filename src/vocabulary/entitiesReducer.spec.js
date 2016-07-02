@@ -2,6 +2,7 @@ import expect from 'expect.js'
 import reducer from './entitiesReducer'
 import {
     ACTION_FETCH_VOCABULARY_ITEMS,
+    ACTION_EDIT_VOCABULARY_ITEM,
     ACTION_REMOVE_VOCABULARY_ITEM,
 } from './actions'
 import {
@@ -89,6 +90,35 @@ describe('vocabulary entities reducer', () => {
                 ...testHash,
             },
         })
+    })
+
+    it('should handle ACTION_EDIT_VOCABULARY_ITEM with STATUS_SUCCESS', () => {
+        let initialState, state
+        let action = {
+            type: ACTION_EDIT_VOCABULARY_ITEM,
+            status: STATUS_SUCCESS,
+            params: {
+                id: 'id3',
+                phrase: 'edited-phrase3',
+                translation: 'edited-translation3',
+            },
+        }
+
+        initialState = {
+            status: STATUS_INIT,
+            ids: [],
+            hash: {},
+        }
+        state = reducer(initialState, action)
+        expect(state).to.eql(initialState)
+
+        initialState = {
+            ids: testIds,
+            hash: testHash,
+        }
+        state = reducer(initialState, action)
+        expect(state.hash.id3.phrase).to.be('edited-phrase3')
+        expect(state.hash.id3.translation).to.be('edited-translation3')
     })
 
     it('should handle ACTION_REMOVE_VOCABULARY_ITEM with STATUS_SUCCESS', () => {

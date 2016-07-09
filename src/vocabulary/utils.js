@@ -11,3 +11,15 @@ export function calculateNewPosition (index, length, next = true) {
         return next ? ++index : --index
     }
 }
+
+export function arrayShuffle (array) {
+    let result = array.slice()
+    for (let i = 0, j, t; i < result.length; i++) {
+        j = Math.floor(Math.random() * result.length)
+        t = result[i]
+        result[i] = result[j]
+        result[j] = t
+    }
+
+    return result
+}

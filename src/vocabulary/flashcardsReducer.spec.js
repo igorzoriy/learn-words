@@ -1,6 +1,8 @@
+/*eslint no-magic-numbers: 0 */
 import expect from 'expect.js'
 import reducer from './flashcardsReducer'
 import {
+    ACTION_INIT_FLASHCARDS,
     ACTION_SET_CURRENT_FLASHCARD,
     ACTION_FLIP_CURRENT_FLASHCARD,
 } from './actions'
@@ -9,8 +11,21 @@ describe('vocabulary flashcards reducer', () => {
     it('should return initial state', () => {
         expect(reducer(undefined, {})).to.be.eql({
             currentId: null,
+            ids: [],
             showFront: true,
         })
+    })
+
+    it('should handle ACTION_INIT_FLASHCARDS', () => {
+        let state = reducer(undefined, {
+            type: ACTION_INIT_FLASHCARDS,
+            params: {
+                ids: [2, 1, 3],
+            },
+        })
+        expect(state.ids).to.eql([2, 1, 3])
+        expect(state.currentId).to.be(2)
+        expect(state.showFront).to.be(true)
     })
 
     it('should handle ACTION_SET_CURRENT_FLASHCARD', () => {

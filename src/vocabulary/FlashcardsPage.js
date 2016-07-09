@@ -12,7 +12,7 @@ import Alert from '../components/Alert'
 import Flashcard from '../components/Flashcard'
 import {
     getVocabularyItems,
-    resetCurrentFlashcard,
+    initFlashcards,
     flipCurrentFlashcard,
     swipeCurrentFlashcard,
 } from './actions'
@@ -23,7 +23,7 @@ export class FlashcardsPage extends Component {
 
         const { dispatch } = props
         dispatch(getVocabularyItems()).then(() => {
-            dispatch(resetCurrentFlashcard())
+            dispatch(initFlashcards())
         })
     }
 

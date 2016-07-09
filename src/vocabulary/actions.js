@@ -1,5 +1,5 @@
 import { STATUS_SUCCESS } from '../api/constants'
-import { calculateNewPosition } from './utils'
+import { calculateNewPosition, arrayShuffle } from './utils'
 
 export const ACTION_ADD_VOCABULARY_ITEM = 'vocabulary/add-item'
 export const ACTION_EDIT_VOCABULARY_ITEM = 'vocabulary/edit-item'
@@ -8,6 +8,7 @@ export const ACTION_FILL_VOCABULARY_FORM = 'vocabulary/fill-form'
 export const ACTION_CLEAR_VOCABULARITY_FORM = 'vocabulary/clear-form'
 export const ACTION_UPDATE_VOCABULARY_FORM = 'vocabulary/update-form'
 export const ACTION_FETCH_VOCABULARY_ITEMS = 'vocabulary/fetch-items'
+export const ACTION_INIT_FLASHCARDS = 'vocabulary/init-flashcards'
 export const ACTION_SET_CURRENT_FLASHCARD = 'vocabulary/set-current-flashcard'
 export const ACTION_FLIP_CURRENT_FLASHCARD = 'vocabulary/flip-current-flashcard'
 export const ACTION_NEXT_CURRENT_FLASHCARD = 'vocabulary/next-current-flashcard'
@@ -94,14 +95,15 @@ export function setCurrentFlashcard (id) {
     }
 }
 
-export function resetCurrentFlashcard () {
+export function initFlashcards () {
     return (dispatch, getState) => {
         const { ids } = getState().vocabulary.entities
-        let id = null
-        if (ids.length) {
-            id = ids[0]
-        }
-        return dispatch(setCurrentFlashcard(id))
+        return dispatch({
+            type: ACTION_INIT_FLASHCARDS,
+            params: {
+                ids: arrayShuffle(ids),
+            },
+        })
     }
 }
 
@@ -114,8 +116,7 @@ export function flipCurrentFlashcard () {
 export function swipeCurrentFlashcard (next) {
     return (dispatch, getState) => {
         let state = getState()
-        let { ids } = state.vocabulary.entities
-        let { currentId } = state.vocabulary.flashcards
+        let { ids, currentId } = state.vocabulary.flashcards
         let index = ids.indexOf(currentId)
         return dispatch(setCurrentFlashcard(ids[calculateNewPosition(index, ids.length, next)]))
     }

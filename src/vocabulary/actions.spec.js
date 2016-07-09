@@ -9,6 +9,7 @@ import {
     ACTION_UPDATE_VOCABULARY_FORM,
     ACTION_FILL_VOCABULARY_FORM,
     ACTION_FETCH_VOCABULARY_ITEMS,
+    ACTION_INIT_FLASHCARDS,
     ACTION_SET_CURRENT_FLASHCARD,
     ACTION_FLIP_CURRENT_FLASHCARD,
     fetchVocabularyItems,
@@ -19,8 +20,8 @@ import {
     fillVocabularyForm,
     clearVocabularyform,
     updateVocabularyForm,
+    initFlashcards,
     setCurrentFlashcard,
-    resetCurrentFlashcard,
     flipCurrentFlashcard,
     swipeCurrentFlashcard,
 } from './actions'
@@ -122,7 +123,7 @@ describe('vocabulary actions', () => {
         })
     })
 
-    it('should create an action to reset current flashcard', () => {
+    it('should create an action to init flashcards', () => {
         let getState = () => ({
             vocabulary: {
                 entities: {
@@ -131,11 +132,11 @@ describe('vocabulary actions', () => {
             },
         })
         let dispatch = sinon.spy()
-        resetCurrentFlashcard()(dispatch, getState)
+        initFlashcards()(dispatch, getState)
         expect(dispatch.args[0][0]).to.eql({
-            type: ACTION_SET_CURRENT_FLASHCARD,
+            type: ACTION_INIT_FLASHCARDS,
             params: {
-                id: null,
+                ids: [],
             },
         })
 
@@ -147,13 +148,10 @@ describe('vocabulary actions', () => {
             },
         })
         dispatch = sinon.spy()
-        resetCurrentFlashcard()(dispatch, getState)
-        expect(dispatch.args[0][0]).to.eql({
-            type: ACTION_SET_CURRENT_FLASHCARD,
-            params: {
-                id: 'id1',
-            },
-        })
+        initFlashcards()(dispatch, getState)
+        let result = dispatch.args[0][0]
+        expect(result.type).to.be(ACTION_INIT_FLASHCARDS)
+        expect(result.params.ids.sort()).to.eql(['id1', 'id2'])
     })
 
     it('should create an action to flip current flashcard', () => {
@@ -165,34 +163,27 @@ describe('vocabulary actions', () => {
     it('should create an action to swipe current flashcard', () => {
         let getState = () => ({
             vocabulary: {
-                entities: {
-                    ids: ['id1', 'id2', 'id3'],
-                    hash: {
-                        id1: {
-                            phrase: 'phrase1',
-                            translation: 'translation1',
-                        },
-                        id2: {
-                            phrase: 'phrase2',
-                            translation: 'translation2',
-                        },
-                        id3: {
-                            phrase: 'phrase3',
-                            translation: 'translation3',
-                        },
-                    },
-                },
                 flashcards: {
                     currentId: 'id2',
+                    ids: ['id1', 'id2', 'id3'],
                 },
             },
         })
         let dispatch = sinon.spy()
+
         swipeCurrentFlashcard()(dispatch, getState)
+        swipeCurrentFlashcard(false)(dispatch, getState)
+
         expect(dispatch.args[0][0]).to.eql({
             type: ACTION_SET_CURRENT_FLASHCARD,
             params: {
                 id: 'id3',
+            },
+        })
+        expect(dispatch.args[1][0]).to.eql({
+            type: ACTION_SET_CURRENT_FLASHCARD,
+            params: {
+                id: 'id1',
             },
         })
     })

@@ -1,6 +1,6 @@
 /*eslint no-magic-numbers: 0 */
 import expect from 'expect.js'
-import reducer from './flashcardsReducer'
+import reducer from './reducer'
 import {
     ACTION_INIT_FLASHCARDS,
     ACTION_SET_CURRENT_FLASHCARD,

@@ -6,7 +6,7 @@ import LoginPage from './account/LoginPage'
 import ListVocabularyItemsPage from './vocabulary/ListPage'
 import AddVocabularyItemPage from './vocabulary/AddItemPage'
 import EditVocabularyItemPage from './vocabulary/EditItemPage'
-import FlashcardsPage from './vocabulary/FlashcardsPage'
+import FlashcardsPage from './flashcards/FlashcardsPage'
 
 function requireAuth (dispatch, nextState, replace, callback) {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {

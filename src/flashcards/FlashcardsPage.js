@@ -10,8 +10,8 @@ import PageTitle from '../components/PageTitle'
 import Preloader from '../components/Preloader'
 import Alert from '../components/Alert'
 import Flashcard from '../components/Flashcard'
+import { getVocabularyItems } from '../vocabulary/actions'
 import {
-    getVocabularyItems,
     initFlashcards,
     flipCurrentFlashcard,
     swipeCurrentFlashcard,
@@ -83,7 +83,7 @@ export class FlashcardsPage extends Component {
 
 function select (state) {
     const { status, ids, hash } = state.vocabulary.entities
-    const { currentId, showFront } = state.vocabulary.flashcards
+    const { currentId, showFront } = state.flashcards
 
     let currentCard = {}
     if (hash[currentId]) {

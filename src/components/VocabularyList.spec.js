@@ -1,6 +1,6 @@
 import expect from 'expect.js'
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import { createRenderer } from 'react-addons-test-utils'
 import VocabularyList from './VocabularyList'
 
 function setup (items) {
@@ -9,7 +9,7 @@ function setup (items) {
         handleRemove: () => {},
     }
 
-    const renderer = TestUtils.createRenderer()
+    const renderer = createRenderer()
     renderer.render(<VocabularyList { ...props } />)
     const output = renderer.getRenderOutput()
 
@@ -24,8 +24,7 @@ describe('VocabularyList component', () => {
     it('should render empty list correctly', () => {
         const { output } = setup([])
 
-        expect(output.type.displayName).to.be('Alert')
-        expect(output.props.message).to.be('Your list of phrases is empty.')
+        expect(output.type.displayName).to.be('EmptyList')
     })
 
     it('should render list correctly', () => {

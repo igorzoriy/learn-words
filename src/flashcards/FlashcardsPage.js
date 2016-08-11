@@ -8,7 +8,7 @@ import {
 } from '../api/constants'
 import PageTitle from '../components/PageTitle'
 import Preloader from '../components/Preloader'
-import Alert from '../components/Alert'
+import EmptyList from '../components/EmptyList'
 import Flashcard from '../components/Flashcard'
 import { getVocabularyItems } from '../vocabulary/actions'
 import {
@@ -39,10 +39,6 @@ export class FlashcardsPage extends Component {
         this.props.dispatch(swipeCurrentFlashcard(false))
     }
 
-    renderEmpty () {
-        return <Alert type="info" message="Your list of phrases is empty." key="empty" />
-    }
-
     renderCardContent (card) {
         return <Flashcard { ...card }
             handleTap={ this.handleTap }
@@ -62,7 +58,7 @@ export class FlashcardsPage extends Component {
                 break
             case STATUS_SUCCESS:
                 if (isEmpty) {
-                    content.push(this.renderEmpty())
+                    content.push(<EmptyList key="empty" />)
                 } else if (currentCard.phrase) {
                     content.push(this.renderCardContent(currentCard))
                 }

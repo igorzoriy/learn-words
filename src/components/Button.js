@@ -15,13 +15,13 @@ const Button = ({ modifier, onClick, disabled, children }) => {
     )
 }
 
+Button.displayName = 'Button'
 Button.propTypes = {
     modifier: PropTypes.string,
     onClick: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     children: PropTypes.string.isRequired,
 }
-
 Button.defaultProps = {
     modifier: 'info',
     disabled: false,

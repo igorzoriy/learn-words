@@ -1,16 +1,16 @@
 import React, { PropTypes } from 'react'
-import Component from './Component'
 
-export default class PageTitle extends Component {
-    static propTypes = {
-        title: PropTypes.string.isRequired,
-    }
-
-    render () {
-        return (
-            <h1>
-                { this.props.title }
-            </h1>
-        )
-    }
+const PageTitle = ({ title }) => {
+    return (
+        <h1>
+            { title }
+        </h1>
+    )
 }
+
+PageTitle.displayName = 'PageTitle'
+PageTitle.propTypes = {
+    title: PropTypes.string.isRequired,
+}
+
+export default PageTitle

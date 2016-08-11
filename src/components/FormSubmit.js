@@ -1,21 +1,20 @@
 import React, { PropTypes } from 'react'
-import Component from './Component'
 
-export default class FormSubmit extends Component {
-    static propTypes = {
-        title: PropTypes.string.isRequired,
-        disabled: PropTypes.bool,
-    }
-
-    static defaultProps = {
-        disabled: false,
-    }
-
-    render () {
-        return (
-            <button type="submit" className="btn btn-primary" disabled={ this.props.disabled }>
-                { this.props.title }
-            </button>
-        )
-    }
+const FormSubmit = ({ disabled, title }) => {
+    return (
+        <button type="submit" className="btn btn-primary" disabled={ disabled }>
+            { title }
+        </button>
+    )
 }
+
+FormSubmit.displayName = 'FormSubmit'
+FormSubmit.propTypes = {
+    title: PropTypes.string.isRequired,
+    disabled: PropTypes.bool,
+}
+FormSubmit.defaultProps = {
+    disabled: false,
+}
+
+export default FormSubmit

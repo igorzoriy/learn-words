@@ -1,7 +1,8 @@
 import React, { PropTypes } from 'react'
+import classnames from 'classnames'
 
 const Alert = ({ type, message }) => {
-    let className = `alert alert-${ type }`
+    let className = classnames('alert', `alert-${ type }`)
 
     return (
         <div className={ className } role="alert">

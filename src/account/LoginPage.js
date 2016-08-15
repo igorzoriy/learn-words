@@ -22,7 +22,7 @@ export class LoginPage extends Component {
         return (
             <div>
                 <PageTitle title="Login" />
-                <Button modifier="primary btn-lg" onClick={ this.handleLoginClick }>
+                <Button modifiers={ ['btn-primary', 'btn-lg'] } onClick={ this.handleLoginClick }>
                     Using Facebook
                 </Button>
                 { error.length ? <Alert key="error" type="danger" message={ error } /> : '' }

@@ -3,8 +3,9 @@ import Component from './Component'
 import Hammer from 'react-hammerjs'
 import { DIRECTION_LEFT, DIRECTION_RIGHT } from 'hammerjs'
 import { Link } from 'react-router'
+import classnames from 'classnames'
 
-export default class Alert extends Component {
+export default class Flashcard extends Component {
     static propTypes = {
         id: PropTypes.string.isRequired,
         phrase: PropTypes.string.isRequired,
@@ -50,10 +51,9 @@ export default class Alert extends Component {
 
     render () {
         const { phrase, translation, showFront, handleTap } = this.props
-        let flipperClassName = "card-flipper"
-        if (!showFront) {
-            flipperClassName += " flipped"
-        }
+        const flipperClassName = classnames('card-flipper', {
+            'flipped': !showFront,
+        })
 
         return (
             <Hammer onTap={ handleTap } onSwipe={ this.handleSwipe }>

@@ -1,12 +1,11 @@
 import React, { PropTypes } from 'react'
+import classnames from 'classnames'
 
-const Button = ({ modifier, onClick, disabled, children }) => {
-    let className = `btn btn-${modifier}`
-
+const Button = ({ modifiers, onClick, disabled, children }) => {
     return (
         <button
             type="button"
-            className={ className }
+            className={ classnames('btn', modifiers) }
             onClick={ onClick }
             disabled={ disabled }
         >
@@ -17,13 +16,13 @@ const Button = ({ modifier, onClick, disabled, children }) => {
 
 Button.displayName = 'Button'
 Button.propTypes = {
-    modifier: PropTypes.string,
+    modifiers: PropTypes.array,
     onClick: PropTypes.func.isRequired,
     disabled: PropTypes.bool,
     children: PropTypes.string.isRequired,
 }
 Button.defaultProps = {
-    modifier: 'info',
+    modifiers: ['btn-info'],
     disabled: false,
 }
 

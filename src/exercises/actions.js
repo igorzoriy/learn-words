@@ -1,6 +1,7 @@
 import { arrayShuffle, getRandomItemsFromArray } from '../utils'
 
 export const ACTION_INIT_PHRASE_TRANSLATION_EXERCISE = 'exercises/init-phrase-translation'
+export const ACTION_ADD_ANSWER = 'exercises/add-answer'
 
 export function initPhraseTranslationExecrise () {
     return (dispatch, getState) => {
@@ -23,5 +24,15 @@ export function initPhraseTranslationExecrise () {
                 items,
             },
         })
+    }
+}
+
+export function addAnswer (id, variantId) {
+    return {
+        type: ACTION_ADD_ANSWER,
+        params: {
+            id,
+            variantId,
+        },
     }
 }

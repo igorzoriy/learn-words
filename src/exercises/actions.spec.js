@@ -2,7 +2,9 @@ import expect from 'expect.js'
 import sinon from 'sinon'
 import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
+    ACTION_ADD_ANSWER,
     initPhraseTranslationExecrise,
+    addAnswer,
 } from './actions'
 
 describe('exercises actions', () => {
@@ -23,5 +25,15 @@ describe('exercises actions', () => {
         for (let item of action.params.items) {
             expect(item.variants).to.contain(item.id)
         }
+    })
+
+    it('should create an action to add an answer to current phrase', () => {
+        expect(addAnswer('id', 'variantId')).to.eql({
+            type: ACTION_ADD_ANSWER,
+            params: {
+                id: 'id',
+                variantId: 'variantId',
+            },
+        })
     })
 })

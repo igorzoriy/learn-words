@@ -1,8 +1,6 @@
 /* eslint-env node */
 import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
-import autoprefixer from 'autoprefixer'
-
 
 let plugins = [
     new ExtractTextPlugin('[name].css'),
@@ -46,11 +44,6 @@ export default {
                 ]),
             },
         ],
-    },
-    postcss: () => {
-        return [autoprefixer({
-            browsers: ['Android >= 4, iOS >= 7'],
-        })]
     },
     devServer: {
         contentBase: `${__dirname}/public`,

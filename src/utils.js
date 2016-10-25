@@ -23,3 +23,16 @@ export function arrayShuffle (array) {
 
     return result
 }
+
+export function getRandomItemsFromArray (array, count, exclude = []) {
+    let i = 1
+    let result = []
+    while (i <= count) {
+        let item = array[Math.floor(Math.random() * array.length)]
+        if (!result.includes(item) && !exclude.includes(item)) {
+            result.push(item)
+            i++
+        }
+    }
+    return result
+}

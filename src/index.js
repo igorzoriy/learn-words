@@ -1,4 +1,5 @@
 import 'core-js/modules/es6.object.assign'
+import 'core-js/modules/es7.array.includes'
 
 import React from 'react'
 import { render } from 'react-dom'

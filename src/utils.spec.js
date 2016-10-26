@@ -1,4 +1,5 @@
 /*eslint no-magic-numbers: 0 */
+import 'core-js/modules/es7.array.includes'
 import expect from 'expect.js'
 import {
     calculateNewPosition,

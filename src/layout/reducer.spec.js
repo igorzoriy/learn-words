@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import reducer from './reducer'
 import {
     OPEN_SIDEBAR,
@@ -8,7 +7,7 @@ import {
 describe('layout reducer', () => {
     it('should return the initial state', () => {
         const initialState = reducer(undefined, {})
-        expect(initialState.sidebarOpen).to.be(false)
+        expect(initialState.sidebarOpen).toBe(false)
     })
 
     it('should handle OPEN_SIDEBAR', () => {
@@ -16,7 +15,7 @@ describe('layout reducer', () => {
             type: OPEN_SIDEBAR,
         }
         const state = reducer(undefined, action)
-        expect(state.sidebarOpen).to.be(true)
+        expect(state.sidebarOpen).toBe(true)
     })
 
     it('should handle CLOSE_SIDEBAR and UPDATE_LOCATION', () => {
@@ -24,6 +23,6 @@ describe('layout reducer', () => {
             type: CLOSE_SIDEBAR,
         }
         const state = reducer(undefined, action)
-        expect(state.sidebarOpen).to.be(false)
+        expect(state.sidebarOpen).toBe(false)
     })
 })

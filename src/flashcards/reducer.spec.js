@@ -1,5 +1,4 @@
 /*eslint no-magic-numbers: 0 */
-import expect from 'expect.js'
 import reducer from './reducer'
 import {
     ACTION_INIT_FLASHCARDS,
@@ -9,7 +8,7 @@ import {
 
 describe('vocabulary flashcards reducer', () => {
     it('should return initial state', () => {
-        expect(reducer(undefined, {})).to.be.eql({
+        expect(reducer(undefined, {})).toEqual({
             currentId: null,
             ids: [],
             showFront: true,
@@ -23,9 +22,9 @@ describe('vocabulary flashcards reducer', () => {
                 ids: [2, 1, 3],
             },
         })
-        expect(state.ids).to.eql([2, 1, 3])
-        expect(state.currentId).to.be(2)
-        expect(state.showFront).to.be(true)
+        expect(state.ids).toEqual([2, 1, 3])
+        expect(state.currentId).toBe(2)
+        expect(state.showFront).toBe(true)
     })
 
     it('should handle ACTION_SET_CURRENT_FLASHCARD', () => {
@@ -35,20 +34,20 @@ describe('vocabulary flashcards reducer', () => {
                 id: 'id1',
             },
         })
-        expect(state.currentId).to.be('id1')
+        expect(state.currentId).toBe('id1')
     })
 
     it('should handle ACTION_FLIP_CURRENT_FLASHCARD', () => {
         let state = reducer(undefined, {
             type: ACTION_FLIP_CURRENT_FLASHCARD,
         })
-        expect(state.showFront).to.be(false)
+        expect(state.showFront).toBe(false)
 
         state = reducer({
             showFront: false,
         }, {
             type: ACTION_FLIP_CURRENT_FLASHCARD,
         })
-        expect(state.showFront).to.be(true)
+        expect(state.showFront).toBe(true)
     })
 })

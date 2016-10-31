@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import Alert from './Alert'
@@ -23,8 +22,8 @@ describe('Alert component', () => {
     it('should render correctly', () => {
         const { output } = setup('message', 'info')
 
-        expect(output.type).to.be('div')
-        expect(output.props.className).to.be('alert alert-info')
-        expect(output.props.children).to.be('message')
+        expect(output.type).toBe('div')
+        expect(output.props.className).toBe('alert alert-info')
+        expect(output.props.children).toBe('message')
     })
 })

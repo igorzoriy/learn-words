@@ -1,5 +1,4 @@
 import React from 'react'
-import expect from 'expect.js'
 import TestUtils from 'react-addons-test-utils'
 import Button from './Button'
 
@@ -21,8 +20,8 @@ describe('Button component', () => {
             children: 'some button',
         })
 
-        expect(output.type).to.be('button')
-        expect(output.props.className).to.be('btn btn-info')
-        expect(output.props.children).to.be('some button')
+        expect(output.type).toBe('button')
+        expect(output.props.className).toBe('btn btn-info')
+        expect(output.props.children).toBe('some button')
     })
 })

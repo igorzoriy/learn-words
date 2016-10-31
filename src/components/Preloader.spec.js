@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import Preloader from './Preloader'
@@ -19,10 +18,10 @@ describe('Preloader component', () => {
         const { output } = setup()
         const svg = output.props.children
 
-        expect(output.type).to.be('div')
-        expect(output.props.className).to.be('preloader')
+        expect(output.type).toBe('div')
+        expect(output.props.className).toBe('preloader')
 
-        expect(svg.type).to.be('svg')
-        expect(svg.props.className).to.be('preloader-image')
+        expect(svg.type).toBe('svg')
+        expect(svg.props.className).toBe('preloader-image')
     })
 })

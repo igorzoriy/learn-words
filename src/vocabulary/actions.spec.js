@@ -1,6 +1,4 @@
 /*eslint no-magic-numbers: 0 */
-import expect from 'expect.js'
-import sinon from 'sinon'
 import {
     ACTION_ADD_VOCABULARY_ITEM,
     ACTION_EDIT_VOCABULARY_ITEM,
@@ -22,13 +20,13 @@ import { STATUS_INIT, STATUS_SUCCESS } from '../api/constants'
 
 describe('vocabulary actions', () => {
     it('should create an action to fetch vocabulary list', () => {
-        expect(fetchVocabularyItems()).to.eql({
+        expect(fetchVocabularyItems()).toEqual({
             type: ACTION_FETCH_VOCABULARY_ITEMS,
         })
     })
 
     it('should create an action to get vocabulary list', () => {
-        let dispatch = sinon.spy()
+        let dispatch = jest.fn()
         let getStateService = (ids, status) => {
             return () => {
                 return {
@@ -42,18 +40,18 @@ describe('vocabulary actions', () => {
             }
         }
         getVocabularyItems()(dispatch, getStateService([], STATUS_INIT))
-        expect(dispatch.args[0][0]).to.eql({
+        expect(dispatch.mock.calls[0][0]).toEqual({
             type: ACTION_FETCH_VOCABULARY_ITEMS,
         })
-        expect(dispatch.callCount).to.eql(1)
+        expect(dispatch).toHaveBeenCalledTimes(1)
         getVocabularyItems()(dispatch, getStateService([1, 2, 3], STATUS_SUCCESS))
-        expect(dispatch.callCount).to.eql(1)
+        expect(dispatch).toHaveBeenCalledTimes(1)
         getVocabularyItems()(dispatch, getStateService([], STATUS_SUCCESS))
-        expect(dispatch.callCount).to.eql(1)
+        expect(dispatch).toHaveBeenCalledTimes(1)
     })
 
     it('should create an action to add vocabulary item', () => {
-        expect(addVocabularyItem('foo', 'bar')).to.eql({
+        expect(addVocabularyItem('foo', 'bar')).toEqual({
             type: ACTION_ADD_VOCABULARY_ITEM,
             params: {
                 phrase: 'foo',
@@ -63,7 +61,7 @@ describe('vocabulary actions', () => {
     })
 
     it('should create an action to edit vocabulary item', () => {
-        expect(editVocabularyItem('id', 'foo', 'bar')).to.eql({
+        expect(editVocabularyItem('id', 'foo', 'bar')).toEqual({
             type: ACTION_EDIT_VOCABULARY_ITEM,
             params: {
                 id: 'id',
@@ -74,7 +72,7 @@ describe('vocabulary actions', () => {
     })
 
     it('should create an action to remove vocabulary item', () => {
-        expect(removeVocabularyItem('id1')).to.eql({
+        expect(removeVocabularyItem('id1')).toEqual({
             type: ACTION_REMOVE_VOCABULARY_ITEM,
             params: {
                 id: 'id1',
@@ -83,7 +81,7 @@ describe('vocabulary actions', () => {
     })
 
     it('should create an action to fill vocabulary form', () => {
-        expect(fillVocabularyForm('id2')).to.eql({
+        expect(fillVocabularyForm('id2')).toEqual({
             type: ACTION_FILL_VOCABULARY_FORM,
             params: {
                 id: 'id2',
@@ -92,13 +90,13 @@ describe('vocabulary actions', () => {
     })
 
     it('should create an action to clear vocabulary form', () => {
-        expect(clearVocabularyform()).to.eql({
+        expect(clearVocabularyform()).toEqual({
             type: ACTION_CLEAR_VOCABULARITY_FORM,
         })
     })
 
     it('should create an action to update vocabulary form', () => {
-        expect(updateVocabularyForm('foo2', 'bar2')).to.eql({
+        expect(updateVocabularyForm('foo2', 'bar2')).toEqual({
             type: ACTION_UPDATE_VOCABULARY_FORM,
             params: {
                 phrase: 'foo2',

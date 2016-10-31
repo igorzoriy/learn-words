@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import React from 'react'
 import { createRenderer } from 'react-addons-test-utils'
 import VocabularyList from './VocabularyList'
@@ -24,7 +23,7 @@ describe('VocabularyList component', () => {
     it('should render empty list correctly', () => {
         const { output } = setup([])
 
-        expect(output.type.displayName).to.be('EmptyList')
+        expect(output.type.displayName).toBe('EmptyList')
     })
 
     it('should render list correctly', () => {
@@ -37,8 +36,8 @@ describe('VocabularyList component', () => {
         ])
         const [item1] = output.props.children
 
-        expect(output.type).to.be('ul')
-        expect(output.props.className).to.be('list-group')
-        expect(item1.type.displayName).to.be('VocabularyItem')
+        expect(output.type).toBe('ul')
+        expect(output.props.className).toBe('list-group')
+        expect(item1.type.displayName).toBe('VocabularyItem')
     })
 })

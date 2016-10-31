@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import reducer from './entitiesReducer'
 import {
     ACTION_FETCH_VOCABULARY_ITEMS,
@@ -31,7 +30,7 @@ const testHash = {
 
 describe('vocabulary entities reducer', () => {
     it('should return initial state', () => {
-        expect(reducer(undefined, {})).to.be.eql({
+        expect(reducer(undefined, {})).toEqual({
             status: STATUS_INIT,
             ids: [],
             hash: {},
@@ -43,7 +42,7 @@ describe('vocabulary entities reducer', () => {
             type: ACTION_FETCH_VOCABULARY_ITEMS,
             status: STATUS_REQUEST,
         })
-        expect(state.status).to.be(STATUS_REQUEST)
+        expect(state.status).toBe(STATUS_REQUEST)
     })
 
     it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_FAILURE', () => {
@@ -51,7 +50,7 @@ describe('vocabulary entities reducer', () => {
             type: ACTION_FETCH_VOCABULARY_ITEMS,
             status: STATUS_FAILURE,
         })
-        expect(state.status).to.be(STATUS_FAILURE)
+        expect(state.status).toBe(STATUS_FAILURE)
     })
 
     it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_SUCCESS', () => {
@@ -60,7 +59,7 @@ describe('vocabulary entities reducer', () => {
             status: STATUS_SUCCESS,
             data: testHash,
         })
-        expect(state).to.be.eql({
+        expect(state).toEqual({
             status: STATUS_SUCCESS,
             ids: testIds,
             hash: testHash,
@@ -79,9 +78,9 @@ describe('vocabulary entities reducer', () => {
             status: STATUS_SUCCESS,
             data: testHash,
         })
-        expect(state.ids).to.not.contain('id0')
-        expect(state.hash).to.not.have.property('id0')
-        expect(state).to.be.eql({
+        expect(state.ids).not.toContain('id0')
+        expect(state.hash.id0).toBeUndefined()
+        expect(state).toEqual({
             status: STATUS_SUCCESS,
             ids: testIds,
             hash: testHash,
@@ -106,15 +105,15 @@ describe('vocabulary entities reducer', () => {
             hash: {},
         }
         state = reducer(initialState, action)
-        expect(state).to.eql(initialState)
+        expect(state).toEqual(initialState)
 
         initialState = {
             ids: testIds,
             hash: testHash,
         }
         state = reducer(initialState, action)
-        expect(state.hash.id3.phrase).to.be('edited-phrase3')
-        expect(state.hash.id3.translation).to.be('edited-translation3')
+        expect(state.hash.id3.phrase).toBe('edited-phrase3')
+        expect(state.hash.id3.translation).toBe('edited-translation3')
     })
 
     it('should handle ACTION_REMOVE_VOCABULARY_ITEM with STATUS_SUCCESS', () => {
@@ -130,7 +129,7 @@ describe('vocabulary entities reducer', () => {
                 id: 'id2',
             },
         })
-        expect(state.ids).to.not.contain('id2')
-        expect(state.hash).to.not.have.property('id2')
+        expect(state.ids).not.toContain('id2')
+        expect(state.hash.id2).toBeUndefined()
     })
 })

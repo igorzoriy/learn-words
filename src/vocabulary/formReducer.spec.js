@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import reducer from './formReducer'
 import {
     ACTION_UPDATE_VOCABULARY_FORM,
@@ -23,7 +22,7 @@ const testInitialState = {
 
 describe('vocabulary form reducer', () => {
     it('should return initial state', () => {
-        expect(reducer(undefined, {})).to.be.eql({
+        expect(reducer(undefined, {})).toEqual({
             status: STATUS_INIT,
             phrase: '',
             translation: '',
@@ -40,8 +39,8 @@ describe('vocabulary form reducer', () => {
                 translation: 'updated-translation',
             },
         })
-        expect(state.phrase).to.be('updated-phrase')
-        expect(state.translation).to.be('updated-translation')
+        expect(state.phrase).toBe('updated-phrase')
+        expect(state.translation).toBe('updated-translation')
     })
 
     it('should handle ACTION_ADD_VOCABULARY_ITEM with STATUS_INIT', () => {
@@ -49,11 +48,11 @@ describe('vocabulary form reducer', () => {
             type: ACTION_ADD_VOCABULARY_ITEM,
             status: STATUS_INIT,
         })
-        expect(state.status).to.be(STATUS_INIT)
-        expect(state.phrase).to.be('')
-        expect(state.translation).to.be('')
-        expect(state.errorMessage).to.be('')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_INIT)
+        expect(state.phrase).toBe('')
+        expect(state.translation).toBe('')
+        expect(state.errorMessage).toBe('')
+        expect(state.successMessage).toBe('')
     })
 
     it('should handle ACTION_ADD_VOCABULARY_ITEM with STATUS_REQUEST', () => {
@@ -65,11 +64,11 @@ describe('vocabulary form reducer', () => {
                 translation: 'newtranslation',
             },
         })
-        expect(state.status).to.be(STATUS_REQUEST)
-        expect(state.phrase).to.be('newphrase')
-        expect(state.translation).to.be('newtranslation')
-        expect(state.errorMessage).to.be('')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_REQUEST)
+        expect(state.phrase).toBe('newphrase')
+        expect(state.translation).toBe('newtranslation')
+        expect(state.errorMessage).toBe('')
+        expect(state.successMessage).toBe('')
     })
 
     it('should handle ACTION_ADD_VOCABULARY_ITEM with STATUS_FAILURE', () => {
@@ -80,11 +79,11 @@ describe('vocabulary form reducer', () => {
                 message: 'error message',
             },
         })
-        expect(state.status).to.be(STATUS_FAILURE)
-        expect(state.phrase).to.be('phrase')
-        expect(state.translation).to.be('translation')
-        expect(state.errorMessage).to.be('error message')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_FAILURE)
+        expect(state.phrase).toBe('phrase')
+        expect(state.translation).toBe('translation')
+        expect(state.errorMessage).toBe('error message')
+        expect(state.successMessage).toBe('')
     })
 
     it('should handle ACTION_ADD_VOCABULARY_ITEM with STATUS_SUCCESS', () => {
@@ -92,11 +91,11 @@ describe('vocabulary form reducer', () => {
             type: ACTION_ADD_VOCABULARY_ITEM,
             status: STATUS_SUCCESS,
         })
-        expect(state.status).to.be(STATUS_SUCCESS)
-        expect(state.phrase).to.be('')
-        expect(state.translation).to.be('')
-        expect(state.errorMessage).to.be('')
-        expect(state.successMessage).to.be('Item has beed saved successfully.')
+        expect(state.status).toBe(STATUS_SUCCESS)
+        expect(state.phrase).toBe('')
+        expect(state.translation).toBe('')
+        expect(state.errorMessage).toBe('')
+        expect(state.successMessage).toBe('Item has beed saved successfully.')
     })
 
     it('should handle ACTION_EDIT_VOCABULARY_ITEM with STATUS_REQUEST', () => {
@@ -108,11 +107,11 @@ describe('vocabulary form reducer', () => {
                 translation: 'newtranslation',
             },
         })
-        expect(state.status).to.be(STATUS_REQUEST)
-        expect(state.phrase).to.be('newphrase')
-        expect(state.translation).to.be('newtranslation')
-        expect(state.errorMessage).to.be('')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_REQUEST)
+        expect(state.phrase).toBe('newphrase')
+        expect(state.translation).toBe('newtranslation')
+        expect(state.errorMessage).toBe('')
+        expect(state.successMessage).toBe('')
     })
 
     it('should handle ACTION_EDIT_VOCABULARY_ITEM with STATUS_FAILURE', () => {
@@ -123,11 +122,11 @@ describe('vocabulary form reducer', () => {
                 message: 'error message',
             },
         })
-        expect(state.status).to.be(STATUS_FAILURE)
-        expect(state.phrase).to.be('phrase')
-        expect(state.translation).to.be('translation')
-        expect(state.errorMessage).to.be('error message')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_FAILURE)
+        expect(state.phrase).toBe('phrase')
+        expect(state.translation).toBe('translation')
+        expect(state.errorMessage).toBe('error message')
+        expect(state.successMessage).toBe('')
     })
 
     it('should handle ACTION_EDIT_VOCABULARY_ITEM with STATUS_SUCCESS', () => {
@@ -135,11 +134,11 @@ describe('vocabulary form reducer', () => {
             type: ACTION_EDIT_VOCABULARY_ITEM,
             status: STATUS_SUCCESS,
         })
-        expect(state.status).to.be(STATUS_SUCCESS)
-        expect(state.phrase).to.be('phrase')
-        expect(state.translation).to.be('translation')
-        expect(state.errorMessage).to.be('')
-        expect(state.successMessage).to.be('Item has beed updated successfully.')
+        expect(state.status).toBe(STATUS_SUCCESS)
+        expect(state.phrase).toBe('phrase')
+        expect(state.translation).toBe('translation')
+        expect(state.errorMessage).toBe('')
+        expect(state.successMessage).toBe('Item has beed updated successfully.')
     })
 
     it('should handle ACTION_FILL_VOCABULARY_FORM with STATUS_REQUEST', () => {
@@ -147,9 +146,9 @@ describe('vocabulary form reducer', () => {
             type: ACTION_FILL_VOCABULARY_FORM,
             status: STATUS_REQUEST,
         })
-        expect(state.status).to.be(STATUS_REQUEST)
-        expect(state.phrase).to.be('')
-        expect(state.translation).to.be('')
+        expect(state.status).toBe(STATUS_REQUEST)
+        expect(state.phrase).toBe('')
+        expect(state.translation).toBe('')
     })
 
     it('should handle ACTION_FILL_VOCABULARY_FORM with STATUS_REQUEST', () => {
@@ -157,11 +156,11 @@ describe('vocabulary form reducer', () => {
             type: ACTION_FILL_VOCABULARY_FORM,
             status: STATUS_REQUEST,
         })
-        expect(state.status).to.be(STATUS_REQUEST)
-        expect(state.phrase).to.be('')
-        expect(state.translation).to.be('')
-        expect(state.errorMessage).to.be('')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_REQUEST)
+        expect(state.phrase).toBe('')
+        expect(state.translation).toBe('')
+        expect(state.errorMessage).toBe('')
+        expect(state.successMessage).toBe('')
     })
 
     it('should handle ACTION_FILL_VOCABULARY_FORM with STATUS_FAILURE', () => {
@@ -172,9 +171,9 @@ describe('vocabulary form reducer', () => {
                 message: 'denied',
             },
         })
-        expect(state.status).to.be(STATUS_FAILURE)
-        expect(state.errorMessage).to.be('denied')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_FAILURE)
+        expect(state.errorMessage).toBe('denied')
+        expect(state.successMessage).toBe('')
 
     })
 
@@ -187,10 +186,10 @@ describe('vocabulary form reducer', () => {
                 translation: 'fetched-translation',
             },
         })
-        expect(state.status).to.be(STATUS_SUCCESS)
-        expect(state.phrase).to.be('fetched-phrase')
-        expect(state.translation).to.be('fetched-translation')
-        expect(state.errorMessage).to.be('')
-        expect(state.successMessage).to.be('')
+        expect(state.status).toBe(STATUS_SUCCESS)
+        expect(state.phrase).toBe('fetched-phrase')
+        expect(state.translation).toBe('fetched-translation')
+        expect(state.errorMessage).toBe('')
+        expect(state.successMessage).toBe('')
     })
 })

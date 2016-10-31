@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import reducer from './reducer'
 import {
     ACTION_UPDATE_USER_DATA,
@@ -12,7 +11,7 @@ import {
 
 describe('account reducer', () => {
     it('should return initial state', () => {
-        expect(reducer(undefined, {})).to.be.eql({
+        expect(reducer(undefined, {})).toEqual({
             isAnonymous: true,
             uid: null,
             error: '',
@@ -29,7 +28,7 @@ describe('account reducer', () => {
                 },
             },
         })
-        expect(state).to.be.eql({
+        expect(state).toEqual({
             isAnonymous: false,
             uid: 'unique-id1',
             error: '',
@@ -47,7 +46,7 @@ describe('account reducer', () => {
                 },
             },
         })
-        expect(state).to.be.eql({
+        expect(state).toEqual({
             isAnonymous: false,
             uid: 'unique-id2',
             error: '',
@@ -59,6 +58,6 @@ describe('account reducer', () => {
             type: ACTION_LOGOUT,
             status: STATUS_SUCCESS,
         })
-        expect(state.uid).to.be(null)
+        expect(state.uid).toBe(null)
     })
 })

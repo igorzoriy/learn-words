@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import FormSubmit from './FormSubmit'
@@ -22,8 +21,8 @@ describe('FormSubmit component', () => {
     it('should render correctly', () => {
         const { output } = setup('add')
 
-        expect(output.type).to.be('button')
-        expect(output.props.className).to.be('btn btn-primary')
-        expect(output.props.children).to.be('add')
+        expect(output.type).toBe('button')
+        expect(output.props.className).toBe('btn btn-primary')
+        expect(output.props.children).toBe('add')
     })
 })

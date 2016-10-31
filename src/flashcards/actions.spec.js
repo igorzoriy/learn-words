@@ -1,6 +1,4 @@
 /*eslint no-magic-numbers: 0 */
-import expect from 'expect.js'
-import sinon from 'sinon'
 import {
     ACTION_INIT_FLASHCARDS,
     ACTION_SET_CURRENT_FLASHCARD,
@@ -20,9 +18,9 @@ describe('flashcards actions', () => {
                 },
             },
         })
-        let dispatch = sinon.spy()
+        let dispatch = jest.fn()
         initFlashcards()(dispatch, getState)
-        expect(dispatch.args[0][0]).to.eql({
+        expect(dispatch.mock.calls[0][0]).toEqual({
             type: ACTION_INIT_FLASHCARDS,
             params: {
                 ids: [],
@@ -36,15 +34,15 @@ describe('flashcards actions', () => {
                 },
             },
         })
-        dispatch = sinon.spy()
+        dispatch = jest.fn()
         initFlashcards()(dispatch, getState)
-        let result = dispatch.args[0][0]
-        expect(result.type).to.be(ACTION_INIT_FLASHCARDS)
-        expect(result.params.ids.sort()).to.eql(['id1', 'id2'])
+        let result = dispatch.mock.calls[0][0]
+        expect(result.type).toBe(ACTION_INIT_FLASHCARDS)
+        expect(result.params.ids.sort()).toEqual(['id1', 'id2'])
     })
 
     it('should create an action to set current flashcard', () => {
-        expect(setCurrentFlashcard('id')).to.eql({
+        expect(setCurrentFlashcard('id')).toEqual({
             type: ACTION_SET_CURRENT_FLASHCARD,
             params: {
                 id: 'id',
@@ -53,7 +51,7 @@ describe('flashcards actions', () => {
     })
 
     it('should create an action to flip current flashcard', () => {
-        expect(flipCurrentFlashcard()).to.eql({
+        expect(flipCurrentFlashcard()).toEqual({
             type: ACTION_FLIP_CURRENT_FLASHCARD,
         })
     })
@@ -65,18 +63,18 @@ describe('flashcards actions', () => {
                 ids: ['id1', 'id2', 'id3'],
             },
         })
-        let dispatch = sinon.spy()
+        let dispatch = jest.fn()
 
         swipeCurrentFlashcard()(dispatch, getState)
         swipeCurrentFlashcard(false)(dispatch, getState)
 
-        expect(dispatch.args[0][0]).to.eql({
+        expect(dispatch.mock.calls[0][0]).toEqual({
             type: ACTION_SET_CURRENT_FLASHCARD,
             params: {
                 id: 'id3',
             },
         })
-        expect(dispatch.args[1][0]).to.eql({
+        expect(dispatch.mock.calls[1][0]).toEqual({
             type: ACTION_SET_CURRENT_FLASHCARD,
             params: {
                 id: 'id1',

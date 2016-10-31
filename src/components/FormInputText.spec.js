@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import FormInputText from './FormInputText'
@@ -23,10 +22,10 @@ describe('FormInputText component', () => {
     it('should render correctly', () => {
         const { output } = setup('pholder', 'vlue')
 
-        expect(output.type).to.be('input')
-        expect(output.props.type).to.be('text')
-        expect(output.props.className).to.be('form-control')
-        expect(output.props.placeholder).to.be('pholder')
-        expect(output.props.value).to.be('vlue')
+        expect(output.type).toBe('input')
+        expect(output.props.type).toBe('text')
+        expect(output.props.className).toBe('form-control')
+        expect(output.props.placeholder).toBe('pholder')
+        expect(output.props.value).toBe('vlue')
     })
 })

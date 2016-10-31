@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import {
     ACTION_UPDATE_USER_DATA,
     ACTION_LOGIN,
@@ -10,7 +9,7 @@ import {
 
 describe('account actions', () => {
     it('should create an action to update user data', () => {
-        expect(updateUserData({})).to.eql({
+        expect(updateUserData({})).toEqual({
             type: ACTION_UPDATE_USER_DATA,
             data: {
                 user: {},
@@ -19,13 +18,13 @@ describe('account actions', () => {
     })
 
     it('should create an action to login', () => {
-        expect(login()).to.eql({
+        expect(login()).toEqual({
             type: ACTION_LOGIN,
         })
     })
 
     it('should create an action to logout', () => {
-        expect(logout()).to.eql({
+        expect(logout()).toEqual({
             type: ACTION_LOGOUT,
         })
     })

@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import React from 'react'
 import TestUtils from 'react-addons-test-utils'
 import VocabularyItem from './VocabularyItem'
@@ -28,21 +27,21 @@ describe('VocabularyItem component', () => {
         const [phrase, translation, controls] = output.props.children
         const [edit, remove] = controls.props.children
 
-        expect(output.type).to.be('li')
-        expect(output.props.className).to.be('list-group-item')
+        expect(output.type).toBe('li')
+        expect(output.props.className).toBe('list-group-item')
 
-        expect(phrase.props.className).to.be('list-item-phrase')
-        expect(phrase.props.children).to.be('get')
+        expect(phrase.props.className).toBe('list-item-phrase')
+        expect(phrase.props.children).toBe('get')
 
-        expect(translation.props.className).to.be('list-item-translation')
-        expect(translation.props.children).to.be('get trans')
+        expect(translation.props.className).toBe('list-item-translation')
+        expect(translation.props.children).toBe('get trans')
 
-        expect(edit.type.displayName).to.be('Link')
-        expect(edit.props.to).to.be('/vocabulary/edit/id')
-        expect(edit.props.className).to.be('list-item-control')
+        expect(edit.type.displayName).toBe('Link')
+        expect(edit.props.to).toBe('/vocabulary/edit/id')
+        expect(edit.props.className).toBe('list-item-control')
 
-        expect(remove.type).to.be('button')
-        expect(remove.props.className).to.be('list-item-control')
-        expect(remove.props.onClick).to.be.a('function')
+        expect(remove.type).toBe('button')
+        expect(remove.props.className).toBe('list-item-control')
+        expect(remove.props.onClick).toBeDefined()
     })
 })

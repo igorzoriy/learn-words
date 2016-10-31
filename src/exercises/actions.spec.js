@@ -1,6 +1,4 @@
 /*eslint no-magic-numbers: 0 */
-import expect from 'expect.js'
-import sinon from 'sinon'
 import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
     ACTION_ADD_ANSWER,
@@ -43,18 +41,18 @@ describe('exercises actions', () => {
                 },
             },
         })
-        let dispatch = sinon.spy()
+        let dispatch = jest.fn()
         initPhraseTranslationExecrise()(dispatch, getState)
-        let action = dispatch.args[0][0]
-        expect(action.type).to.be(ACTION_INIT_PHRASE_TRANSLATION_EXERCISE)
+        let action = dispatch.mock.calls[0][0]
+        expect(action.type).toBe(ACTION_INIT_PHRASE_TRANSLATION_EXERCISE)
         // each question item should contain right answer in variants
         for (let item of action.params.items) {
-            expect(item.variants).to.contain(item.id)
+            expect(item.variants).toContain(item.id)
         }
     })
 
     it('should create an action to add an answer to current phrase', () => {
-        expect(addAnswer('id', 'variantId')).to.eql({
+        expect(addAnswer('id', 'variantId')).toEqual({
             type: ACTION_ADD_ANSWER,
             params: {
                 id: 'id',
@@ -92,17 +90,17 @@ describe('exercises actions', () => {
                     items,
                 },
             })
-            let dispatch = sinon.spy()
+            let dispatch = jest.fn()
             moveToNextQuestion()(dispatch, getState)
             if (!dispatched) {
-                expect(dispatch.called).not.to.be.ok()
+                expect(dispatch).not.toHaveBeenCalled()
                 return
             }
 
-            let action = dispatch.args[0][0]
-            expect(dispatch.called).to.be.ok()
-            expect(action.type).to.be(ACTION_MOVE_TO_NEXT_QUESTION)
-            expect(action.params.index).to.be(expectedIndex)
+            let action = dispatch.mock.calls[0][0]
+            expect(dispatch).toHaveBeenCalled()
+            expect(action.type).toBe(ACTION_MOVE_TO_NEXT_QUESTION)
+            expect(action.params.index).toBe(expectedIndex)
         })
     })
 })

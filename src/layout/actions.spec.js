@@ -1,4 +1,3 @@
-import expect from 'expect.js'
 import {
     OPEN_SIDEBAR,
     CLOSE_SIDEBAR,
@@ -8,13 +7,13 @@ import {
 
 describe('layout actions', () => {
     it('should create an action to open sidebar', () => {
-        expect(openSidebar()).to.eql({
+        expect(openSidebar()).toEqual({
             type: OPEN_SIDEBAR,
         })
     })
 
     it('should create an action to close sidebar', () => {
-        expect(closeSidebar()).to.eql({
+        expect(closeSidebar()).toEqual({
             type: CLOSE_SIDEBAR,
         })
     })

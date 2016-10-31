@@ -1,11 +1,18 @@
 import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
     ACTION_ADD_ANSWER,
+    ACTION_MOVE_TO_NEXT_QUESTION,
 } from './actions'
+
+function getItemIdByIndex (items, index) {
+    // eslint-disable-next-line no-magic-numbers
+    return items[index] && items[index].id ? items[index].id : -1
+}
 
 const initialState = {
     items: [],
     currentIndex: 0,
+    currentId: null,
 }
 
 export default (state = initialState, action) => {
@@ -15,8 +22,8 @@ export default (state = initialState, action) => {
     switch (type) {
         case ACTION_INIT_PHRASE_TRANSLATION_EXERCISE:
             nextState.items = params.items
-            nextState.currentId = (params.items[0] && params.items[0].id) || null
             nextState.currentIndex = 0
+            nextState.currentId = getItemIdByIndex(nextState.items, nextState.currentIndex)
             break
 
         case ACTION_ADD_ANSWER:
@@ -29,6 +36,11 @@ export default (state = initialState, action) => {
                     answer,
                 })
             })
+            break
+
+        case ACTION_MOVE_TO_NEXT_QUESTION:
+            nextState.currentIndex = params.index
+            nextState.currentId = getItemIdByIndex(state.items, nextState.currentIndex)
             break
     }
 

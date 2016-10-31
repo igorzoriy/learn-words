@@ -4,6 +4,7 @@ import reducer from './reducer'
 import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
     ACTION_ADD_ANSWER,
+    ACTION_MOVE_TO_NEXT_QUESTION,
 } from './actions'
 
 let items = [
@@ -34,6 +35,7 @@ describe('exercises reducer', () => {
         expect(reducer(undefined, {})).to.be.eql({
             items: [],
             currentIndex: 0,
+            currentId: null,
         })
     })
 
@@ -61,5 +63,18 @@ describe('exercises reducer', () => {
         })
         expect(state.items).not.to.eql(items)
         expect(state.items[1].answer).to.be(2)
+    })
+
+    it('should handle ACTION_MOVE_TO_NEXT_QUESTION', () => {
+        let state = reducer({
+            items,
+        }, {
+            type: ACTION_MOVE_TO_NEXT_QUESTION,
+            params: {
+                index: 2,
+            },
+        })
+        expect(state.currentIndex).to.be(2)
+        expect(state.currentId).to.be(4)
     })
 })

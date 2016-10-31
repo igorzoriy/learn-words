@@ -2,6 +2,7 @@ import { arrayShuffle, getRandomItemsFromArray } from '../utils'
 
 export const ACTION_INIT_PHRASE_TRANSLATION_EXERCISE = 'exercises/init-phrase-translation'
 export const ACTION_ADD_ANSWER = 'exercises/add-answer'
+export const ACTION_MOVE_TO_NEXT_QUESTION = 'exercises/move-to-next-question'
 
 export function initPhraseTranslationExecrise () {
     return (dispatch, getState) => {
@@ -34,5 +35,24 @@ export function addAnswer (id, variantId) {
             id,
             variantId,
         },
+    }
+}
+
+export function moveToNextQuestion () {
+    return (dispatch, getState) => {
+        let state = getState()
+        let { items, currentIndex } = state.exercises
+        let index = currentIndex + 1
+
+        if (index === items.length) {
+            return null
+        }
+
+        return dispatch({
+            type: ACTION_MOVE_TO_NEXT_QUESTION,
+            params: {
+                index,
+            },
+        })
     }
 }

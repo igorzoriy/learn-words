@@ -28,13 +28,13 @@ export default (state = initialState, action) => {
 
         case ACTION_ADD_ANSWER:
             nextState.items = state.items.map((item) => {
-                let answer
-                if (item.id === params.id) {
-                    answer = params.variantId
+                if (item.id !== params.id) {
+                    return Object.assign({}, item)
+                } else {
+                    return Object.assign({}, item, {
+                        answer: params.variantId,
+                    })
                 }
-                return Object.assign({}, item, {
-                    answer,
-                })
             })
             break
 

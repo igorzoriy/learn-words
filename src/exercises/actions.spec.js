@@ -1,4 +1,3 @@
-/*eslint no-magic-numbers: 0 */
 import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
     ACTION_ADD_ANSWER,
@@ -39,6 +38,7 @@ describe('exercises actions', () => {
     })
 
     it('should create an action to init phrase translation exercise', () => {
+        /*eslint no-magic-numbers: 0 */
         let getState = () => ({
             vocabulary: {
                 entities: {

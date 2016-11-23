@@ -20,32 +20,48 @@ export class App extends Component {
     }
 
     renderMenu (isAnonymous) {
-        const logout = (
-            <li className="navbar-nav-item">
-                <button type="button" className="navbar-nav-item-button" onClick={ this.handleLogoutClick }>
-                    Logout
-                </button>
-            </li>
-        )
-
-        return (
-            <ul className="nav navbar-nav">
-                <li className="navbar-nav-item">
+        let content = []
+        if (!isAnonymous) {
+            content.push(
+                <li className="navbar-nav-item" key="list">
                     <Link className="nav-link" to="/vocabulary/list">
                         Vocabulary list
                     </Link>
-                </li>
-                <li className="navbar-nav-item">
+                </li>,
+                <li className="navbar-nav-item" key="add">
                     <Link className="nav-link" to="/vocabulary/add">
                         Add new item
                     </Link>
-                </li>
-                <li className="navbar-nav-item">
+                </li>,
+                <li className="navbar-nav-item" key="flashcards">
                     <Link className="nav-link" to="/flashcards">
                         Flashcards
                     </Link>
+                </li>,
+                <li className="navbar-nav-item" key="exercise1">
+                    <Link className="nav-link" to="/exercises/phrase-translation">
+                        Phrase-Translation Exercise
+                    </Link>
+                </li>,
+                <li className="navbar-nav-item" key="logout">
+                    <button type="button" className="navbar-nav-item-button" onClick={ this.handleLogoutClick }>
+                        Logout
+                    </button>
                 </li>
-                { !isAnonymous ? logout : '' }
+            )
+        } else {
+            content.push(
+                <li className="navbar-nav-item" key="login">
+                    <Link className="nav-link" to="/login">
+                        Login
+                    </Link>
+                </li>
+            )
+        }
+
+        return (
+            <ul className="nav navbar-nav">
+                { content }
             </ul>
         )
     }

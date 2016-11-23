@@ -64,6 +64,7 @@ describe('exercises reducer', () => {
         expect(state.items).toEqual(items)
         expect(state.currentIndex).toBe(0)
         expect(state.currentId).toBe(2)
+        expect(state.result).toBe(-1)
     })
 
     it('should handle ACTION_ADD_ANSWER', () => {

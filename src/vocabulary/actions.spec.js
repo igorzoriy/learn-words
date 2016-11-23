@@ -1,4 +1,3 @@
-/*eslint no-magic-numbers: 0 */
 import {
     ACTION_ADD_VOCABULARY_ITEM,
     ACTION_EDIT_VOCABULARY_ITEM,

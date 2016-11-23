@@ -1,4 +1,3 @@
-/*eslint no-magic-numbers: 0 */
 import reducer from './reducer'
 import {
     ACTION_INIT_FLASHCARDS,

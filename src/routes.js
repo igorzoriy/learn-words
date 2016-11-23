@@ -7,6 +7,7 @@ import ListVocabularyItemsPage from './vocabulary/ListPage'
 import AddVocabularyItemPage from './vocabulary/AddItemPage'
 import EditVocabularyItemPage from './vocabulary/EditItemPage'
 import FlashcardsPage from './flashcards/FlashcardsPage'
+import PhraseTranslationExercisePage from './exercises/PhraseTranslationPage'
 
 function requireAuth (dispatch, nextState, replace, callback) {
     const unsubscribe = firebase.auth().onAuthStateChanged((user) => {
@@ -65,6 +66,11 @@ export default function getRoutes (dispatch) {
             {
                 path: '/flashcards',
                 component: FlashcardsPage,
+                onEnter: requireAuthCurried,
+            },
+            {
+                path: '/exercises/phrase-translation',
+                component: PhraseTranslationExercisePage,
                 onEnter: requireAuthCurried,
             },
             {

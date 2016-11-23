@@ -6,7 +6,6 @@ import {
 } from './actions'
 
 function getItemIdByIndex (items, index) {
-    // eslint-disable-next-line no-magic-numbers
     return items[index] && items[index].id ? items[index].id : -1
 }
 
@@ -26,6 +25,7 @@ export default (state = initialState, action) => {
             nextState.items = params.items
             nextState.currentIndex = 0
             nextState.currentId = getItemIdByIndex(nextState.items, nextState.currentIndex)
+            nextState.result = -1
             break
 
         case ACTION_ADD_ANSWER:

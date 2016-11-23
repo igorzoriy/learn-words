@@ -9,7 +9,6 @@ export function initPhraseTranslationExecrise () {
     return (dispatch, getState) => {
         let { ids } = getState().vocabulary.entities
         let items = arrayShuffle(ids).map((id) => {
-            /*eslint no-magic-numbers: 0 */
             let rightAnwer = [id]
             let variants = getRandomItemsFromArray(ids, 3, rightAnwer).concat(rightAnwer)
             variants = arrayShuffle(variants)

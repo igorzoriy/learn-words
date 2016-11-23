@@ -3,35 +3,41 @@ import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
     ACTION_ADD_ANSWER,
     ACTION_MOVE_TO_NEXT_QUESTION,
+    ACTION_CALCULATE_RESULT,
     initPhraseTranslationExecrise,
     addAnswer,
     moveToNextQuestion,
+    calculateResult,
 } from './actions'
 
-let items = [
-    {
-        id: 2,
-        items: [1, 2, 3, 4],
-        answer: null,
-    },
-    {
-        id: 1,
-        items: [1, 2, 3, 4],
-        answer: null,
-    },
-    {
-        id: 4,
-        items: [1, 2, 3, 4],
-        answer: null,
-    },
-    {
-        id: 3,
-        items: [1, 2, 3, 4],
-        answer: null,
-    },
-]
+let items
 
 describe('exercises actions', () => {
+    beforeEach(() => {
+        items = [
+            {
+                id: 2,
+                items: [1, 2, 3, 4],
+                answer: null,
+            },
+            {
+                id: 1,
+                items: [1, 2, 3, 4],
+                answer: null,
+            },
+            {
+                id: 4,
+                items: [1, 2, 3, 4],
+                answer: null,
+            },
+            {
+                id: 3,
+                items: [1, 2, 3, 4],
+                answer: null,
+            },
+        ]
+    })
+
     it('should create an action to init phrase translation exercise', () => {
         let getState = () => ({
             vocabulary: {
@@ -101,6 +107,12 @@ describe('exercises actions', () => {
             expect(dispatch).toHaveBeenCalled()
             expect(action.type).toBe(ACTION_MOVE_TO_NEXT_QUESTION)
             expect(action.params.index).toBe(expectedIndex)
+        })
+    })
+
+    it('should create an action to calculate exercise result', () => {
+        expect(calculateResult()).toEqual({
+            type: ACTION_CALCULATE_RESULT,
         })
     })
 })

@@ -2,6 +2,7 @@ import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
     ACTION_ADD_ANSWER,
     ACTION_MOVE_TO_NEXT_QUESTION,
+    ACTION_CALCULATE_RESULT,
 } from './actions'
 
 function getItemIdByIndex (items, index) {
@@ -13,6 +14,7 @@ const initialState = {
     items: [],
     currentIndex: 0,
     currentId: null,
+    result: -1,
 }
 
 export default (state = initialState, action) => {
@@ -41,6 +43,16 @@ export default (state = initialState, action) => {
         case ACTION_MOVE_TO_NEXT_QUESTION:
             nextState.currentIndex = params.index
             nextState.currentId = getItemIdByIndex(state.items, nextState.currentIndex)
+            break
+
+        case ACTION_CALCULATE_RESULT:
+            let accumulator = state.items.reduce((accumulator, {id, answer}) => {
+                return id === answer ? ++accumulator : accumulator
+            }, 0)
+            if (state.items.length > 0) {
+                // eslint-disable-next-line no-magic-numbers
+                nextState.result = Math.round(100 * accumulator / state.items.length) / 100
+            }
             break
     }
 

@@ -3,6 +3,7 @@ import { arrayShuffle, getRandomItemsFromArray } from '../utils'
 export const ACTION_INIT_PHRASE_TRANSLATION_EXERCISE = 'exercises/init-phrase-translation'
 export const ACTION_ADD_ANSWER = 'exercises/add-answer'
 export const ACTION_MOVE_TO_NEXT_QUESTION = 'exercises/move-to-next-question'
+export const ACTION_CALCULATE_RESULT = 'exercises/calculate-result'
 
 export function initPhraseTranslationExecrise () {
     return (dispatch, getState) => {
@@ -54,5 +55,11 @@ export function moveToNextQuestion () {
                 index,
             },
         })
+    }
+}
+
+export function calculateResult () {
+    return {
+        type: ACTION_CALCULATE_RESULT,
     }
 }

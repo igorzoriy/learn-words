@@ -4,6 +4,7 @@ import {
     ACTION_INIT_PHRASE_TRANSLATION_EXERCISE,
     ACTION_ADD_ANSWER,
     ACTION_MOVE_TO_NEXT_QUESTION,
+    ACTION_CALCULATE_RESULT,
 } from './actions'
 
 let items
@@ -31,6 +32,16 @@ describe('exercises reducer', () => {
                 items: [1, 2, 3, 4],
                 answer: null,
             },
+            {
+                id: 5,
+                items: [5, 6, 3, 4],
+                answer: null,
+            },
+            {
+                id: 6,
+                items: [5, 6, 3, 4],
+                answer: null,
+            },
         ]
     })
 
@@ -39,6 +50,7 @@ describe('exercises reducer', () => {
             items: [],
             currentIndex: 0,
             currentId: null,
+            result: -1,
         })
     })
 
@@ -87,5 +99,57 @@ describe('exercises reducer', () => {
         })
         expect(state.currentIndex).toBe(2)
         expect(state.currentId).toBe(4)
+    })
+
+    it('should handle ACTION_CALCULATE_RESULT', () => {
+        let state = reducer({
+            items,
+            result: -1,
+        }, {
+            type: ACTION_CALCULATE_RESULT,
+        })
+        expect(state.result).toBe(0)
+
+        items[0].answer = 2
+        items[1].answer = 1
+        items[2].answer = 4
+        items[3].answer = 3
+        items[4].answer = 5
+        items[5].answer = 6
+        state = reducer({
+            items,
+            result: -1,
+        }, {
+            type: ACTION_CALCULATE_RESULT,
+        })
+        expect(state.result).toBe(1)
+
+        items[0].answer = 1
+        items[1].answer = 1
+        items[2].answer = 1
+        items[3].answer = 1
+        items[4].answer = 1
+        items[5].answer = 1
+        state = reducer({
+            items,
+            result: -1,
+        }, {
+            type: ACTION_CALCULATE_RESULT,
+        })
+        expect(state.result).toBe(0.17)
+
+        items[0].answer = 1
+        items[1].answer = 1
+        items[2].answer = 1
+        items[3].answer = 3
+        items[4].answer = 5
+        items[5].answer = 6
+        state = reducer({
+            items,
+            result: -1,
+        }, {
+            type: ACTION_CALCULATE_RESULT,
+        })
+        expect(state.result).toBe(0.67)
     })
 })

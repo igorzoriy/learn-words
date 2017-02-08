@@ -1,5 +1,4 @@
 import React, { Component, PropTypes } from 'react'
-import { findDOMNode } from 'react-dom'
 import { connect } from 'react-redux'
 import {
     STATUS_INIT,
@@ -9,7 +8,6 @@ import {
 } from '../api/constants'
 import { clearVocabularyform, addVocabularyItem, updateVocabularyForm } from './actions'
 import PageTitle from '../components/PageTitle'
-import FormInputText from '../components/FormInputText'
 import FormSubmit from '../components/FormSubmit'
 import Preloader from '../components/Preloader'
 import Alert from '../components/Alert'
@@ -25,6 +23,7 @@ export class AddItemPage extends Component {
         super(props)
         const { dispatch } = props
         dispatch(clearVocabularyform())
+        this.nodes = {}
     }
 
     renderTitle () {
@@ -34,16 +33,20 @@ export class AddItemPage extends Component {
     }
 
     handleFormChange = () => {
-        const { dispatch } = this.props
-        const phrase = findDOMNode(this.refs.phrase).value
-        const translation = findDOMNode(this.refs.translation).value
+        const { nodes, props: { dispatch } } = this
+        const phrase = nodes.phrase.value
+        const translation = nodes.translation.value
         dispatch(updateVocabularyForm(phrase, translation))
     }
 
     renderPhrase (value, disabled = false) {
         return (
-            <FormInputText
-                ref="phrase"
+            <input
+                type="text"
+                className="form-control"
+                ref={(input) => {
+                    this.nodes.phrase = input
+                }}
                 key="phrase"
                 placeholder="Phrase"
                 required={ true }
@@ -56,8 +59,10 @@ export class AddItemPage extends Component {
 
     renderTranslation (value, disabled = false) {
         return (
-            <FormInputText
-                ref="translation"
+            <input
+                type="text"
+                className="form-control"
+                ref={(input) => this.nodes.translation = input}
                 key="translation"
                 placeholder="Translation"
                 required={ true }

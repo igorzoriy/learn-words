@@ -2,12 +2,13 @@
 import webpack from 'webpack'
 import ExtractTextPlugin from 'extract-text-webpack-plugin'
 
+let devMode = process.env.NODE_ENV === 'development'
+
 let plugins = [
     new ExtractTextPlugin('[name].css'),
 ]
 if (process.env.NODE_ENV === 'production') {
     plugins.push(
-        new webpack.optimize.DedupePlugin(),
         new webpack.optimize.UglifyJsPlugin(),
         new webpack.DefinePlugin({
             'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV || 'development'),
@@ -17,7 +18,7 @@ if (process.env.NODE_ENV === 'production') {
 
 export default {
     plugins,
-    devtool: process.env.NODE_ENV === 'development' ? 'inline-source-map' : '',
+    devtool: devMode ? 'inline-source-map' : '',
     context: __dirname,
     entry: {
         bundle: './src/index.js',
@@ -29,19 +30,37 @@ export default {
         publicPath: '/',
     },
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.js$/,
-                loader: 'babel',
+                loader: 'babel-loader',
                 exclude: /(node_modules)/,
             },
             {
                 test: /\.scss$/,
-                loader: ExtractTextPlugin.extract('style-loader', [
-                    'css-loader?sourceMap',
-                    'postcss-loader?sourceMap',
-                    'sass-loader?sourceMap',
-                ]),
+                loader: ExtractTextPlugin.extract({
+                    fallback: 'style-loader',
+                    use: [
+                        {
+                            loader: 'css-loader',
+                            options: {
+                                sourceMap: devMode,
+                            },
+                        },
+                        {
+                            loader: 'postcss-loader',
+                            options: {
+                                sourceMap: devMode,
+                            },
+                        },
+                        {
+                            loader: 'sass-loader',
+                            options: {
+                                sourceMap: devMode,
+                            },
+                        },
+                    ],
+                }),
             },
         ],
     },

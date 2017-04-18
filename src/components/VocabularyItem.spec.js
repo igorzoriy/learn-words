@@ -1,5 +1,5 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
 import VocabularyItem from './VocabularyItem'
 
 function setup () {
@@ -10,7 +10,7 @@ function setup () {
         handleRemove: () => {},
     }
 
-    const renderer = TestUtils.createRenderer()
+    const renderer = new ReactShallowRenderer()
     renderer.render(<VocabularyItem { ...props } />)
     const output = renderer.getRenderOutput()
 

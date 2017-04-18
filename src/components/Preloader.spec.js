@@ -1,9 +1,9 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
 import Preloader from './Preloader'
 
 function setup () {
-    const renderer = TestUtils.createRenderer()
+    const renderer = new ReactShallowRenderer()
     renderer.render(<Preloader />)
     const output = renderer.getRenderOutput()
 

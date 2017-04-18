@@ -1,11 +1,11 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
 import Button from './Button'
 
 function setup (props) {
-    let renderer = TestUtils.createRenderer()
+    const renderer = new ReactShallowRenderer()
     renderer.render(<Button { ...props } />)
-    let output = renderer.getRenderOutput()
+    const output = renderer.getRenderOutput()
 
     return {
         output,

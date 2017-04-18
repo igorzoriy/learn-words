@@ -1,5 +1,5 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
 import PageTitle from './PageTitle'
 
 function setup (title) {
@@ -7,7 +7,7 @@ function setup (title) {
         title,
     }
 
-    const renderer = TestUtils.createRenderer()
+    const renderer = new ReactShallowRenderer()
     renderer.render(<PageTitle { ...props } />)
     const output = renderer.getRenderOutput()
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
 import Alert from './Alert'
 
 function setup (message, type) {
@@ -8,7 +8,7 @@ function setup (message, type) {
         type,
     }
 
-    const renderer = TestUtils.createRenderer()
+    const renderer = new ReactShallowRenderer()
     renderer.render(<Alert { ...props } />)
     const output = renderer.getRenderOutput()
 

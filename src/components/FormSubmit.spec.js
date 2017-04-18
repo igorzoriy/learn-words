@@ -1,5 +1,5 @@
 import React from 'react'
-import TestUtils from 'react-addons-test-utils'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
 import FormSubmit from './FormSubmit'
 
 function setup (title) {
@@ -7,7 +7,7 @@ function setup (title) {
         title,
     }
 
-    const renderer = TestUtils.createRenderer()
+    const renderer = new ReactShallowRenderer()
     renderer.render(<FormSubmit { ...props } />)
     const output = renderer.getRenderOutput()
 

@@ -1,5 +1,5 @@
 import React from 'react'
-import { createRenderer } from 'react-addons-test-utils'
+import ReactShallowRenderer from 'react-test-renderer/shallow'
 import VocabularyList from './VocabularyList'
 
 function setup (items) {
@@ -8,7 +8,7 @@ function setup (items) {
         handleRemove: () => {},
     }
 
-    const renderer = createRenderer()
+    const renderer = new ReactShallowRenderer()
     renderer.render(<VocabularyList { ...props } />)
     const output = renderer.getRenderOutput()
 

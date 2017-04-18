@@ -1,8 +1,8 @@
 /* eslint-env node */
-import webpack from 'webpack'
-import ExtractTextPlugin from 'extract-text-webpack-plugin'
+const webpack = require('webpack')
+const ExtractTextPlugin = require('extract-text-webpack-plugin')
 
-let devMode = process.env.NODE_ENV === 'development'
+const devMode = process.env.NODE_ENV === 'development'
 
 let plugins = [
     new ExtractTextPlugin('[name].css'),
@@ -16,7 +16,7 @@ if (process.env.NODE_ENV === 'production') {
     )
 }
 
-export default {
+module.exports = {
     plugins,
     devtool: devMode ? 'inline-source-map' : '',
     context: __dirname,
@@ -34,7 +34,6 @@ export default {
             {
                 test: /\.js$/,
                 loader: 'babel-loader',
-                exclude: /(node_modules)/,
             },
             {
                 test: /\.scss$/,

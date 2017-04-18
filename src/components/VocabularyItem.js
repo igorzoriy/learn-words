@@ -1,6 +1,7 @@
-import React, { PropTypes } from 'react'
-import Component from './Component'
+import React from 'react'
+import PropTypes from 'prop-types'
 import { Link } from 'react-router'
+import Component from './Component'
 
 export default class VocabularyItem extends Component {
     static displayName = 'VocabularyItem'

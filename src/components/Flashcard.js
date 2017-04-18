@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Component from './Component'
 import Hammer from 'react-hammerjs'
 import { DIRECTION_LEFT, DIRECTION_RIGHT } from 'hammerjs'

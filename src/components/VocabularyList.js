@@ -1,4 +1,5 @@
-import React, { PropTypes } from 'react'
+import React from 'react'
+import PropTypes from 'prop-types'
 import Component from './Component'
 import VocabularyItem from './VocabularyItem'
 import EmptyList from './EmptyList'

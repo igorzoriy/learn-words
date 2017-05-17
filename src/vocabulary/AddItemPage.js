@@ -27,17 +27,26 @@ export class AddItemPage extends Component {
         this.nodes = {}
     }
 
-    renderTitle () {
-        return (
-            <PageTitle title="Add new phrase" />
-        )
-    }
-
     handleFormChange = () => {
         const { nodes, props: { dispatch } } = this
         const phrase = nodes.phrase.value
         const translation = nodes.translation.value
         dispatch(updateVocabularyForm(phrase, translation))
+    }
+
+    handleFormSubmit = (e) => {
+        e.preventDefault()
+        const { dispatch, phrase, translation } = this.props
+        dispatch(addVocabularyItem(phrase, translation))
+            .then(() => {
+                this.nodes.phrase.focus()
+            })
+    }
+
+    renderTitle () {
+        return (
+            <PageTitle title="Add new phrase" />
+        )
     }
 
     renderPhrase (value, disabled = false) {
@@ -72,12 +81,6 @@ export class AddItemPage extends Component {
                 onChange={ this.handleFormChange }
             />
         )
-    }
-
-    handleFormSubmit = (e) => {
-        e.preventDefault()
-        const { dispatch, phrase, translation } = this.props
-        dispatch(addVocabularyItem(phrase, translation))
     }
 
     renderSubmit () {

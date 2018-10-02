@@ -1,8 +1,8 @@
 @import '~bootstrap/scss/mixins';
+@import '~bootstrap/scss/functions';
 @import '~bootstrap/scss/variables';
 $font-size-h1: 2rem;
 
-@import '~bootstrap/scss/normalize';
 @import '~bootstrap/scss/reboot';
 @import '~bootstrap/scss/type';
 @import '~bootstrap/scss/grid';
@@ -30,16 +30,25 @@ h1 {
     margin: 1rem 0;
 }
 
+.navbar {
+    justify-content: start;
+}
+
+.navbar-toggler {
+    width: 2.5em;
+    height: 2em;
+    padding: 0.5rem 0.75rem;
+}
+
 
 .navbar-brand {
-    float: none;
     margin-left: 1rem;
 }
 
 .navbar-nav {
-    display: block;
     margin: 1rem;
     padding: 0;
+    width: 100%;
 }
 
 .navbar-nav-item {

@@ -71,12 +71,12 @@ export class App extends Component {
 
         return (
             <div>
-                <nav className="navbar navbar-dark bg-inverse">
+                <nav className="navbar navbar-dark bg-dark">
                     <button
                         type="button"
                         className="navbar-toggler"
                         onClick={ this.handleToggle }
-                        >
+                    >
                         <svg className="icon-menu">
                             <use xlinkHref="#icon-menu" />
                         </svg>

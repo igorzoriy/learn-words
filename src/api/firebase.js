@@ -1,3 +1,4 @@
+/* eslint complexity: [2, 16] */
 import firebase from 'firebase'
 import {
     STATUS_REQUEST,

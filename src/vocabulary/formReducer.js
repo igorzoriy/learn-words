@@ -1,4 +1,4 @@
-/* eslint complexity: [2, 22] */
+/* eslint complexity: [2, 26] */
 import merge from 'lodash/merge'
 import {
     STATUS_INIT,

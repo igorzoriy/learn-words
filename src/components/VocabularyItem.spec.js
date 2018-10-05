@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactShallowRenderer from 'react-test-renderer/shallow'
+import { Link } from 'react-router-dom'
 import VocabularyItem from './VocabularyItem'
 
 function setup () {
@@ -36,7 +37,7 @@ describe('VocabularyItem component', () => {
         expect(translation.props.className).toBe('list-item-translation')
         expect(translation.props.children).toBe('get trans')
 
-        expect(edit.type.displayName).toBe('Link')
+        expect(edit.type).toBe(Link)
         expect(edit.props.to).toBe('/vocabulary/edit/id')
         expect(edit.props.className).toBe('list-item-control')
 

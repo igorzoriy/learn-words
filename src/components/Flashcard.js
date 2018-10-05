@@ -3,7 +3,7 @@ import PropTypes from 'prop-types'
 import Component from './Component'
 import Hammer from 'react-hammerjs'
 import { DIRECTION_LEFT, DIRECTION_RIGHT } from 'hammerjs'
-import { Link } from 'react-router'
+import { Link } from 'react-router-dom'
 import classnames from 'classnames'
 
 export default class Flashcard extends Component {

@@ -12,6 +12,7 @@ import {
 describe('account reducer', () => {
     it('should return initial state', () => {
         expect(reducer(undefined, {})).toEqual({
+            isLoading: true,
             isAnonymous: true,
             uid: null,
             error: '',
@@ -29,6 +30,7 @@ describe('account reducer', () => {
             },
         })
         expect(state).toEqual({
+            isLoading: false,
             isAnonymous: false,
             uid: 'unique-id1',
             error: '',
@@ -46,11 +48,9 @@ describe('account reducer', () => {
                 },
             },
         })
-        expect(state).toEqual({
-            isAnonymous: false,
-            uid: 'unique-id2',
-            error: '',
-        })
+        expect(state.isAnonymous).toBe(false)
+        expect(state.uid).toBe('unique-id2')
+        expect(state.error).toBe('')
     })
 
     it('should handle ACTION_LOGOUT', () => {

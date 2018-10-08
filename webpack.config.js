@@ -9,6 +9,9 @@ module.exports = {
             filename: "[name].css",
         }),
     ],
+    resolve: {
+        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+    },
     mode: process.env.NODE_ENV,
     devtool: devMode ? 'inline-source-map' : '',
     context: __dirname,
@@ -23,6 +26,10 @@ module.exports = {
     },
     module: {
         rules: [
+            {
+                test: /\.tsx?$/,
+                use: ['awesome-typescript-loader'],
+            },
             {
                 test: /\.js$/,
                 use: ['babel-loader'],

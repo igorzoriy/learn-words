@@ -1,6 +1,6 @@
-import React from 'react'
+import * as React from "react"
 
-const Preloader = () => {
+const Preloader: React.StatelessComponent<{}> = () => {
     return (
         <div className="preloader">
             <svg className="preloader-image">
@@ -9,7 +9,5 @@ const Preloader = () => {
         </div>
     )
 }
-
-Preloader.displayName = 'Preloader'
 
 export default Preloader

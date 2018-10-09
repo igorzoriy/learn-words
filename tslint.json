@@ -10,6 +10,11 @@
             true,
             "never"
         ],
+        "no-empty": [
+            true,
+            "allow-empty-functions"
+        ],
+        "object-literal-sort-keys": false,
         "jsx-wrap-multiline": false
     },
     "rulesDirectory": []

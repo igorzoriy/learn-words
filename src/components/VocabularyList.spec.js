@@ -22,8 +22,7 @@ function setup (items) {
 describe('VocabularyList component', () => {
     it('should render empty list correctly', () => {
         const { output } = setup([])
-
-        expect(output.type.displayName).toBe('EmptyList')
+        expect(output.type.name).toBe('EmptyList')
     })
 
     it('should render list correctly', () => {

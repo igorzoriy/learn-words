@@ -6,8 +6,7 @@ import {
     STATUS_FAILURE,
 } from './constants'
 import {
-    ACTION_LOGIN,
-    ACTION_LOGOUT,
+    ActionTypes,
 } from '../account/actions'
 import {
     ACTION_ADD_VOCABULARY_ITEM,
@@ -25,10 +24,10 @@ export function createFirebaseMiddleware (config) {
             const { type, status, params } = action
 
             let promise = null
-            if (type === ACTION_LOGIN && !status) {
+            if (type === ActionTypes.Login && !status) {
                 const provider = new firebase.auth.FacebookAuthProvider()
                 promise = firebase.auth().signInWithPopup(provider)
-            } else if (type === ACTION_LOGOUT && !status) {
+            } else if (type === ActionTypes.Logout && !status) {
                 promise = firebase.auth().signOut()
             } else if (type === ACTION_FETCH_VOCABULARY_ITEMS && !status) {
                 const uid = getState().account.uid
@@ -70,6 +69,7 @@ export function createFirebaseMiddleware (config) {
                         status: STATUS_SUCCESS,
                         params,
                         data,
+                        payload: data,
                     })
                 },
                 (data) => {

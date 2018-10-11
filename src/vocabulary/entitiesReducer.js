@@ -1,10 +1,5 @@
 import keys from 'lodash/keys'
-import {
-    ACTION_FETCH_VOCABULARY_ITEMS,
-    ACTION_ADD_VOCABULARY_ITEM,
-    ACTION_EDIT_VOCABULARY_ITEM,
-    ACTION_REMOVE_VOCABULARY_ITEM,
-} from './actions'
+import { ActionTypes } from './actions'
 import {
     STATUS_INIT,
     STATUS_SUCCESS,
@@ -20,7 +15,7 @@ export default (state = initialState, action) => {
     const { type, status, params, data } = action
     let nextState = {}
     switch (type) {
-        case ACTION_FETCH_VOCABULARY_ITEMS:
+        case ActionTypes.Fetch:
             nextState.status = status
             if (status === STATUS_SUCCESS) {
                 nextState.ids = keys(data)
@@ -28,7 +23,7 @@ export default (state = initialState, action) => {
             }
             return Object.assign({}, state, nextState)
 
-        case ACTION_ADD_VOCABULARY_ITEM:
+        case ActionTypes.AddItem:
             if (status === STATUS_SUCCESS) {
                 let id = data.key
                 nextState = Object.assign({}, state)
@@ -41,7 +36,7 @@ export default (state = initialState, action) => {
             }
             return state
 
-        case ACTION_EDIT_VOCABULARY_ITEM:
+        case ActionTypes.EditItem:
             if (status === STATUS_SUCCESS && state.hash[params.id]) {
                 nextState = Object.assign({}, state)
                 nextState.hash[params.id].phrase = params.phrase
@@ -50,7 +45,7 @@ export default (state = initialState, action) => {
             }
             return state
 
-        case ACTION_REMOVE_VOCABULARY_ITEM:
+        case ActionTypes.RemoveItem:
             if (status === STATUS_SUCCESS) {
                 nextState = Object.assign({}, state)
                 nextState.ids.splice(state.ids.indexOf(params.id), 1)

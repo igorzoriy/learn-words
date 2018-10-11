@@ -8,7 +8,7 @@ import FormSubmit from '../components/FormSubmit'
 export class EditItemPage extends AddItemPage {
     constructor (props) {
         super(props)
-        const { dispatch, routeParams: { id } } = props
+        const { dispatch, match: { params: { id } } } = props
         dispatch(fillVocabularyForm(id))
     }
 
@@ -20,7 +20,7 @@ export class EditItemPage extends AddItemPage {
 
     handleFormSubmit = (e) => {
         e.preventDefault()
-        const { dispatch, phrase, translation, routeParams: { id } } = this.props
+        const { dispatch, phrase, translation, match: { params: { id } } } = this.props
         dispatch(editVocabularyItem(id, phrase, translation))
     }
 

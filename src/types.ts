@@ -1,13 +1,14 @@
 export enum Statuses {
-    Init = "INIT",
-    Request = "REQUEST",
-    Success = "SUCCESS",
-    Failure = "FAILURE",
+    Init = "statuses/init",
+    Request = "statuses/request",
+    Success = "statuses/success",
+    Failure = "statuses/failure",
 }
 
-export interface IAction<Payload> {
+export interface IAction<Params = {}, Payload = {}> {
     type: string
     status?: Statuses
+    params?: Params
     payload?: Payload
 }
 

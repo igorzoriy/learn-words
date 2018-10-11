@@ -1,16 +1,6 @@
 import reducer from './entitiesReducer'
-import {
-    ACTION_FETCH_VOCABULARY_ITEMS,
-    ACTION_EDIT_VOCABULARY_ITEM,
-    ACTION_REMOVE_VOCABULARY_ITEM,
-} from './actions'
-import {
-    STATUS_INIT,
-    STATUS_REQUEST,
-    STATUS_FAILURE,
-    STATUS_SUCCESS,
-} from '../api/constants'
-
+import { ActionTypes } from './actions'
+import { Statuses } from "../types"
 
 const testIds = ['id1', 'id2', 'id3']
 const testHash = {
@@ -31,36 +21,36 @@ const testHash = {
 describe('vocabulary entities reducer', () => {
     it('should return initial state', () => {
         expect(reducer(undefined, {})).toEqual({
-            status: STATUS_INIT,
+            status: Statuses.Init,
             ids: [],
             hash: {},
         })
     })
 
-    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_REQUEST', () => {
+    it('should handle fetch action with request status', () => {
         const state = reducer(undefined, {
-            type: ACTION_FETCH_VOCABULARY_ITEMS,
-            status: STATUS_REQUEST,
+            type: ActionTypes.Fetch,
+            status: Statuses.Request,
         })
-        expect(state.status).toBe(STATUS_REQUEST)
+        expect(state.status).toBe(Statuses.Request)
     })
 
-    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_FAILURE', () => {
+    it('should handle fetch action with failure status', () => {
         const state = reducer(undefined, {
-            type: ACTION_FETCH_VOCABULARY_ITEMS,
-            status: STATUS_FAILURE,
+            type: ActionTypes.Fetch,
+            status: Statuses.Failure,
         })
-        expect(state.status).toBe(STATUS_FAILURE)
+        expect(state.status).toBe(Statuses.Failure)
     })
 
-    it('should handle ACTION_FETCH_VOCABULARY_ITEMS with STATUS_SUCCESS', () => {
+    it('should handle fetch action with success status', () => {
         let state = reducer(undefined, {
-            type: ACTION_FETCH_VOCABULARY_ITEMS,
-            status: STATUS_SUCCESS,
+            type: ActionTypes.Fetch,
+            status: Statuses.Success,
             data: testHash,
         })
         expect(state).toEqual({
-            status: STATUS_SUCCESS,
+            status: Statuses.Success,
             ids: testIds,
             hash: testHash,
         })
@@ -74,24 +64,24 @@ describe('vocabulary entities reducer', () => {
                 },
             },
         }, {
-            type: ACTION_FETCH_VOCABULARY_ITEMS,
-            status: STATUS_SUCCESS,
+            type: ActionTypes.Fetch,
+            status: Statuses.Success,
             data: testHash,
         })
         expect(state.ids).not.toContain('id0')
         expect(state.hash.id0).toBeUndefined()
         expect(state).toEqual({
-            status: STATUS_SUCCESS,
+            status: Statuses.Success,
             ids: testIds,
             hash: testHash,
         })
     })
 
-    it('should handle ACTION_EDIT_VOCABULARY_ITEM with STATUS_SUCCESS', () => {
+    it('should handle edit item action with success status', () => {
         let initialState, state
         let action = {
-            type: ACTION_EDIT_VOCABULARY_ITEM,
-            status: STATUS_SUCCESS,
+            type: ActionTypes.EditItem,
+            status: Statuses.Success,
             params: {
                 id: 'id3',
                 phrase: 'edited-phrase3',
@@ -100,7 +90,7 @@ describe('vocabulary entities reducer', () => {
         }
 
         initialState = {
-            status: STATUS_INIT,
+            status: Statuses.Init,
             ids: [],
             hash: {},
         }
@@ -116,15 +106,15 @@ describe('vocabulary entities reducer', () => {
         expect(state.hash.id3.translation).toBe('edited-translation3')
     })
 
-    it('should handle ACTION_REMOVE_VOCABULARY_ITEM with STATUS_SUCCESS', () => {
+    it('should handle remove item action with success status', () => {
         const initialState = {
             ids: testIds,
             hash: testHash,
         }
 
         const state = reducer(initialState, {
-            type: ACTION_REMOVE_VOCABULARY_ITEM,
-            status: STATUS_SUCCESS,
+            type: ActionTypes.RemoveItem,
+            status: Statuses.Success,
             params: {
                 id: 'id2',
             },

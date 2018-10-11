@@ -5,16 +5,8 @@ import {
     STATUS_SUCCESS,
     STATUS_FAILURE,
 } from './constants'
-import {
-    ActionTypes,
-} from '../account/actions'
-import {
-    ACTION_ADD_VOCABULARY_ITEM,
-    ACTION_EDIT_VOCABULARY_ITEM,
-    ACTION_REMOVE_VOCABULARY_ITEM,
-    ACTION_FILL_VOCABULARY_FORM,
-    ACTION_FETCH_VOCABULARY_ITEMS,
-} from '../vocabulary/actions'
+import { ActionTypes as AccountActionTypes } from '../account/actions'
+import { ActionTypes as VocabularyActionTypes } from '../vocabulary/actions'
 
 export function createFirebaseMiddleware (config) {
     firebase.initializeApp(config)
@@ -24,24 +16,24 @@ export function createFirebaseMiddleware (config) {
             const { type, status, params } = action
 
             let promise = null
-            if (type === ActionTypes.Login && !status) {
+            if (type === AccountActionTypes.Login && !status) {
                 const provider = new firebase.auth.FacebookAuthProvider()
                 promise = firebase.auth().signInWithPopup(provider)
-            } else if (type === ActionTypes.Logout && !status) {
+            } else if (type === AccountActionTypes.Logout && !status) {
                 promise = firebase.auth().signOut()
-            } else if (type === ACTION_FETCH_VOCABULARY_ITEMS && !status) {
+            } else if (type === VocabularyActionTypes.Fetch && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary`).once('value')
-            } else if (type === ACTION_ADD_VOCABULARY_ITEM && !status) {
+            } else if (type === VocabularyActionTypes.AddItem && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary`).push(params)
-            } else if (type === ACTION_REMOVE_VOCABULARY_ITEM && !status) {
+            } else if (type === VocabularyActionTypes.RemoveItem && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary/${params.id}`).remove()
-            } else if (type === ACTION_FILL_VOCABULARY_FORM && !status) {
+            } else if (type === VocabularyActionTypes.FillForm && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary/${params.id}`).once('value')
-            } else if (type === ACTION_EDIT_VOCABULARY_ITEM && !status) {
+            } else if (type === VocabularyActionTypes.EditItem && !status) {
                 const uid = getState().account.uid
                 promise = firebase.database().ref(`/${uid}/vocabulary/${params.id}`).update({
                     phrase: params.phrase,

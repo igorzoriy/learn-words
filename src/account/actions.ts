@@ -1,9 +1,9 @@
 import { IAction, IUser } from "../types"
 
 export enum ActionTypes {
-    Login = "LOGIN",
-    Logout = "LOGOUT",
-    UpdateUserData = "UPDATE_USER_DATA",
+    Login = "account/login",
+    Logout = "account/logout",
+    UpdateUserData = "account/update-user-data",
 }
 
 export interface IPayload {
@@ -11,19 +11,19 @@ export interface IPayload {
     message?: string
 }
 
-export const login = (): IAction<{}> => {
+export const login = (): IAction => {
     return {
         type: ActionTypes.Login,
     }
 }
 
-export const logout = (): IAction<{}> => {
+export const logout = (): IAction => {
     return {
         type: ActionTypes.Logout,
     }
 }
 
-export const updateUserData = (user: IUser): IAction<IPayload> => {
+export const updateUserData = (user: IUser): IAction<{}, IPayload> => {
     return {
         type: ActionTypes.UpdateUserData,
         payload: {

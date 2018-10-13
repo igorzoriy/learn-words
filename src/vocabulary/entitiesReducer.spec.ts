@@ -1,33 +1,35 @@
-import reducer from './entitiesReducer'
-import { ActionTypes } from './actions'
 import { Statuses } from "../types"
+import { ActionTypes } from "./actions"
+import reducer from "./entitiesReducer"
 
-const testIds = ['id1', 'id2', 'id3']
+const testIds = ["id1", "id2", "id3"]
 const testHash = {
     id1: {
-        phrase: 'phrase1',
-        translation: 'translation1',
+        phrase: "phrase1",
+        translation: "translation1",
     },
     id2: {
-        phrase: 'phrase2',
-        translation: 'translation2',
+        phrase: "phrase2",
+        translation: "translation2",
     },
     id3: {
-        phrase: 'phrase3',
-        translation: 'translation3',
+        phrase: "phrase3",
+        translation: "translation3",
     },
 }
 
-describe('vocabulary entities reducer', () => {
-    it('should return initial state', () => {
-        expect(reducer(undefined, {})).toEqual({
+describe("vocabulary entities reducer", () => {
+    it("should return initial state", () => {
+        expect(reducer(undefined, {
+            type: "init",
+        })).toEqual({
             status: Statuses.Init,
             ids: [],
             hash: {},
         })
     })
 
-    it('should handle fetch action with request status', () => {
+    it("should handle fetch action with request status", () => {
         const state = reducer(undefined, {
             type: ActionTypes.Fetch,
             status: Statuses.Request,
@@ -35,7 +37,7 @@ describe('vocabulary entities reducer', () => {
         expect(state.status).toBe(Statuses.Request)
     })
 
-    it('should handle fetch action with failure status', () => {
+    it("should handle fetch action with failure status", () => {
         const state = reducer(undefined, {
             type: ActionTypes.Fetch,
             status: Statuses.Failure,
@@ -43,11 +45,13 @@ describe('vocabulary entities reducer', () => {
         expect(state.status).toBe(Statuses.Failure)
     })
 
-    it('should handle fetch action with success status', () => {
+    it("should handle fetch action with success status", () => {
         let state = reducer(undefined, {
             type: ActionTypes.Fetch,
             status: Statuses.Success,
-            data: testHash,
+            payload: {
+                list: testHash,
+            },
         })
         expect(state).toEqual({
             status: Statuses.Success,
@@ -56,19 +60,22 @@ describe('vocabulary entities reducer', () => {
         })
 
         state = reducer({
-            ids: ['id0'],
+            status: Statuses.Success,
+            ids: ["id0"],
             hash: {
                 id0: {
-                    phrase: 'phrase0',
-                    translation: 'translation0',
+                    phrase: "phrase0",
+                    translation: "translation0",
                 },
             },
         }, {
             type: ActionTypes.Fetch,
             status: Statuses.Success,
-            data: testHash,
+            payload: {
+                list: testHash,
+            },
         })
-        expect(state.ids).not.toContain('id0')
+        expect(state.ids).not.toContain("id0")
         expect(state.hash.id0).toBeUndefined()
         expect(state).toEqual({
             status: Statuses.Success,
@@ -77,15 +84,16 @@ describe('vocabulary entities reducer', () => {
         })
     })
 
-    it('should handle edit item action with success status', () => {
-        let initialState, state
-        let action = {
+    it("should handle edit item action with success status", () => {
+        let initialState
+        let state
+        const action = {
             type: ActionTypes.EditItem,
             status: Statuses.Success,
             params: {
-                id: 'id3',
-                phrase: 'edited-phrase3',
-                translation: 'edited-translation3',
+                id: "id3",
+                phrase: "edited-phrase3",
+                translation: "edited-translation3",
             },
         }
 
@@ -98,16 +106,18 @@ describe('vocabulary entities reducer', () => {
         expect(state).toEqual(initialState)
 
         initialState = {
+            status: Statuses.Success,
             ids: testIds,
             hash: testHash,
         }
         state = reducer(initialState, action)
-        expect(state.hash.id3.phrase).toBe('edited-phrase3')
-        expect(state.hash.id3.translation).toBe('edited-translation3')
+        expect(state.hash.id3.phrase).toBe("edited-phrase3")
+        expect(state.hash.id3.translation).toBe("edited-translation3")
     })
 
-    it('should handle remove item action with success status', () => {
+    it("should handle remove item action with success status", () => {
         const initialState = {
+            status: Statuses.Success,
             ids: testIds,
             hash: testHash,
         }
@@ -116,10 +126,9 @@ describe('vocabulary entities reducer', () => {
             type: ActionTypes.RemoveItem,
             status: Statuses.Success,
             params: {
-                id: 'id2',
+                id: "id2",
             },
         })
-        expect(state.ids).not.toContain('id2')
-        expect(state.hash.id2).toBeUndefined()
+        expect(state.ids).not.toContain("id2")
     })
 })

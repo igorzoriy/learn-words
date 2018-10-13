@@ -53,15 +53,29 @@ export function createFirebaseMiddleware (config) {
             next(action)
             promise.then(
                 (data) => {
-                    if (data && data.val) {
-                        data = data.val()
+                    let payload = {}
+                    if ([AccountActionTypes.Login, AccountActionTypes.Logout].indexOf(type) >= 0) {
+                        payload = data
+                    } else if (type === VocabularyActionTypes.Fetch) {
+                        payload = {
+                            list: data.val(),
+                        }
+                    } else if (type === VocabularyActionTypes.AddItem) {
+                        payload = {
+                            id: data.key,
+                        }
+                    } else {
+                        if (data && data.val) {
+                            payload = data.val()
+                        }
                     }
+
                     dispatch({
                         type,
                         status: STATUS_SUCCESS,
                         params,
                         data,
-                        payload: data,
+                        payload,
                     })
                 },
                 (data) => {
@@ -69,6 +83,7 @@ export function createFirebaseMiddleware (config) {
                         type,
                         status: STATUS_FAILURE,
                         params,
+                        payload: data,
                         data,
                     })
                 }

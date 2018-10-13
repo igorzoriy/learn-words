@@ -11,6 +11,11 @@ export enum ActionTypes {
     UpdateForm = "vocabulary/update-form",
 }
 
+export interface IItem {
+    phrase: string
+    translation: string
+}
+
 export interface IParams {
     id?: string
     phrase?: string
@@ -18,9 +23,13 @@ export interface IParams {
 }
 
 export interface IPayload {
+    id?: string
     phrase?: string
     translation?: string
     message?: string
+    list?: {
+        [id: string]: IItem,
+    }
 }
 
 export type Action = IAction<IParams, IPayload>

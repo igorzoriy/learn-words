@@ -1,30 +1,30 @@
-import React from 'react'
-import { AddItemPage, mapStateToProps } from './AddItemPage'
-import { connect } from 'react-redux'
-import { fillVocabularyForm, editVocabularyItem } from './actions'
-import PageTitle from '../components/PageTitle'
-import FormSubmit from '../components/FormSubmit'
+import * as React from "react"
+import { connect } from "react-redux"
+import FormSubmit from "../components/FormSubmit"
+import PageTitle from "../components/PageTitle"
+import { editVocabularyItem, fillVocabularyForm } from "./actions"
+import { AddItemPage, IProps, mapStateToProps } from "./AddItemPage"
 
 export class EditItemPage extends AddItemPage {
-    constructor (props) {
+    constructor(props: IProps) {
         super(props)
         const { dispatch, match: { params: { id } } } = props
         dispatch(fillVocabularyForm(id))
     }
 
-    renderTitle () {
+    protected renderTitle() {
         return (
             <PageTitle title="Edit phrase" />
         )
     }
 
-    handleFormSubmit = (e) => {
+    protected handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const { dispatch, phrase, translation, match: { params: { id } } } = this.props
         dispatch(editVocabularyItem(id, phrase, translation))
     }
 
-    renderSubmit () {
+    protected renderSubmit() {
         return (
             <FormSubmit
                 key="submit"

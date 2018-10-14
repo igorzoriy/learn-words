@@ -1,5 +1,6 @@
 import { Statuses } from "../types"
-import { Action, ActionTypes, IItem } from "./actions"
+import { Action, ActionTypes } from "./actions"
+import { IItem } from "./types"
 
 interface IState {
     status: Statuses
@@ -42,6 +43,7 @@ export default (state: IState = initialState, action: Action): IState => {
                 const ids = state.ids.concat(id)
                 const hash = { ...state.hash }
                 hash[id] = {
+                    id,
                     phrase: params.phrase,
                     translation: params.translation,
                 }
@@ -58,6 +60,7 @@ export default (state: IState = initialState, action: Action): IState => {
             if (status === Statuses.Success && state.hash[id]) {
                 const hash = { ...state.hash }
                 hash[id] = {
+                    id,
                     phrase: params.phrase,
                     translation: params.translation,
                 }

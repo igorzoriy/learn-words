@@ -14,8 +14,10 @@
             true,
             "allow-empty-functions"
         ],
+        "member-ordering": false,
         "object-literal-sort-keys": false,
-        "jsx-wrap-multiline": false
+        "jsx-wrap-multiline": false,
+        "jsx-no-multiline-js": false
     },
     "rulesDirectory": []
 }

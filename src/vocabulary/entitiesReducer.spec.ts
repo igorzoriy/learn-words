@@ -5,14 +5,17 @@ import reducer from "./entitiesReducer"
 const testIds = ["id1", "id2", "id3"]
 const testHash = {
     id1: {
+        id: "id1",
         phrase: "phrase1",
         translation: "translation1",
     },
     id2: {
+        id: "id2",
         phrase: "phrase2",
         translation: "translation2",
     },
     id3: {
+        id: "id3",
         phrase: "phrase3",
         translation: "translation3",
     },
@@ -64,6 +67,7 @@ describe("vocabulary entities reducer", () => {
             ids: ["id0"],
             hash: {
                 id0: {
+                    id: "id0",
                     phrase: "phrase0",
                     translation: "translation0",
                 },

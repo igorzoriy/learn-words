@@ -1,5 +1,6 @@
 import { Dispatch } from "redux"
 import { IAction, Statuses } from "../types"
+import { IItem } from "./types"
 
 export enum ActionTypes {
     Fetch = "vocabularity/fetch",
@@ -9,11 +10,6 @@ export enum ActionTypes {
     FillForm = "vocabulary/fill-form",
     ClearForm = "vocabulary/clear-form",
     UpdateForm = "vocabulary/update-form",
-}
-
-export interface IItem {
-    phrase: string
-    translation: string
 }
 
 export interface IParams {

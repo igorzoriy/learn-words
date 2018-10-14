@@ -24,7 +24,7 @@ enum Fields {
     translation = "translation",
 }
 
-export class AddItemPage extends React.Component<IProps> {
+export class AddItemPage extends React.PureComponent<IProps> {
     private phraseRef: React.RefObject<HTMLInputElement>
 
     constructor(props: IProps) {

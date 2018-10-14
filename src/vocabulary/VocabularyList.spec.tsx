@@ -1,11 +1,11 @@
 import * as React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
 import EmptyList from "../components/EmptyList"
-import { IItem } from "./types"
+import { ICard } from "../types"
 import VocabularyItem from "./VocabularyItem"
 import VocabularyList from "./VocabularyList"
 
-function setup(items: IItem[]) {
+function setup(items: ICard[]) {
     const props = {
         items,
         handleRemove: () => {},

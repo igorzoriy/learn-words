@@ -1,12 +1,11 @@
-import { Statuses } from "../types"
+import { ICard, Statuses } from "../types"
 import { Action, ActionTypes } from "./actions"
-import { IItem } from "./types"
 
 interface IState {
     status: Statuses
     ids: string[]
     hash: {
-        [id: string]: IItem,
+        [id: string]: ICard,
     }
 }
 

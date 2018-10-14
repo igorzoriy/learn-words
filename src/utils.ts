@@ -1,4 +1,4 @@
-export function calculateNewPosition (index, length, next = true) {
+export function calculateNewPosition(index: number, length: number, next = true) {
     if (index < 0) {
         return next ? 0 : length - 1
     } else if (index === 0) {
@@ -12,8 +12,8 @@ export function calculateNewPosition (index, length, next = true) {
     }
 }
 
-export function arrayShuffle (array) {
-    let result = array.slice()
+export function arrayShuffle<T>(array: T[]): T[] {
+    const result = array.slice()
     for (let i = 0, j, t; i < result.length; i++) {
         j = Math.floor(Math.random() * result.length)
         t = result[i]
@@ -24,11 +24,11 @@ export function arrayShuffle (array) {
     return result
 }
 
-export function getRandomItemsFromArray (array, count, exclude = []) {
+export function getRandomItemsFromArray<T>(array: T[], count: number, exclude: T[] = []): T[] {
     let i = 1
-    let result = []
+    const result: T[] = []
     while (i <= count) {
-        let item = array[Math.floor(Math.random() * array.length)]
+        const item = array[Math.floor(Math.random() * array.length)]
         if (!result.includes(item) && !exclude.includes(item)) {
             result.push(item)
             i++

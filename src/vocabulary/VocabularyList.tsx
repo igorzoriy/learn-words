@@ -1,10 +1,10 @@
 import * as React from "react"
 import EmptyList from "../components/EmptyList"
-import { IItem } from "./types"
+import { ICard } from "../types"
 import VocabularyItem from "./VocabularyItem"
 
 export interface IProps {
-    items: IItem[]
+    items: ICard[]
     handleRemove(id: string): void
 }
 

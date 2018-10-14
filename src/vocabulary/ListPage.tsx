@@ -4,18 +4,17 @@ import { ThunkDispatch } from "redux-thunk"
 import Alert from "../components/Alert"
 import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"
-import { Statuses } from "../types"
+import { ICard, Statuses } from "../types"
 import { Action, getVocabularyItems, removeVocabularyItem } from "./actions"
-import { IItem } from "./types"
 import VocabularyList from "./VocabularyList"
 
 interface IProps {
     dispatch: ThunkDispatch<{}, {}, Action>
     status: Statuses
-    items: IItem[]
+    items: ICard[]
 }
 
-export class ListPage extends React.Component<IProps> {
+export class ListPage extends React.PureComponent<IProps> {
     constructor(props: IProps) {
         super(props)
 
@@ -28,7 +27,7 @@ export class ListPage extends React.Component<IProps> {
         dispatch(removeVocabularyItem(id))
     }
 
-    public renderList(items: IItem[]) {
+    public renderList(items: ICard[]) {
         return (
             <VocabularyList
                 items={items}

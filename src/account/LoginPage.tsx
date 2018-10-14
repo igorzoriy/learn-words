@@ -15,7 +15,7 @@ export interface IProps {
     error: string
 }
 
-export class LoginPage extends React.Component<IProps> {
+export class LoginPage extends React.PureComponent<IProps> {
     public handleLoginClick = (e: React.MouseEvent) => {
         e.preventDefault()
         this.props.dispatch(login())

@@ -1,9 +1,13 @@
-import { IAction, IUser } from "../types"
+import { IAction } from "../types"
 
 export enum ActionTypes {
     Login = "account/login",
     Logout = "account/logout",
     UpdateUserData = "account/update-user-data",
+}
+
+export interface IUser {
+    uid: string
 }
 
 export interface IPayload {

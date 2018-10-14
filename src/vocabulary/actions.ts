@@ -1,6 +1,5 @@
 import { Dispatch } from "redux"
-import { IAction, Statuses } from "../types"
-import { IItem } from "./types"
+import { IAction, ICard, Statuses } from "../types"
 
 export enum ActionTypes {
     Fetch = "vocabularity/fetch",
@@ -24,7 +23,7 @@ export interface IPayload {
     translation?: string
     message?: string
     list?: {
-        [id: string]: IItem,
+        [id: string]: ICard,
     }
 }
 

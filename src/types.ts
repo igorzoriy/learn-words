@@ -12,6 +12,8 @@ export interface IAction<Params = {}, Payload = {}> {
     payload?: Payload
 }
 
-export interface IUser {
-    uid: string
+export interface ICard {
+    id: string
+    phrase: string
+    translation: string
 }

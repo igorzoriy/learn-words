@@ -1,8 +1,8 @@
 import * as React from "react"
 import { Link } from "react-router-dom"
-import { IItem } from "./types"
+import { ICard } from "../types"
 
-export interface IProps extends IItem {
+export interface IProps extends ICard {
     handleRemove(id: string): void
 }
 

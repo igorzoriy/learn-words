@@ -6,7 +6,7 @@ import Alert from "../components/Alert"
 import FormSubmit from "../components/FormSubmit"
 import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"
-import { Statuses } from "../types"
+import { IStoreState, Statuses } from "../types"
 import { Action, addVocabularyItem, clearVocabularyform, updateVocabularyForm } from "./actions"
 
 export interface IProps {
@@ -142,7 +142,7 @@ export class AddItemPage extends React.PureComponent<IProps> {
     }
 }
 
-export function mapStateToProps(state: any) {
+export function mapStateToProps(state: IStoreState) {
     return state.vocabulary.form
 }
 

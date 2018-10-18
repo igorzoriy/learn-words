@@ -33,7 +33,6 @@
     "history": "^4.7.2",
     "prop-types": "^15.5.8",
     "react": "^16.5.2",
-    "react-addons-shallow-compare": "^15.5.2",
     "react-dom": "^16.5.2",
     "react-hammerjs": "git://github.com/chadams/react-hammerjs#9f22d999b396f3d4f03f3125d845fdfe7c2d6b4f",
     "react-redux": "^5.0.4",

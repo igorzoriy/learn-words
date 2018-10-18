@@ -1,8 +1,7 @@
 import * as React from "react"
 import { connect } from "react-redux"
-import { Dispatch } from "redux"
 import { ThunkDispatch } from "redux-thunk"
-import { ICard, Statuses } from "../types"
+import { ICard, IStoreState, Statuses } from "../types"
 
 import Alert from "../components/Alert"
 import EmptyList from "../components/EmptyList"
@@ -90,7 +89,7 @@ export class FlashcardsPage extends React.PureComponent<IProps> {
     }
 }
 
-function select(state: any) {
+function select(state: IStoreState) {
     const { status, ids, hash } = state.vocabulary.entities
     const { currentId, showFront } = state.flashcards
 

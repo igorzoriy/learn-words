@@ -4,7 +4,7 @@ import { ThunkDispatch } from "redux-thunk"
 import Alert from "../components/Alert"
 import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"
-import { ICard, Statuses } from "../types"
+import { ICard, IStoreState, Statuses } from "../types"
 import { Action, getVocabularyItems, removeVocabularyItem } from "./actions"
 import VocabularyList from "./VocabularyList"
 
@@ -17,9 +17,7 @@ interface IProps {
 export class ListPage extends React.PureComponent<IProps> {
     constructor(props: IProps) {
         super(props)
-
-        const { dispatch } = props
-        dispatch(getVocabularyItems())
+        props.dispatch(getVocabularyItems())
     }
 
     public handleRemove = (id: string) => {
@@ -63,7 +61,7 @@ export class ListPage extends React.PureComponent<IProps> {
     }
 }
 
-function mapStateToProps(state: any) {
+function mapStateToProps(state: IStoreState) {
     const { status, ids, hash } = state.vocabulary.entities
     const items = ids.map((id: string) => ({id, ...hash[id]}))
     return {

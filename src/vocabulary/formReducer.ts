@@ -1,23 +1,9 @@
-import { Statuses } from "../types"
+import { initialStoreState, IVocabularyFormState, Statuses } from "../types"
 import { Action, ActionTypes } from "./actions"
 
-interface IState {
-    status: Statuses
-    phrase: string
-    translation: string
-    errorMessage: string
-    successMessage: string
-}
+const initialState = initialStoreState.vocabulary.form
 
-const initialState: IState = {
-    status: Statuses.Init,
-    phrase: "",
-    translation: "",
-    errorMessage: "",
-    successMessage: "",
-}
-
-export default (state: IState = initialState, action: Action): IState => {
+export default (state: IVocabularyFormState = initialState, action: Action): IVocabularyFormState => {
     const { type, status, params, payload } = action
 
     switch (type) {

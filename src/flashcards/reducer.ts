@@ -1,19 +1,9 @@
-import { IAction } from "../types"
+import { IAction, IFlashcardsState, initialStoreState } from "../types"
 import { ActionTypes, IParams } from "./actions"
 
-interface IState {
-    currentId: string
-    ids: string[]
-    showFront: boolean
-}
+const initialState = initialStoreState.flashcards
 
-const initialState: IState = {
-    currentId: null,
-    ids: [],
-    showFront: true,
-}
-
-export default (state = initialState, action: IAction <IParams>) => {
+export default (state: IFlashcardsState = initialState, action: IAction<IParams>): IFlashcardsState => {
     const { type, params } = action
 
     if (type === ActionTypes.Init) {

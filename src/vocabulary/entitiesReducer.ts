@@ -1,21 +1,9 @@
-import { ICard, Statuses } from "../types"
+import { ICard, initialStoreState, IVocabularyEntitiesState, Statuses } from "../types"
 import { Action, ActionTypes } from "./actions"
 
-interface IState {
-    status: Statuses
-    ids: string[]
-    hash: {
-        [id: string]: ICard,
-    }
-}
+const initialState = initialStoreState.vocabulary.entities
 
-const initialState: IState = {
-    status: Statuses.Init,
-    ids: [],
-    hash: {},
-}
-
-export default (state: IState = initialState, action: Action): IState => {
+export default (state: IVocabularyEntitiesState = initialState, action: Action): IVocabularyEntitiesState => {
     const { type, status, params, payload } = action
 
     switch (type) {
@@ -28,11 +16,18 @@ export default (state: IState = initialState, action: Action): IState => {
                         status,
                     }
                 case Statuses.Success:
+                    const ids = Object.keys(payload.list)
+                    const hash: {
+                        [id: string]: ICard,
+                    } = {}
+                    ids.forEach((id) => {
+                        hash[id] = { ...payload.list[id], id }
+                    })
                     return {
                         ...state,
                         status,
-                        ids: Object.keys(payload.list),
-                        hash: payload.list,
+                        ids,
+                        hash,
                     }
             }
 

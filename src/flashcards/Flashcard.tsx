@@ -3,11 +3,9 @@ import { DIRECTION_LEFT, DIRECTION_RIGHT } from "hammerjs"
 import * as React from "react"
 import * as Hammer from "react-hammerjs"
 import { Link } from "react-router-dom"
+import { ICard } from "../types"
 
-interface IProps {
-    id: string
-    phrase: string
-    translation: string
+interface IProps extends ICard {
     showFront: boolean
     handleTap: () => void
     handleSwipeLeft: () => void

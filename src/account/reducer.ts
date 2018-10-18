@@ -1,21 +1,12 @@
-import { IAction, Statuses } from "../types"
+import { IAccountState, IAction, initialStoreState, Statuses } from "../types"
 import { ActionTypes, IPayload } from "./actions"
 
-interface IState {
-    isLoading: boolean
-    isAnonymous: boolean
-    uid: string
-    error: string
-}
+const initialState = initialStoreState.account
 
-const initialState: IState = {
-    isLoading: true,
-    isAnonymous: true,
-    uid: "",
-    error: "",
-}
-
-export default function accountReducer(state: IState = initialState, action: IAction<{}, IPayload>): IState {
+export default function accountReducer(
+    state: IAccountState = initialState,
+    action: IAction<{}, IPayload>,
+    ): IAccountState {
     const { type, status, payload } = action
 
     if (type === ActionTypes.UpdateUserData) {

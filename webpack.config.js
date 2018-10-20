@@ -1,4 +1,3 @@
-/* eslint-env node */
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 
 const devMode = process.env.NODE_ENV === 'development'
@@ -16,7 +15,7 @@ module.exports = {
     devtool: devMode ? 'inline-source-map' : '',
     context: __dirname,
     entry: {
-        bundle: './src/index.js',
+        bundle: './src/index.tsx',
         styles: `./styles/styles.scss`,
     },
     output: {
@@ -29,10 +28,6 @@ module.exports = {
             {
                 test: /\.tsx?$/,
                 use: ['awesome-typescript-loader'],
-            },
-            {
-                test: /\.js$/,
-                use: ['babel-loader'],
             },
             {
                 test: /\.scss$/,

@@ -1,8 +1,7 @@
 import classnames from "classnames"
-import { DIRECTION_LEFT, DIRECTION_RIGHT } from "hammerjs"
 import * as React from "react"
-import * as Hammer from "react-hammerjs"
 import { Link } from "react-router-dom"
+import * as Swipable from "react-swipeable"
 import { ICard } from "../types"
 
 interface IProps extends ICard {
@@ -13,21 +12,15 @@ interface IProps extends ICard {
 }
 
 export default class Flashcard extends React.PureComponent<IProps> {
-    public handleSwipe = (e: HammerInput) => {
-        const { handleSwipeLeft, handleSwipeRight } = this.props
-        if (e.direction === DIRECTION_LEFT) {
-            handleSwipeLeft()
-        } else if (e.direction === DIRECTION_RIGHT) {
-            handleSwipeRight()
-        }
+    private handleTap = (e: React.TouchEvent) => {
+        e.preventDefault()
+        this.props.handleTap()
     }
 
-    public renderControls() {
-        const { id } = this.props
-
+    private renderControls() {
         return (
             <div className="card-controls">
-                <Link to={`/vocabulary/edit/${id}`} className="card-controls-edit">
+                <Link to={`/vocabulary/edit/${this.props.id}`} className="card-controls-edit">
                     <svg className="icon-edit">
                         <use xlinkHref="#icon-edit" />
                     </svg>
@@ -36,7 +29,7 @@ export default class Flashcard extends React.PureComponent<IProps> {
         )
     }
 
-    public rendeNotice() {
+    private rendeNotice() {
         return (
             <div className="card-notice">
                 <span>swipe left</span>
@@ -47,13 +40,18 @@ export default class Flashcard extends React.PureComponent<IProps> {
     }
 
     public render() {
-        const { phrase, translation, showFront, handleTap } = this.props
+        const { phrase, translation, showFront, handleSwipeLeft, handleSwipeRight } = this.props
         const flipperClassName = classnames("card-flipper", {
             flipped: !showFront,
         })
 
         return (
-            <Hammer onTap={handleTap} onSwipe={this.handleSwipe}>
+            <Swipable
+                trackMouse={true}
+                onTap={this.handleTap}
+                onSwipedLeft={handleSwipeLeft}
+                onSwipedRight={handleSwipeRight}
+            >
                 <div className="card">
                     <div className={flipperClassName}>
                         <div className="card-front">
@@ -72,7 +70,7 @@ export default class Flashcard extends React.PureComponent<IProps> {
                         </div>
                     </div>
                 </div>
-            </Hammer>
+            </Swipable>
         )
     }
 }

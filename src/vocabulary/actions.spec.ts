@@ -1,4 +1,4 @@
-import { Statuses } from "../types"
+import { initialStoreState, IStoreState, Statuses } from "../types"
 import {
     ActionTypes,
     addVocabularyItem,
@@ -20,16 +20,12 @@ describe("vocabulary actions", () => {
 
     it("should create an action to get vocabulary list", () => {
         const dispatch = jest.fn()
-        const getStateService = (ids: number[], status: Statuses) => {
-            return () => {
-                return {
-                    vocabulary: {
-                        entities: {
-                            ids,
-                            status,
-                        },
-                    },
-                }
+        const getStateService = (ids: string[], status: Statuses) => {
+            return (): IStoreState => {
+                const state = { ...initialStoreState}
+                state.vocabulary.entities.ids = ids
+                state.vocabulary.entities.status = status
+                return state
             }
         }
         getVocabularyItems()(dispatch, getStateService([], Statuses.Init))
@@ -37,7 +33,7 @@ describe("vocabulary actions", () => {
             type: ActionTypes.Fetch,
         })
         expect(dispatch).toHaveBeenCalledTimes(1)
-        getVocabularyItems()(dispatch, getStateService([1, 2, 3], Statuses.Success))
+        getVocabularyItems()(dispatch, getStateService(["1", "2", "3"], Statuses.Success))
         expect(dispatch).toHaveBeenCalledTimes(1)
         getVocabularyItems()(dispatch, getStateService([], Statuses.Success))
         expect(dispatch).toHaveBeenCalledTimes(1)

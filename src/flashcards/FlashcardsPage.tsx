@@ -7,7 +7,6 @@ import Alert from "../components/Alert"
 import EmptyList from "../components/EmptyList"
 import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"
-import { getVocabularyItems } from "../vocabulary/actions"
 import {
     flipCurrentFlashcard,
     initFlashcards,
@@ -27,13 +26,7 @@ interface IProps {
 export class FlashcardsPage extends React.PureComponent<IProps> {
     constructor(props: IProps) {
         super(props)
-        props.dispatch(getVocabularyItems())
-    }
-
-    public componentDidUpdate(prevProps: IProps) {
-        if (prevProps.status === Statuses.Request && this.props.status === Statuses.Success) {
-            this.props.dispatch(initFlashcards())
-        }
+        props.dispatch(initFlashcards())
     }
 
     private handleTap = () => {

@@ -50,26 +50,19 @@ function callFetchVocabularity(uid: string) {
     )
 }
 
-export function* fetchVocabularitySaga() {
+export function* getVocabularitySaga() {
     try {
+        const { status } = yield select((state: IStoreState) => state.vocabulary.entities)
+        if (status === Statuses.Success) {
+            return
+        }
+        yield put(fetchVocabularyItems())
         const { uid } = yield select((state: IStoreState) => state.account)
         const { list, message } = yield call(callFetchVocabularity, uid)
         if (list) {
             yield put(fetchVocabularyItemsSuccess(list))
         } else {
             yield put(fetchVocabularyItemsFailure(message))
-        }
-    } catch (err) {
-        yield put(fetchVocabularyItemsFailure(err))
-        console.error(err)
-    }
-}
-
-export function* getVocabularitySaga() {
-    try {
-        const { status } = yield select((state: IStoreState) => state.vocabulary.entities)
-        if (status !== Statuses.Success) {
-            yield put(fetchVocabularyItems())
         }
     } catch (err) {
         console.error(err)

@@ -4,12 +4,11 @@ import { loginSaga, logoutSaga, watchUpdateUserDataSaga } from "./account/sagas"
 import { ActionTypes as ExercisesActionTypes } from "./exercises/actions"
 import { initPhraseTranslationExerciseSaga } from "./exercises/sagas"
 import { ActionTypes as FlashcardsActionTypes } from "./flashcards/actions"
-import { initFlashcardsSaga } from "./flashcards/saga"
+import { initFlashcardsSaga } from "./flashcards/sagas"
 import { ActionTypes as VocabularyActionTypes } from "./vocabulary/actions"
 import {
     addVocabularyItemSaga,
     editVocabularyItemSaga,
-    fetchVocabularitySaga,
     fillVocabularyFormSaga,
     getVocabularitySaga,
     removeVocabularyItemSaga,
@@ -21,7 +20,6 @@ export default function* rootSaga() {
         yield takeLatest(AccountActionTypes.Login, loginSaga),
         yield takeLatest(AccountActionTypes.Logout, logoutSaga),
         yield takeLatest(VocabularyActionTypes.FillForm, fillVocabularyFormSaga),
-        yield takeLatest(VocabularyActionTypes.Fetch, fetchVocabularitySaga),
         yield takeLatest(VocabularyActionTypes.Get, getVocabularitySaga),
         yield takeLatest(VocabularyActionTypes.AddItem, addVocabularyItemSaga),
         yield takeLatest(VocabularyActionTypes.EditItem, editVocabularyItemSaga),

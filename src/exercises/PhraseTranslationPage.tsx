@@ -7,7 +7,6 @@ import EmptyList from "../components/EmptyList"
 import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"
 import { ICard, IExerciseItem, IStoreState, Statuses } from "../types"
-import { getVocabularyItems } from "../vocabulary/actions"
 import {
     addAnswer,
     calculateResult,
@@ -28,14 +27,7 @@ interface IProps {
 export class PhraseTranslationPage extends React.PureComponent<IProps> {
     constructor(props: IProps) {
         super(props)
-        const { dispatch } = props
-        dispatch(getVocabularyItems())
-    }
-
-    public componentDidUpdate(prevProps: IProps) {
-        if (prevProps.status === Statuses.Request && this.props.status === Statuses.Success) {
-            this.handleStart()
-        }
+        this.handleStart()
     }
 
     private handleStart = () => {

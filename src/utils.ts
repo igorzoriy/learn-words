@@ -1,3 +1,19 @@
+import { IAction } from "./types"
+
+export function createReducer(
+    reducerMap: {[id: string]: (state: {}, action: IAction) => any},
+    initialState: {},
+) {
+    return (state = initialState, action: IAction) => {
+        const reducer = reducerMap[action.type]
+
+        if (reducer) {
+            return reducer(state, action)
+        }
+        return state
+    }
+}
+
 export function calculateNewPosition(index: number, length: number, next = true) {
     if (index < 0) {
         return next ? 0 : length - 1

@@ -32,27 +32,24 @@ describe("vocabulary entities reducer", () => {
         })
     })
 
-    it("should handle fetch action with request status", () => {
+    it("should handle fetch action", () => {
         const state = reducer(undefined, {
             type: ActionTypes.Fetch,
-            status: Statuses.Request,
         })
         expect(state.status).toBe(Statuses.Request)
     })
 
-    it("should handle fetch action with failure status", () => {
+    it("should handle fetch failure action", () => {
         const state = reducer(undefined, {
-            type: ActionTypes.Fetch,
-            status: Statuses.Failure,
+            type: ActionTypes.FetchFailure,
         })
         expect(state.status).toBe(Statuses.Failure)
     })
 
-    it("should handle fetch action with success status", () => {
+    it("should handle fetch success action", () => {
         let state = reducer(undefined, {
-            type: ActionTypes.Fetch,
-            status: Statuses.Success,
-            payload: {
+            type: ActionTypes.FetchSuccess,
+            params: {
                 list: testHash,
             },
         })
@@ -73,9 +70,8 @@ describe("vocabulary entities reducer", () => {
                 },
             },
         }, {
-            type: ActionTypes.Fetch,
-            status: Statuses.Success,
-            payload: {
+            type: ActionTypes.FetchSuccess,
+            params: {
                 list: testHash,
             },
         })
@@ -88,12 +84,28 @@ describe("vocabulary entities reducer", () => {
         })
     })
 
-    it("should handle edit item action with success status", () => {
+    it("should handle add item success action", () => {
+        const state = reducer({
+            status: Statuses.Success,
+            ids: testIds,
+            hash: testHash,
+        }, {
+            type: ActionTypes.AddItemSuccess,
+            params: {
+                id: "id5",
+                phrase: "edited-phrase5",
+                translation: "edited-translation5",
+            },
+        })
+        expect(state.hash.id5.phrase).toBe("edited-phrase5")
+        expect(state.hash.id5.translation).toBe("edited-translation5")
+    })
+
+    it("should handle edit item success action", () => {
         let initialState
         let state
         const action = {
-            type: ActionTypes.EditItem,
-            status: Statuses.Success,
+            type: ActionTypes.EditItemSuccess,
             params: {
                 id: "id3",
                 phrase: "edited-phrase3",
@@ -119,7 +131,7 @@ describe("vocabulary entities reducer", () => {
         expect(state.hash.id3.translation).toBe("edited-translation3")
     })
 
-    it("should handle remove item action with success status", () => {
+    it("should handle remove item success action", () => {
         const initialState = {
             status: Statuses.Success,
             ids: testIds,
@@ -127,8 +139,7 @@ describe("vocabulary entities reducer", () => {
         }
 
         const state = reducer(initialState, {
-            type: ActionTypes.RemoveItem,
-            status: Statuses.Success,
+            type: ActionTypes.RemoveItemSuccess,
             params: {
                 id: "id2",
             },

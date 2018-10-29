@@ -1,29 +1,27 @@
-import { IAction, IFlashcardsState, initialStoreState } from "../types"
-import { ActionTypes, IParams } from "./actions"
+import { IFlashcardsState as IState, initialStoreState } from "../types"
+import { createReducer } from "../utils"
+import { ActionTypes, ISetDataAction } from "./actions"
 
 const initialState = initialStoreState.flashcards
 
-export default (state: IFlashcardsState = initialState, action: IAction<IParams>): IFlashcardsState => {
-    const { type, params } = action
-
-    if (type === ActionTypes.Init) {
-        return {
-            ...state,
-            ids: params.ids,
-            currentId: params.ids[0] || null,
-            showFront: true,
-        }
-    } else if (type === ActionTypes.SetCurrentCard) {
-        return {
-            ...state,
-            currentId: params.id,
-        }
-    } else if (type === ActionTypes.FlipCurrentCard) {
-        return {
-            ...state,
-            showFront: !state.showFront,
-        }
-    }
-
-    return state
+const reducerMap = {
+    [ActionTypes.SetData]: (state: IState, { params: { ids } }: ISetDataAction): IState => ({
+        ...state,
+        ids,
+        currentIndex: 0,
+    }),
+    [ActionTypes.NextCard]: (state: IState): IState => ({
+        ...state,
+        currentIndex: state.currentIndex < state.ids.length - 1 ? state.currentIndex + 1 : 0,
+    }),
+    [ActionTypes.PrevCard]: (state: IState): IState => ({
+        ...state,
+        currentIndex: state.currentIndex > 0 ? state.currentIndex - 1 : state.ids.length - 1,
+    }),
+    [ActionTypes.FlipCurrentCard]: (state: IState): IState => ({
+        ...state,
+        showFront: !state.showFront,
+    }),
 }
+
+export default createReducer(reducerMap, initialState)

@@ -1,7 +1,9 @@
 import {
     ActionTypes,
     login,
+    loginFailed,
     logout,
+    logoutSuccess,
     updateUserData,
 } from "./actions"
 
@@ -12,9 +14,24 @@ describe("account actions", () => {
         })
     })
 
+    it("should create an action to failed login", () => {
+        expect(loginFailed("error message")).toEqual({
+            type: ActionTypes.LoginFailed,
+            params: {
+                message: "error message",
+            },
+        })
+    })
+
     it("should create an action to logout", () => {
         expect(logout()).toEqual({
             type: ActionTypes.Logout,
+        })
+    })
+
+    it("should create an action to successful logout", () => {
+        expect(logoutSuccess()).toEqual({
+            type: ActionTypes.LogoutSuccess,
         })
     })
 
@@ -25,9 +42,7 @@ describe("account actions", () => {
 
         expect(updateUserData(user)).toEqual({
             type: ActionTypes.UpdateUserData,
-            payload: {
-                user,
-            },
+            params: user,
         })
     })
 })

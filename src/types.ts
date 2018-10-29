@@ -5,17 +5,25 @@ export enum Statuses {
     Failure = "statuses/failure",
 }
 
-export interface IAction<Params = {}, Payload = {}> {
+export interface IAction {
     type: string,
-    status?: Statuses,
-    params?: Params,
-    payload?: Payload,
+    params?: {},
+}
+
+export interface IFailureAction extends IAction {
+    params: {
+        message: string,
+    },
 }
 
 export interface ICard {
     id: string,
     phrase: string,
     translation: string,
+}
+
+export interface ICardList {
+    [id: string]: ICard,
 }
 
 export interface IExerciseItem {
@@ -48,8 +56,8 @@ export interface IVocabularyFormState {
 }
 
 export interface IFlashcardsState {
-    currentId: string,
     ids: string[],
+    currentIndex: number,
     showFront: boolean,
 }
 
@@ -91,13 +99,13 @@ export const initialStoreState: IStoreState = {
         },
     },
     flashcards: {
-        currentId: null,
         ids: [],
+        currentIndex: -1,
         showFront: true,
     },
     exercises: {
         result: -1,
         items: [],
-        currentIndex: 0,
+        currentIndex: -1,
     },
 }

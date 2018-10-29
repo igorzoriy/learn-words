@@ -1,6 +1,6 @@
 import * as React from "react"
 import { connect } from "react-redux"
-import { ThunkDispatch } from "redux-thunk"
+import { Dispatch } from "redux"
 import Alert from "../components/Alert"
 import Button from "../components/Button"
 import EmptyList from "../components/EmptyList"
@@ -9,15 +9,14 @@ import Preloader from "../components/Preloader"
 import { ICard, IExerciseItem, IStoreState, Statuses } from "../types"
 import { getVocabularyItems } from "../vocabulary/actions"
 import {
-    Action,
     addAnswer,
     calculateResult,
-    initPhraseTranslationExecrise,
+    initPhraseTranslationExercise,
     moveToNextQuestion,
 } from "./actions"
 
 interface IProps {
-    dispatch?: ThunkDispatch<{}, {}, Action>,
+    dispatch: Dispatch,
     status: Statuses,
     result: number,
     items: IExerciseItem[],
@@ -40,7 +39,7 @@ export class PhraseTranslationPage extends React.PureComponent<IProps> {
     }
 
     private handleStart = () => {
-        this.props.dispatch(initPhraseTranslationExecrise())
+        this.props.dispatch(initPhraseTranslationExercise())
     }
 
     public handleAnswer(id: string, variantId: string) {
@@ -167,7 +166,7 @@ export class PhraseTranslationPage extends React.PureComponent<IProps> {
     }
 }
 
-function select(state: IStoreState): IProps {
+function select(state: IStoreState) {
     const { status, hash } = state.vocabulary.entities
     const { items, currentIndex, result } = state.exercises
 

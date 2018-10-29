@@ -1,15 +1,15 @@
 import * as React from "react"
 import { connect } from "react-redux"
-import { ThunkDispatch } from "redux-thunk"
+import { Dispatch } from "redux"
 import Alert from "../components/Alert"
 import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"
 import { ICard, IStoreState, Statuses } from "../types"
-import { Action, getVocabularyItems, removeVocabularyItem } from "./actions"
+import { getVocabularyItems, removeVocabularyItem } from "./actions"
 import VocabularyList from "./VocabularyList"
 
 interface IProps {
-    dispatch: ThunkDispatch<{}, {}, Action>
+    dispatch: Dispatch
     status: Statuses
     items: ICard[]
 }

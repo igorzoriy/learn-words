@@ -21,7 +21,11 @@ export class EditItemPage extends AddItemPage {
     protected handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault()
         const { dispatch, phrase, translation, match: { params: { id } } } = this.props
-        dispatch(editVocabularyItem(id, phrase, translation))
+        dispatch(editVocabularyItem({
+            id,
+            phrase,
+            translation,
+        }))
     }
 
     protected renderSubmit() {

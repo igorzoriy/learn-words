@@ -1,106 +1,75 @@
-import { initialStoreState, IVocabularyFormState, Statuses } from "../types"
-import { Action, ActionTypes } from "./actions"
+import { IFailureAction, initialStoreState, IVocabularyFormState as IState, Statuses } from "../types"
+import { createReducer } from "../utils"
+import { ActionTypes, IFillFormSuccessAction, IItemAction, IUpdateFormAction } from "./actions"
 
 const initialState = initialStoreState.vocabulary.form
 
-export default (state: IVocabularyFormState = initialState, action: Action): IVocabularyFormState => {
-    const { type, status, params, payload } = action
+const reducerMap = {
+    [ActionTypes.ClearForm]: (): IState => ({...initialState}),
+    [ActionTypes.FillForm]: (state: IState): IState => ({
+        ...state,
+        status: Statuses.Request,
+        phrase: "",
+        translation: "",
+        errorMessage: "",
+        successMessage: "",
+    }),
+    [ActionTypes.FillFormFailure]: (state: IState, { params: { message } }: IFailureAction): IState => ({
+        ...state,
+        status: Statuses.Failure,
+        errorMessage: message,
+    }),
+    [ActionTypes.FillFormSuccess]: (state: IState, {params: {phrase, translation}}: IFillFormSuccessAction): IState =>
+    ({
+        ...state,
+        status: Statuses.Success,
+        phrase,
+        translation,
+    }),
+    [ActionTypes.UpdateForm]: (state: IState, {params: {phrase, translation}}: IUpdateFormAction): IState => ({
+        ...state,
+        phrase,
+        translation,
+    }),
+    [ActionTypes.AddItem]: (state: IState, { params: { phrase, translation } }: IItemAction): IState => ({
+        ...state,
+        status: Statuses.Request,
+        phrase,
+        translation,
+        errorMessage: "",
+        successMessage: "",
+    }),
+    [ActionTypes.AddItemFailure]: (state: IState, { params: { message } }: IFailureAction): IState => ({
+        ...state,
+        status: Statuses.Failure,
+        errorMessage: message,
+    }),
+    [ActionTypes.AddItemSuccess]: (state: IState): IState => ({
+        ...state,
+        status: Statuses.Success,
+        phrase: "",
+        translation: "",
+        successMessage: "Item has beed saved successfully.",
+    }),
 
-    switch (type) {
-        case ActionTypes.ClearForm:
-            return initialState
-
-        case ActionTypes.FillForm:
-            switch (status) {
-                case Statuses.Request:
-                    return {
-                        ...state,
-                        status,
-                        phrase: "",
-                        translation: "",
-                        errorMessage: "",
-                        successMessage: "",
-                    }
-                case Statuses.Failure:
-                    return {
-                        ...state,
-                        status,
-                        errorMessage: payload && payload.message ? payload.message : "Item hasn't been fetched.",
-                    }
-                case Statuses.Success:
-                    return {
-                        ...state,
-                        status,
-                        phrase: payload.phrase,
-                        translation: payload.translation,
-                    }
-            }
-
-        case ActionTypes.UpdateForm:
-            return {
-                ...state,
-                phrase: params.phrase,
-                translation: params.translation,
-            }
-
-        case ActionTypes.AddItem:
-            switch (status) {
-                case Statuses.Init:
-                    return initialState
-                case Statuses.Request:
-                    return {
-                        ...state,
-                        status,
-                        phrase: params.phrase,
-                        translation: params.translation,
-                        errorMessage: "",
-                        successMessage: "",
-                    }
-                case Statuses.Failure:
-                    return {
-                        ...state,
-                        status,
-                        errorMessage: payload && payload.message ? payload.message : "Item hasn't been saved.",
-                    }
-                case Statuses.Success:
-                    return {
-                        ...state,
-                        status,
-                        phrase: "",
-                        translation: "",
-                        successMessage: payload && payload.message
-                            ? payload.message
-                            : "Item has beed saved successfully.",
-                    }
-            }
-
-        case ActionTypes.EditItem:
-            switch (status) {
-                case Statuses.Request:
-                    return {
-                        ...state,
-                        status,
-                        phrase: params.phrase,
-                        translation: params.translation,
-                        errorMessage: "",
-                        successMessage: "",
-                    }
-                case Statuses.Failure:
-                    return {
-                        ...state,
-                        status,
-                        errorMessage: payload && payload.message ? payload.message : "Item hasn't been saved.",
-                    }
-                case Statuses.Success:
-                    return {
-                        ...state,
-                        status,
-                        successMessage: payload && payload.message
-                            ? payload.message
-                            : "Item has beed updated successfully.",
-                    }
-            }
-    }
-
-    return state
+    [ActionTypes.EditItem]: (state: IState, { params: { phrase, translation } }: IItemAction): IState => ({
+        ...state,
+        status: Statuses.Request,
+        phrase,
+        translation,
+        errorMessage: "",
+        successMessage: "",
+    }),
+    [ActionTypes.EditItemFailure]: (state: IState, { params: { message } }: IFailureAction): IState => ({
+        ...state,
+        status: Statuses.Failure,
+        errorMessage: message,
+    }),
+    [ActionTypes.EditItemSuccess]: (state: IState, action: IItemAction): IState => ({
+        ...state,
+        status: Statuses.Success,
+        successMessage: "Item has beed updated successfully.",
+    }),
 }
+
+export default createReducer(reducerMap, initialState)

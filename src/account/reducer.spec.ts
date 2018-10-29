@@ -17,7 +17,7 @@ describe("account reducer", () => {
         })
     })
 
-    it("should handle ACTION_UPDATE_USER_DATA", () => {
+    it("should handle update user data action", () => {
         const user = {
             uid: "unique-id1",
         }
@@ -31,24 +31,10 @@ describe("account reducer", () => {
         })
     })
 
-    it("should handle login action", () => {
-        let state = reducer(undefined, {
-            type: ActionTypes.Login,
-            status: Statuses.Success,
-            payload: {
-                user: {
-                    uid: "unique-id2",
-                },
-            },
-        })
-        expect(state.isAnonymous).toBe(false)
-        expect(state.uid).toBe("unique-id2")
-        expect(state.error).toBe("")
-
-        state = reducer(undefined, {
-            type: ActionTypes.Login,
-            status: Statuses.Failure,
-            payload: {
+    it("should handle login failed action", () => {
+        const state = reducer(undefined, {
+            type: ActionTypes.LoginFailed,
+            params: {
                 message: "some error",
             },
         })
@@ -58,8 +44,7 @@ describe("account reducer", () => {
 
     it("should handle logout action", () => {
         const state = reducer(undefined, {
-            type: ActionTypes.Logout,
-            status: Statuses.Success,
+            type: ActionTypes.LogoutSuccess,
         })
         expect(state.uid).toBe("")
     })

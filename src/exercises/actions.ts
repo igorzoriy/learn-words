@@ -1,8 +1,8 @@
-import { Dispatch } from "redux"
-import { IAction, IStoreState } from "../types"
+import { IAction, IExerciseItem } from "../types"
 
 export enum ActionTypes {
-    InitPhraseTranslationExecrise = "exercises/init-phrase-translation",
+    InitPhraseTranslationExercise = "exercises/init-phrase-translation",
+    SetPhraseTranslationExerciseData = "exercises/set-phrase-translation-data",
     AddAnswer = "exercises/add-answer",
     MoveToNextQuestion = "exercises/move-to-next-question",
     CalculateResult = "exercises/calculate-result",
@@ -15,20 +15,35 @@ export interface IParams {
     index?: number,
 }
 
-export type Action = IAction<IParams>
-
-export function initPhraseTranslationExecrise() {
-    return (dispatch: Dispatch, getState: () => IStoreState): Action => {
-        return dispatch({
-            type: ActionTypes.InitPhraseTranslationExecrise,
-            params: {
-                ids: getState().vocabulary.entities.ids,
-            },
-        })
+export const initPhraseTranslationExercise = (): IAction => {
+    return {
+        type: ActionTypes.InitPhraseTranslationExercise,
     }
 }
 
-export function addAnswer(id: string, variantId: string): Action {
+export interface ISetExerciseDataAction extends IAction {
+    params: {
+        items: IExerciseItem[],
+    },
+}
+
+export const setPhraseTranslationExerciseData = (items: IExerciseItem[]): ISetExerciseDataAction => {
+    return {
+        type: ActionTypes.SetPhraseTranslationExerciseData,
+        params: {
+            items,
+        },
+    }
+}
+
+export interface IAddAnswerAction extends IAction {
+    params: {
+        id: string,
+        variantId: string,
+    },
+}
+
+export const addAnswer = (id: string, variantId: string): IAddAnswerAction => {
     return {
         type: ActionTypes.AddAnswer,
         params: {
@@ -38,25 +53,13 @@ export function addAnswer(id: string, variantId: string): Action {
     }
 }
 
-export function moveToNextQuestion() {
-    return (dispatch: Dispatch, getState: () => IStoreState): Action => {
-        const { items, currentIndex } = getState().exercises
-        const index = currentIndex + 1
-
-        if (index === items.length) {
-            return null
-        }
-
-        return dispatch({
-            type: ActionTypes.MoveToNextQuestion,
-            params: {
-                index,
-            },
-        })
+export const moveToNextQuestion = (): IAction => {
+    return {
+        type: ActionTypes.MoveToNextQuestion,
     }
 }
 
-export function calculateResult() {
+export const calculateResult = (): IAction => {
     return {
         type: ActionTypes.CalculateResult,
     }

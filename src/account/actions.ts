@@ -1,8 +1,10 @@
-import { IAction } from "../types"
+import { IAction, IFailureAction } from "../types"
 
 export enum ActionTypes {
     Login = "account/login",
+    LoginFailed = "account/login-failed",
     Logout = "account/logout",
+    LogoutSuccess = "account/logout-success",
     UpdateUserData = "account/update-user-data",
 }
 
@@ -21,17 +23,34 @@ export const login = (): IAction => {
     }
 }
 
+export const loginFailed = (message: string): IFailureAction => {
+    return {
+        type: ActionTypes.LoginFailed,
+        params: {
+            message,
+        },
+    }
+}
+
 export const logout = (): IAction => {
     return {
         type: ActionTypes.Logout,
     }
 }
 
-export const updateUserData = (user: IUser): IAction<{}, IPayload> => {
+export const logoutSuccess = (): IAction => {
+    return {
+        type: ActionTypes.LogoutSuccess,
+    }
+}
+
+export interface IUpdateUserDataAction extends IAction {
+    params: IUser,
+}
+
+export const updateUserData = (user: IUser): IUpdateUserDataAction => {
     return {
         type: ActionTypes.UpdateUserData,
-        payload: {
-            user,
-        },
+        params: user,
     }
 }

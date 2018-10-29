@@ -1,41 +1,27 @@
-import { IAccountState, IAction, initialStoreState, Statuses } from "../types"
-import { ActionTypes, IPayload } from "./actions"
+import { IAccountState as IState, IFailureAction, initialStoreState } from "../types"
+import { createReducer } from "../utils"
+import { ActionTypes, IUpdateUserDataAction } from "./actions"
 
 const initialState = initialStoreState.account
 
-export default function accountReducer(
-    state: IAccountState = initialState,
-    action: IAction<{}, IPayload>,
-    ): IAccountState {
-    const { type, status, payload } = action
-
-    if (type === ActionTypes.UpdateUserData) {
-        return {
-            ...state,
-            isLoading: false,
-            isAnonymous: payload.user ? false : true,
-            uid: payload.user ? payload.user.uid : initialState.uid,
-        }
-    } else if (type === ActionTypes.Login && status === Statuses.Success) {
-        return {
-            ...state,
-            isAnonymous: false,
-            uid: payload.user.uid,
-            error: initialState.error,
-        }
-    } else if (type === ActionTypes.Login && status === Statuses.Failure) {
-        return {
-            ...state,
-            error: payload.message,
-        }
-    } else if (type === ActionTypes.Logout && status === Statuses.Success) {
-        return {
-            ...state,
-            uid: initialState.uid,
-            isAnonymous: true,
-            error: initialState.error,
-        }
-    }
-
-    return state
+const reducerMap = {
+    [ActionTypes.UpdateUserData]: (state: IState, { params: user }: IUpdateUserDataAction): IState => ({
+        ...state,
+        isLoading: false,
+        isAnonymous: user ? false : true,
+        uid: user ? user.uid : initialState.uid,
+        error: "",
+    }),
+    [ActionTypes.LoginFailed]: (state: IState, { params: { message } }: IFailureAction): IState => ({
+        ...state,
+        error: message,
+    }),
+    [ActionTypes.LogoutSuccess]: (state: IState): IState => ({
+        ...state,
+        uid: "",
+        isAnonymous: true,
+        error: "",
+    }),
 }
+
+export default createReducer(reducerMap, initialState)

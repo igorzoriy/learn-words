@@ -3,8 +3,9 @@ import {
     ActionTypes,
     addAnswer,
     calculateResult,
-    initPhraseTranslationExecrise,
+    initPhraseTranslationExercise,
     moveToNextQuestion,
+    setPhraseTranslationExerciseData,
 } from "./actions"
 
 let items: IExerciseItem[]
@@ -36,22 +37,15 @@ describe("exercises actions", () => {
     })
 
     it("should create an action to init phrase translation exercise", () => {
-        const ids = ["1", "2", "3", "4", "5", "6"]
-        const getState = (): IStoreState => {
-            const state = {
-                ...initialStoreState,
-            }
-            state.vocabulary.entities.ids = ids
-            return state
-        }
-        const dispatch = jest.fn()
-        initPhraseTranslationExecrise()(dispatch, getState)
-        const action = dispatch.mock.calls[0][0]
-        expect(action).toEqual({
-            type: ActionTypes.InitPhraseTranslationExecrise,
-            params: {
-                ids,
-            },
+        expect(initPhraseTranslationExercise()).toEqual({
+            type: ActionTypes.InitPhraseTranslationExercise,
+        })
+    })
+
+    it("should create an action to set phrase translation exercise data", () => {
+        expect(setPhraseTranslationExerciseData(items)).toEqual({
+            type: ActionTypes.SetPhraseTranslationExerciseData,
+            params: { items },
         })
     })
 
@@ -66,51 +60,8 @@ describe("exercises actions", () => {
     })
 
     it("should create an action to move to next question", () => {
-        [
-            {
-                currentIndex: 0,
-                expectedIndex: 1,
-                dispatched: true,
-            },
-            {
-                currentIndex: 1,
-                expectedIndex: 2,
-                dispatched: true,
-            },
-            {
-                currentIndex: 2,
-                expectedIndex: 3,
-                dispatched: true,
-            },
-            {
-                currentIndex: 3,
-                expectedIndex: 3,
-                dispatched: false,
-            },
-        ].forEach(({currentIndex, expectedIndex, dispatched}) => {
-            const getState = (): IStoreState => {
-                const state = {
-                    ...initialStoreState,
-                }
-                state.exercises = {
-                    currentIndex,
-                    items,
-                    result: -1,
-                }
-                return state
-            }
-
-            const dispatch = jest.fn()
-            moveToNextQuestion()(dispatch, getState)
-            if (!dispatched) {
-                expect(dispatch).not.toHaveBeenCalled()
-                return
-            }
-
-            const action = dispatch.mock.calls[0][0]
-            expect(dispatch).toHaveBeenCalled()
-            expect(action.type).toBe(ActionTypes.MoveToNextQuestion)
-            expect(action.params.index).toBe(expectedIndex)
+        expect(moveToNextQuestion()).toEqual({
+            type: ActionTypes.MoveToNextQuestion,
         })
     })
 

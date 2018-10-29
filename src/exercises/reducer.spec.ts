@@ -1,4 +1,4 @@
-import { IExerciseItem } from "../types"
+import { IExerciseItem, IExercisesState as IState } from "../types"
 import { ActionTypes } from "./actions"
 import reducer from "./reducer"
 
@@ -45,25 +45,25 @@ describe("exercises reducer", () => {
             type: "init",
         })).toEqual({
             items: [],
-            currentIndex: 0,
+            currentIndex: -1,
             result: -1,
         })
     })
 
-    it("should handle init phrase translation exercise", () => {
-        const state = reducer(undefined, {
-            type: ActionTypes.InitPhraseTranslationExecrise,
+    it("should handle set phrase translation exercise data", () => {
+        const state: IState = reducer(undefined, {
+            type: ActionTypes.SetPhraseTranslationExerciseData,
             params: {
-                ids: ["1", "2", "3", "4", "5"],
+                items,
             },
         })
-        expect(state.items.length).toBe(5)
+        expect(state.items.length).toBe(6)
         expect(state.currentIndex).toBe(0)
         expect(state.result).toBe(-1)
     })
 
     it("should handle add answer action", () => {
-        let state = reducer({
+        let state: IState = reducer({
             items,
             currentIndex: 0,
             result: -1,
@@ -87,15 +87,12 @@ describe("exercises reducer", () => {
     })
 
     it("should handle move to next question action", () => {
-        const state = reducer({
+        const state: IState = reducer({
             items,
             currentIndex: 1,
             result: -1,
         }, {
             type: ActionTypes.MoveToNextQuestion,
-            params: {
-                index: 2,
-            },
         })
         expect(state.currentIndex).toBe(2)
     })

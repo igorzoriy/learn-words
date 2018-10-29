@@ -1,6 +1,6 @@
 import * as React from "react"
 import { connect } from "react-redux"
-import { ThunkDispatch } from "redux-thunk"
+import { Dispatch } from "redux"
 import { ICard, IStoreState, Statuses } from "../types"
 
 import Alert from "../components/Alert"
@@ -9,19 +9,19 @@ import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"
 import { getVocabularyItems } from "../vocabulary/actions"
 import {
-    Action,
     flipCurrentFlashcard,
     initFlashcards,
-    swipeCurrentFlashcard,
+    nextFlashcard,
+    prevFlashcard,
 } from "./actions"
 import Flashcard from "./Flashcard"
 
 interface IProps {
-    dispatch: ThunkDispatch<{}, {}, Action>
+    dispatch: Dispatch
     status: Statuses
     isEmpty: boolean
     showFront: boolean
-    currentCard: ICard
+    card: ICard
 }
 
 export class FlashcardsPage extends React.PureComponent<IProps> {
@@ -41,11 +41,11 @@ export class FlashcardsPage extends React.PureComponent<IProps> {
     }
 
     private handleSwipeLeft = () => {
-        this.props.dispatch(swipeCurrentFlashcard(true))
+        this.props.dispatch(nextFlashcard())
     }
 
     private handleSwipeRight = () => {
-        this.props.dispatch(swipeCurrentFlashcard(false))
+        this.props.dispatch(prevFlashcard())
     }
 
     private renderCardContent(card: ICard, showFront: boolean) {
@@ -60,7 +60,7 @@ export class FlashcardsPage extends React.PureComponent<IProps> {
     }
 
     public render() {
-        const { status, isEmpty, currentCard, showFront } = this.props
+        const { status, isEmpty, card, showFront } = this.props
         const content = []
 
         switch (status) {
@@ -72,7 +72,7 @@ export class FlashcardsPage extends React.PureComponent<IProps> {
                 if (isEmpty) {
                     content.push(<EmptyList key="empty" />)
                 } else {
-                    content.push(this.renderCardContent(currentCard, showFront))
+                    content.push(this.renderCardContent(card, showFront))
                 }
                 break
             case Statuses.Failure:
@@ -90,21 +90,22 @@ export class FlashcardsPage extends React.PureComponent<IProps> {
 }
 
 function select(state: IStoreState) {
-    const { status, ids, hash } = state.vocabulary.entities
-    const { currentId, showFront } = state.flashcards
+    const { status, hash } = state.vocabulary.entities
+    const { ids, currentIndex, showFront } = state.flashcards
 
-    let currentCard = {}
-    if (hash[currentId]) {
-        currentCard = {
-            id: currentId,
-            ...hash[currentId],
+    let card = {}
+    const id = ids[currentIndex]
+    if (hash[id]) {
+        card = {
+            id,
+            ...hash[id],
         }
     }
 
     return {
         status,
         isEmpty: !ids.length,
-        currentCard,
+        card,
         showFront,
     }
 }

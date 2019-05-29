@@ -146,6 +146,7 @@ export class Layout extends React.PureComponent<IProps, IState> {
 
         return (
             <div>
+            <React.StrictMode>
                 <nav className="navbar navbar-dark bg-dark">
                     <button
                         type="button"
@@ -162,6 +163,7 @@ export class Layout extends React.PureComponent<IProps, IState> {
                     {sidebarOpen ? this.renderMenu(isAnonymous) : null}
                 </nav>
                 {this.renderContent(isAnonymous)}
+            </React.StrictMode>
             </div>
         )
     }

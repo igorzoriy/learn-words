@@ -1,27 +1,31 @@
 import { IAction, ICard, ICardList, IFailureAction } from "../types"
 
 export enum ActionTypes {
-    FillForm = "vocabulary/fill-form",
-    FillFormSuccess = "vocabulary/fill-form-success",
-    FillFormFailure = "vocabulary/fill-form-failure",
     ClearForm = "vocabulary/clear-form",
-    UpdateForm = "vocabulary/update-form",
 
     Get = "vocabularity/get",
     Fetch = "vocabularity/fetch",
     FetchSuccess = "vocabularity/fetch-success",
     FetchFailure = "vocabularity/fetch-failure",
+
+    UpdateAddForm = "vocabulary/update-add-form",
     AddItem = "vocabularity/add-item",
     AddItemSuccess = "vocabularity/add-item-success",
     AddItemFailure = "vocabularity/add-item-failure",
+
+    FillEditForm = "vocabulary/fill-edit-form",
+    FillEditFormSuccess = "vocabulary/fill-edit-form-success",
+    FillEditFormFailure = "vocabulary/fill-edit-form-failure",
+    UpdateEditForm = "vocabulary/update-edit-form",
     EditItem = "vocabularity/edit-item",
     EditItemSuccess = "vocabularity/edit-item-success",
     EditItemFailure = "vocabularity/edit-item-failure",
+
     RemoveItem = "vocabularity/remove-item",
     RemoveItemSuccess = "vocabularity/remove-item-success",
 }
 
-export const clearVocabularyform = (): IAction => {
+export const clearVocabularyForm = (): IAction => {
     return {
         type: ActionTypes.ClearForm,
     }
@@ -35,7 +39,7 @@ export interface IFillFormAction extends IAction {
 
 export const fillVocabularyForm = (id: string): IFillFormAction => {
     return {
-        type: ActionTypes.FillForm,
+        type: ActionTypes.FillEditForm,
         params: {
             id,
         },
@@ -48,14 +52,14 @@ export interface IFillFormSuccessAction extends IAction {
 
 export const fillVocabularyFormSuccess = (item: ICard): IFillFormSuccessAction => {
     return {
-        type: ActionTypes.FillFormSuccess,
+        type: ActionTypes.FillEditFormSuccess,
         params: item,
     }
 }
 
 export const fillVocabularyFormFailure = (message: string): IFailureAction => {
     return {
-        type: ActionTypes.FillFormFailure,
+        type: ActionTypes.FillEditFormFailure,
         params: {
             message,
         },
@@ -69,15 +73,21 @@ export interface IUpdateFormAction extends IAction {
     },
 }
 
-export const updateVocabularyForm = (phrase: string, translation: string): IUpdateFormAction => {
-    return {
-        type: ActionTypes.UpdateForm,
-        params: {
-            phrase,
-            translation,
-        },
-    }
-}
+export const updateVocabularyAddForm = (phrase: string, translation: string): IUpdateFormAction => ({
+    type: ActionTypes.UpdateAddForm,
+    params: {
+        phrase,
+        translation,
+    },
+})
+
+export const updateVocabularyEditForm = (phrase: string, translation: string): IUpdateFormAction => ({
+    type: ActionTypes.UpdateEditForm,
+    params: {
+        phrase,
+        translation,
+    },
+})
 
 export const fetchVocabularyItems = (): IAction => {
     return {

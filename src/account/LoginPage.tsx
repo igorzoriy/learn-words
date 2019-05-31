@@ -6,11 +6,13 @@ import { Dispatch } from "redux"
 import Alert from "../components/Alert"
 import Button from "../components/Button"
 import PageTitle from "../components/PageTitle"
+import { IStoreState } from "../types"
 import { login } from "./actions"
 
 export interface IProps {
     dispatch: Dispatch
     location: Location
+    login: () => void
     isAnonymous: boolean
     error: string
 }
@@ -18,7 +20,7 @@ export interface IProps {
 export class LoginPage extends React.PureComponent<IProps> {
     public handleLoginClick = (e: React.MouseEvent) => {
         e.preventDefault()
-        this.props.dispatch(login())
+        this.props.login()
     }
 
     public render() {
@@ -40,11 +42,13 @@ export class LoginPage extends React.PureComponent<IProps> {
     }
 }
 
-function mapStateToProps(state: any) {
-    return {
-        isAnonymous: state.account.isAnonymous,
-        error: state.account.error,
-    }
-}
+const mapStateToProps = (state: IStoreState) => ({
+    isAnonymous: state.account.isAnonymous,
+    error: state.account.error,
+})
 
-export default connect(mapStateToProps)(LoginPage)
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    login: () => dispatch(login()),
+})
+
+export const LoginPageContainer = connect(mapStateToProps, mapDispatchToProps)(LoginPage)

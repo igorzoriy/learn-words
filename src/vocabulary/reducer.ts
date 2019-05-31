@@ -1,8 +1,10 @@
 import { combineReducers } from "redux"
-import entities from "./entitiesReducer"
-import form from "./formReducer"
+import { addReducer as add } from "./addReducer"
+import { editReducer as edit } from "./editReducer"
+import { entitiesReducer as entities } from "./entitiesReducer"
 
 export default combineReducers({
-    form,
+    add,
+    edit,
     entities,
 })

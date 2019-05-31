@@ -15,7 +15,10 @@ import {
 } from "./actions"
 
 interface IProps {
-    dispatch: Dispatch,
+    initPhraseTranslationExercise: () => void,
+    addAnswer: (id: string, variantId: string) => void,
+    moveToNextQuestion: () => void,
+    calculateResult: () => void,
     status: Statuses,
     result: number,
     items: IExerciseItem[],
@@ -27,23 +30,26 @@ interface IProps {
 export class PhraseTranslationPage extends React.PureComponent<IProps> {
     constructor(props: IProps) {
         super(props)
+    }
+
+    public componentDidMount() {
         this.handleStart()
     }
 
     private handleStart = () => {
-        this.props.dispatch(initPhraseTranslationExercise())
+        this.props.initPhraseTranslationExercise()
     }
 
-    public handleAnswer(id: string, variantId: string) {
-        this.props.dispatch(addAnswer(id, variantId))
+    private handleAnswer(id: string, variantId: string) {
+        this.props.addAnswer(id, variantId)
     }
 
     private handleNext = () => {
-        this.props.dispatch(moveToNextQuestion())
+        this.props.moveToNextQuestion()
     }
 
     private handleResult = () => {
-        this.props.dispatch(calculateResult())
+        this.props.calculateResult()
     }
 
     private renderNextButton = () => {
@@ -158,7 +164,7 @@ export class PhraseTranslationPage extends React.PureComponent<IProps> {
     }
 }
 
-function select(state: IStoreState) {
+const mapStateToProps = (state: IStoreState) => {
     const { status, hash } = state.vocabulary.entities
     const { items, currentIndex, result } = state.exercises
 
@@ -185,4 +191,11 @@ function select(state: IStoreState) {
     }
 }
 
-export default connect(select)(PhraseTranslationPage)
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    initPhraseTranslationExercise: () => dispatch(initPhraseTranslationExercise()),
+    addAnswer: (id: string, variantId: string) => dispatch(addAnswer(id, variantId)),
+    moveToNextQuestion: () => dispatch(moveToNextQuestion()),
+    calculateResult: () => dispatch(calculateResult()),
+})
+
+export const PhraseTranslationPageContainer = connect(mapStateToProps, mapDispatchToProps)(PhraseTranslationPage)

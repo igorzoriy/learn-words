@@ -1,6 +1,6 @@
 import { Statuses } from "../types"
 import { ActionTypes } from "./actions"
-import reducer from "./formReducer"
+import { editReducer as reducer } from "./editReducer"
 
 const testInitialState = {
     status: Statuses.Init,
@@ -25,7 +25,7 @@ describe("vocabulary form reducer", () => {
 
     it("should handle should handle fill form action with request status", () => {
         const state = reducer(testInitialState, {
-            type: ActionTypes.FillForm,
+            type: ActionTypes.FillEditForm,
         })
         expect(state.status).toBe(Statuses.Request)
         expect(state.phrase).toBe("")
@@ -36,7 +36,7 @@ describe("vocabulary form reducer", () => {
 
     it("should handle should handle fill form failure action", () => {
         const state = reducer(testInitialState, {
-            type: ActionTypes.FillFormFailure,
+            type: ActionTypes.FillEditFormFailure,
             params: {
                 message: "denied",
             },
@@ -48,7 +48,7 @@ describe("vocabulary form reducer", () => {
 
     it("should handle should handle fill form success action", () => {
         const state = reducer(testInitialState, {
-            type: ActionTypes.FillFormSuccess,
+            type: ActionTypes.FillEditFormSuccess,
             params: {
                 phrase: "fetched-phrase",
                 translation: "fetched-translation",
@@ -63,7 +63,7 @@ describe("vocabulary form reducer", () => {
 
     it("should handle update form action", () => {
         const state = reducer(testInitialState, {
-            type: ActionTypes.UpdateForm,
+            type: ActionTypes.UpdateEditForm,
             params: {
                 phrase: "updated-phrase",
                 translation: "updated-translation",
@@ -71,46 +71,6 @@ describe("vocabulary form reducer", () => {
         })
         expect(state.phrase).toBe("updated-phrase")
         expect(state.translation).toBe("updated-translation")
-    })
-
-    it("should handle add item action", () => {
-        const state = reducer(testInitialState, {
-            type: ActionTypes.AddItem,
-            params: {
-                phrase: "newphrase",
-                translation: "newtranslation",
-            },
-        })
-        expect(state.status).toBe(Statuses.Request)
-        expect(state.phrase).toBe("newphrase")
-        expect(state.translation).toBe("newtranslation")
-        expect(state.errorMessage).toBe("")
-        expect(state.successMessage).toBe("")
-    })
-
-    it("should handle add item failure action", () => {
-        const state = reducer(testInitialState, {
-            type: ActionTypes.AddItemFailure,
-            params: {
-                message: "error message",
-            },
-        })
-        expect(state.status).toBe(Statuses.Failure)
-        expect(state.phrase).toBe("phrase")
-        expect(state.translation).toBe("translation")
-        expect(state.errorMessage).toBe("error message")
-        expect(state.successMessage).toBe("")
-    })
-
-    it("should handle add item success action", () => {
-        const state = reducer(testInitialState, {
-            type: ActionTypes.AddItemSuccess,
-        })
-        expect(state.status).toBe(Statuses.Success)
-        expect(state.phrase).toBe("")
-        expect(state.translation).toBe("")
-        expect(state.errorMessage).toBe("")
-        expect(state.successMessage).toBe("Item has beed saved successfully.")
     })
 
     it("should handle edit item action", () => {

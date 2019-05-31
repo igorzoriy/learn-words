@@ -7,11 +7,9 @@ interface IProps extends RouteProps {
     location?: Location
 }
 
-const PrivateRoute: React.StatelessComponent<IProps> = (props) => {
+export const PrivateRoute: React.StatelessComponent<IProps> = (props) => {
     if (!props.isLoggedIn) {
         return <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
     }
     return <Route {...props} />
 }
-
-export default PrivateRoute

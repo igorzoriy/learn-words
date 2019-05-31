@@ -16,7 +16,10 @@ import {
 import Flashcard from "./Flashcard"
 
 interface IProps {
-    dispatch: Dispatch
+    initFlashcards: () => void
+    flipCurrentFlashcard: () => void
+    prevFlashcard: () => void
+    nextFlashcard: () => void
     status: Statuses
     isEmpty: boolean
     showFront: boolean
@@ -26,19 +29,22 @@ interface IProps {
 export class FlashcardsPage extends React.PureComponent<IProps> {
     constructor(props: IProps) {
         super(props)
-        props.dispatch(initFlashcards())
+    }
+
+    public componentDidMount() {
+        this.props.initFlashcards()
     }
 
     private handleTap = () => {
-        this.props.dispatch(flipCurrentFlashcard())
+        this.props.flipCurrentFlashcard()
     }
 
     private handleSwipeLeft = () => {
-        this.props.dispatch(nextFlashcard())
+        this.props.nextFlashcard()
     }
 
     private handleSwipeRight = () => {
-        this.props.dispatch(prevFlashcard())
+        this.props.prevFlashcard()
     }
 
     private renderCardContent(card: ICard, showFront: boolean) {
@@ -82,7 +88,7 @@ export class FlashcardsPage extends React.PureComponent<IProps> {
     }
 }
 
-function select(state: IStoreState) {
+const mapStateToProps = (state: IStoreState) => {
     const { status, hash } = state.vocabulary.entities
     const { ids, currentIndex, showFront } = state.flashcards
 
@@ -103,4 +109,11 @@ function select(state: IStoreState) {
     }
 }
 
-export default connect(select)(FlashcardsPage)
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    initFlashcards: () => dispatch(initFlashcards()),
+    flipCurrentFlashcard: () => dispatch(flipCurrentFlashcard()),
+    prevFlashcard: () => dispatch(prevFlashcard()),
+    nextFlashcard: () => dispatch(nextFlashcard()),
+})
+
+export const FlashcardsPageContainer = connect(mapStateToProps, mapDispatchToProps)(FlashcardsPage)

@@ -4,7 +4,7 @@ import * as React from "react"
 import { render } from "react-dom"
 import { Provider } from "react-redux"
 import { Router } from "react-router"
-import Layout from "./layout/Layout"
+import { LayoutContainer as Layout } from "./layout/Layout"
 import createStore from "./store"
 
 firebase.initializeApp({

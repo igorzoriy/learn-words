@@ -2,7 +2,7 @@ import * as React from "react"
 import Alert from "../components/Alert"
 import PageTitle from "../components/PageTitle"
 
-const NotFoundPage: React.StatelessComponent = () => {
+export const NotFoundPage: React.StatelessComponent = () => {
     return (
         <div>
             <PageTitle title="Page not found" />
@@ -10,5 +10,3 @@ const NotFoundPage: React.StatelessComponent = () => {
         </div>
     )
 }
-
-export default NotFoundPage

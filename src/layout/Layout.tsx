@@ -4,20 +4,20 @@ import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-
 import { Link } from "react-router-dom"
 import { Dispatch, Store } from "redux"
 import { logout } from "../account/actions"
-import LoginPage from "../account/LoginPage"
+import { LoginPageContainer as LoginPage } from "../account/LoginPage"
 import Preloader from "../components/Preloader"
-import PhraseTranslationExercisePage from "../exercises/PhraseTranslationPage"
-import FlashcardsPage from "../flashcards/FlashcardsPage"
+import { PhraseTranslationPageContainer as PhraseTranslationExercisePage } from "../exercises/PhraseTranslationPage"
+import { FlashcardsPageContainer as FlashcardsPage } from "../flashcards/FlashcardsPage"
 import { IStoreState } from "../types"
-import AddVocabularyItemPage from "../vocabulary/AddItemPage"
-import EditVocabularyItemPage from "../vocabulary/EditItemPage"
+import { AddItemPageContainer as AddVocabularyItemPage } from "../vocabulary/AddItemPage"
+import { EditItemPageContainer as EditVocabularyItemPage } from "../vocabulary/EditItemPage"
 import ListVocabularyItemsPage from "../vocabulary/ListPage"
-import NotFoundPage from "./NotFoundPage"
-import PrivateRoute from "./PrivateRoute"
+import { NotFoundPage } from "./NotFoundPage"
+import { PrivateRoute } from "./PrivateRoute"
 
 interface IProps extends RouteComponentProps {
+    logout: () => void,
     store: Store,
-    dispatch: Dispatch,
     isLoading: boolean,
     isAnonymous: boolean,
 }
@@ -49,7 +49,7 @@ export class Layout extends React.PureComponent<IProps, IState> {
     private handleLogoutClick = (e: React.MouseEvent) => {
         e.preventDefault()
         this.handleMenuItemClick()
-        this.props.dispatch(logout())
+        this.props.logout()
     }
 
     private renderMenu(isAnonymous: boolean) {
@@ -169,11 +169,13 @@ export class Layout extends React.PureComponent<IProps, IState> {
     }
 }
 
-function mapStateToProps(state: IStoreState) {
-    return {
-        isLoading: state.account.isLoading,
-        isAnonymous: state.account.isAnonymous,
-    }
-}
+const mapStateToProps = (state: IStoreState) => ({
+    isLoading: state.account.isLoading,
+    isAnonymous: state.account.isAnonymous,
+})
 
-export default withRouter(connect(mapStateToProps)(Layout))
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    logout: () => dispatch(logout()),
+})
+
+export const LayoutContainer = withRouter(connect(mapStateToProps, mapDispatchToProps)(Layout))

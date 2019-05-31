@@ -48,9 +48,9 @@ export interface IVocabularyEntitiesState {
 }
 
 export interface IVocabularyFormState {
-    status: Statuses,
     phrase: string,
     translation: string,
+    status: Statuses,
     errorMessage: string,
     successMessage: string,
 }
@@ -71,7 +71,8 @@ export interface IStoreState {
     account: IAccountState,
     vocabulary: {
         entities: IVocabularyEntitiesState,
-        form: IVocabularyFormState,
+        add: IVocabularyFormState,
+        edit: IVocabularyFormState,
     },
     flashcards: IFlashcardsState,
     exercises: IExercisesState,
@@ -90,7 +91,14 @@ export const initialStoreState: IStoreState = {
             ids: [],
             hash: {},
         },
-        form: {
+        add: {
+            status: Statuses.Init,
+            phrase: "",
+            translation: "",
+            errorMessage: "",
+            successMessage: "",
+        },
+        edit: {
             status: Statuses.Init,
             phrase: "",
             translation: "",

@@ -1,6 +1,6 @@
 import { Statuses } from "../types"
 import { ActionTypes } from "./actions"
-import reducer from "./entitiesReducer"
+import { entitiesReducer as reducer } from "./entitiesReducer"
 
 const testIds = ["id1", "id2", "id3"]
 const testHash = {

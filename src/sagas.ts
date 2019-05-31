@@ -19,7 +19,7 @@ export default function* rootSaga() {
         yield fork(watchUpdateUserDataSaga),
         yield takeLatest(AccountActionTypes.Login, loginSaga),
         yield takeLatest(AccountActionTypes.Logout, logoutSaga),
-        yield takeLatest(VocabularyActionTypes.FillForm, fillVocabularyFormSaga),
+        yield takeLatest(VocabularyActionTypes.FillEditForm, fillVocabularyFormSaga),
         yield takeLatest(VocabularyActionTypes.Get, getVocabularitySaga),
         yield takeLatest(VocabularyActionTypes.AddItem, addVocabularyItemSaga),
         yield takeLatest(VocabularyActionTypes.EditItem, editVocabularyItemSaga),

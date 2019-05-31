@@ -67,4 +67,4 @@ const reducerMap = {
     },
 }
 
-export default createReducer(reducerMap, initialState)
+export const entitiesReducer = createReducer(reducerMap, initialState)

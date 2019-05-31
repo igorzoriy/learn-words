@@ -1,17 +1,18 @@
 import * as React from "react"
 import { connect } from "react-redux"
-import { match } from "react-router"
 import { Dispatch } from "redux"
 import Alert from "../components/Alert"
-import FormSubmit from "../components/FormSubmit"
 import PageTitle from "../components/PageTitle"
-import Preloader from "../components/Preloader"
 import { IStoreState, Statuses } from "../types"
-import { addVocabularyItem, clearVocabularyform, updateVocabularyForm } from "./actions"
+import {
+    addVocabularyItem,
+    updateVocabularyAddForm,
+} from "./actions"
+import { EditForm } from "./EditForm"
 
-export interface IProps {
-    dispatch: Dispatch
-    match: match<{id: string}>
+interface IProps {
+    addVocabularyItem: (phrase: string, translation: string) => void
+    updateVocabularyAddForm: (phrase: string, translation: string) => void,
     status: Statuses
     phrase: string
     translation: string
@@ -29,8 +30,6 @@ export class AddItemPage extends React.PureComponent<IProps> {
 
     constructor(props: IProps) {
         super(props)
-        const { dispatch } = props
-        dispatch(clearVocabularyform())
         this.phraseRef = React.createRef()
     }
 
@@ -41,109 +40,48 @@ export class AddItemPage extends React.PureComponent<IProps> {
     }
 
     private handleFormChange = (type: Fields, e: React.ChangeEvent<HTMLInputElement>) => {
-        const { dispatch, phrase, translation } = this.props
-        if (type === Fields.phrase) {
-            dispatch(updateVocabularyForm(e.target.value, translation))
-        } else {
-            dispatch(updateVocabularyForm(phrase, e.target.value))
-        }
+        const { phrase, translation } = this.props
+        const { value } = e.target
+        this.props.updateVocabularyAddForm(
+            type === Fields.phrase ? value : phrase,
+            type === Fields.phrase ? translation : value,
+        )
     }
 
-    protected handleFormSubmit = (e: React.FormEvent) => {
+    private handleFormSubmit = (e: React.FormEvent) => {
         e.preventDefault()
-        const { dispatch, phrase, translation } = this.props
-        dispatch(addVocabularyItem(phrase, translation))
-    }
-
-    protected renderTitle() {
-        return (
-            <PageTitle title="Add new phrase" />
-        )
-    }
-
-    private renderPhrase(value: string, disabled = false) {
-        return (
-            <input
-                type="text"
-                className="form-control"
-                ref={this.phraseRef}
-                key="phrase"
-                placeholder="Phrase"
-                required={true}
-                disabled={disabled}
-                value={value}
-                onChange={this.handleFormChange.bind(this, Fields.phrase)}
-            />
-        )
-    }
-
-    private renderTranslation(value: string, disabled = false) {
-        return (
-            <input
-                type="text"
-                className="form-control"
-                key="translation"
-                placeholder="Translation"
-                required={true}
-                disabled={disabled}
-                value={value}
-                onChange={this.handleFormChange.bind(this, Fields.translation)}
-            />
-        )
-    }
-
-    protected renderSubmit() {
-        return (
-            <FormSubmit
-                key="submit"
-                title="Add"
-            />
-        )
+        const { phrase, translation } = this.props
+        this.props.addVocabularyItem(phrase, translation)
     }
 
     public render() {
-        const { status, phrase, translation, errorMessage, successMessage } = this.props
-        const formContent = []
-
-        switch (status) {
-            case Statuses.Init:
-            case Statuses.Failure:
-            case Statuses.Success:
-                formContent.push(
-                    this.renderPhrase(phrase),
-                    this.renderTranslation(translation),
-                    this.renderSubmit(),
-                )
-                break
-
-            case Statuses.Request:
-                formContent.push(
-                    this.renderPhrase(phrase, true),
-                    this.renderTranslation(translation, true),
-                    <Preloader key="preloader" />,
-                )
-                break
-        }
+        const { status, errorMessage, successMessage, phrase, translation } = this.props
 
         return (
             <div>
-                {this.renderTitle()}
-                <form onSubmit={this.handleFormSubmit} method="post">
-                    {formContent}
-                </form>
-                { errorMessage.length ?
-                    <Alert key="error" type="danger" message={errorMessage} /> :
-                    "" }
-                { successMessage.length ?
-                    <Alert key="success" type="success" message={successMessage} /> :
-                    "" }
+                <PageTitle title="Add new phrase" />
+                <EditForm
+                    phraseRef={this.phraseRef}
+                    onPhraseChange={this.handleFormChange.bind(this, Fields.phrase)}
+                    onTranslationChange={this.handleFormChange.bind(this, Fields.translation)}
+                    onSubmit={this.handleFormSubmit}
+                    inProgress={status === Statuses.Request}
+                    phrase={phrase}
+                    translation={translation}
+                />
+                {errorMessage.length > 0 && <Alert key="error" type="danger" message={errorMessage} />}
+                {successMessage.length > 0 && <Alert key="success" type="success" message={successMessage} />}
             </div>
         )
     }
 }
 
-export function mapStateToProps(state: IStoreState) {
-    return state.vocabulary.form
-}
+const mapStateToProps = ({ vocabulary: { add } }: IStoreState) => ({...add})
 
-export default connect(mapStateToProps)(AddItemPage)
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    updateVocabularyAddForm: (phrase: string, translation: string) =>
+        dispatch(updateVocabularyAddForm(phrase, translation)),
+    addVocabularyItem: (phrase: string, translation: string) => dispatch(addVocabularyItem(phrase, translation)),
+})
+
+export const AddItemPageContainer = connect(mapStateToProps, mapDispatchToProps)(AddItemPage)

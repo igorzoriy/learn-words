@@ -3,7 +3,7 @@ import {
     addVocabularyItem,
     addVocabularyItemsFailure,
     addVocabularyItemSuccess,
-    clearVocabularyform,
+    clearVocabularyForm,
     editVocabularyItem,
     editVocabularyItemFailure,
     editVocabularyItemSuccess,
@@ -16,26 +16,25 @@ import {
     getVocabularyItems,
     removeVocabularyItem,
     removeVocabularyItemSuccess,
-    updateVocabularyForm,
 } from "./actions"
 
 describe("vocabulary actions", () => {
     it("should create an action to clear vocabulary form", () => {
-        expect(clearVocabularyform()).toEqual({
+        expect(clearVocabularyForm()).toEqual({
             type: ActionTypes.ClearForm,
         })
     })
 
     it("should create actions to fill vocabulary form", () => {
         expect(fillVocabularyForm("id1")).toEqual({
-            type: ActionTypes.FillForm,
+            type: ActionTypes.FillEditForm,
             params: {
                 id: "id1",
             },
         })
 
         expect(fillVocabularyFormFailure("error message")).toEqual({
-            type: ActionTypes.FillFormFailure,
+            type: ActionTypes.FillEditFormFailure,
             params: {
                 message: "error message",
             },
@@ -46,21 +45,11 @@ describe("vocabulary actions", () => {
             phrase: "ph2",
             translation: "tr2",
         })).toEqual({
-            type: ActionTypes.FillFormSuccess,
+            type: ActionTypes.FillEditFormSuccess,
             params: {
                 id: "id2",
                 phrase: "ph2",
                 translation: "tr2",
-            },
-        })
-    })
-
-    it("should create an action to update vocabulary form", () => {
-        expect(updateVocabularyForm("foo2", "bar2")).toEqual({
-            type: ActionTypes.UpdateForm,
-            params: {
-                phrase: "foo2",
-                translation: "bar2",
             },
         })
     })

@@ -45,8 +45,8 @@ export function* fillVocabularyFormSaga(action: IFillFormAction) {
 
 function callFetchVocabularity(uid: string) {
     return firebase.database().ref(`/${uid}/vocabulary`).once("value").then(
-        (data) => ({ list: data.val() }),
-        (error) => ({ message: error.message }),
+        (data) => ({ list: data.val() || [], message: null }),
+        (error) => ({ list: [], message: error.message }),
     )
 }
 
@@ -59,7 +59,7 @@ export function* getVocabularitySaga() {
         yield put(fetchVocabularyItems())
         const { uid } = yield select((state: IStoreState) => state.account)
         const { list, message } = yield call(callFetchVocabularity, uid)
-        if (list) {
+        if (message === null) {
             yield put(fetchVocabularyItemsSuccess(list))
         } else {
             yield put(fetchVocabularyItemsFailure(message))

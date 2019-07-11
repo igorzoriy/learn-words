@@ -13,7 +13,7 @@ import {
     nextFlashcard,
     prevFlashcard,
 } from "./actions"
-import Flashcard from "./Flashcard"
+import { Flashcard } from "./Flashcard"
 
 interface IProps {
     initFlashcards: () => void
@@ -51,9 +51,9 @@ export class FlashcardsPage extends React.PureComponent<IProps> {
         return <Flashcard
             {...card}
             showFront={showFront}
-            handleTap={this.handleTap}
-            handleSwipeLeft={this.handleSwipeLeft}
-            handleSwipeRight={this.handleSwipeRight}
+            onTap={this.handleTap}
+            onSwipeLeft={this.handleSwipeLeft}
+            onSwipeRight={this.handleSwipeRight}
             key="card"
         />
     }

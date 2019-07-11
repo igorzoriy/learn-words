@@ -1,76 +1,80 @@
 import classnames from "classnames"
-import React from "react"
+import React, { FunctionComponent, TouchEvent } from "react"
 import { Link } from "react-router-dom"
 import Swipable from "react-swipeable"
 import { ICard } from "../types"
 
 interface IProps extends ICard {
+    id: string
+    phrase: string
+    translation: string
     showFront: boolean
-    handleTap: () => void
-    handleSwipeLeft: () => void
-    handleSwipeRight: () => void
+    onTap: () => void
+    onSwipeLeft: () => void
+    onSwipeRight: () => void
 }
 
-export default class Flashcard extends React.PureComponent<IProps> {
-    private handleTap = (e: React.TouchEvent) => {
+const Notice: FunctionComponent = () => (
+    <div className="card-notice">
+        <span>swipe left</span>
+        <span>tap to flip</span>
+        <span>swipe right</span>
+    </div>
+)
+
+const Controls: FunctionComponent<{ id: string }> = ({ id }) => (
+    <div className="card-controls">
+        <Link to={`/vocabulary/edit/${id}`} className="card-controls-edit">
+            <svg className="icon-edit">
+                <use xlinkHref="#icon-edit" />
+            </svg>
+        </Link>
+    </div>
+)
+
+export const Flashcard: FunctionComponent<IProps> = ({
+    id,
+    phrase,
+    translation,
+    showFront,
+    onTap,
+    onSwipeLeft,
+    onSwipeRight,
+}) => {
+    const flipperClassName = classnames("card-flipper", {
+        flipped: !showFront,
+    })
+
+    const handleTap = (e: TouchEvent) => {
         e.preventDefault()
-        this.props.handleTap()
+        onTap()
     }
 
-    private renderControls() {
-        return (
-            <div className="card-controls">
-                <Link to={`/vocabulary/edit/${this.props.id}`} className="card-controls-edit">
-                    <svg className="icon-edit">
-                        <use xlinkHref="#icon-edit" />
-                    </svg>
-                </Link>
-            </div>
-        )
-    }
-
-    private rendeNotice() {
-        return (
-            <div className="card-notice">
-                <span>swipe left</span>
-                <span>tap to flip</span>
-                <span>swipe right</span>
-            </div>
-        )
-    }
-
-    public render() {
-        const { phrase, translation, showFront, handleSwipeLeft, handleSwipeRight } = this.props
-        const flipperClassName = classnames("card-flipper", {
-            flipped: !showFront,
-        })
-
-        return (
-            <Swipable
-                trackMouse={true}
-                onTap={this.handleTap}
-                onSwipedLeft={handleSwipeLeft}
-                onSwipedRight={handleSwipeRight}
-            >
-                <div className="card">
-                    <div className={flipperClassName}>
-                        <div className="card-front">
-                            {this.renderControls()}
-                            <div className="card-title">
-                                {phrase}
-                            </div>
-                            {this.rendeNotice()}
+    return (
+        <Swipable
+            trackMouse={true}
+            onTap={handleTap}
+            onSwipedLeft={onSwipeLeft}
+            onSwipedRight={onSwipeRight}
+        >
+            <div className="card">
+                <div className={flipperClassName}>
+                    <div className="card-front">
+                        <Controls id={id} />
+                        <div className="card-title">
+                            {phrase}
                         </div>
-                        <div className="card-back">
-                            {this.renderControls()}
-                            <div className="card-title">
-                                {translation}
-                            </div>
-                            {this.rendeNotice()}
+                        <Notice />
+                    </div>
+                    <div className="card-back">
+                        <Controls id={id} />
+                        <div className="card-title">
+                            {translation}
                         </div>
+                        <Notice />
                     </div>
                 </div>
-            </Swipable>
-        )
-    }
+            </div>
+        </Swipable>
+    )
 }

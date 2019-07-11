@@ -1,8 +1,8 @@
-import * as React from "react"
+import React from "react"
 import { connect } from "react-redux"
 import { match } from "react-router"
 import { Dispatch } from "redux"
-import Alert from "../components/Alert"
+import { Alert } from "../components/Alert"
 import PageTitle from "../components/PageTitle"
 import { ICard, IStoreState, Statuses } from "../types"
 import {

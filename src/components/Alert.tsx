@@ -1,12 +1,12 @@
-import * as classnames from "classnames"
-import * as React from "react"
+import classnames from "classnames"
+import React from "react"
 
 export interface IProps {
     type?: "info" | "danger" | "success"
     message: string
 }
 
-const Alert: React.StatelessComponent<IProps> = ({ type, message }) => {
+export const Alert: React.FunctionComponent<IProps> = ({ type, message }) => {
     const className = classnames("alert", `alert-${ type }`)
 
     return (
@@ -19,5 +19,3 @@ const Alert: React.StatelessComponent<IProps> = ({ type, message }) => {
 Alert.defaultProps = {
     type: "info",
 }
-
-export default Alert

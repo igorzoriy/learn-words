@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import EmptyList from "../components/EmptyList"
 import { ICard } from "../types"
 import VocabularyItem from "./VocabularyItem"
@@ -8,7 +8,7 @@ export interface IProps {
     handleRemove(id: string): void
 }
 
-const VocabularyList: React.StatelessComponent<IProps> = ({ items, handleRemove }) => {
+const VocabularyList: React.FunctionComponent<IProps> = ({ items, handleRemove }) => {
     if (items.length === 0) {
         return <EmptyList />
     }

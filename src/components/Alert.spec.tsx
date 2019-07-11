@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
-import Alert, { IProps } from "./Alert"
+import { Alert, IProps } from "./Alert"
 
 function setup(props: IProps) {
     const renderer = createRenderer()

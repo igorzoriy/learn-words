@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import { Link } from "react-router-dom"
 import { ICard } from "../types"
 
@@ -6,7 +6,7 @@ export interface IProps extends ICard {
     handleRemove(id: string): void
 }
 
-const VocabularyItem: React.StatelessComponent<IProps> = ({ id, phrase, translation, handleRemove }) => {
+const VocabularyItem: React.FunctionComponent<IProps> = ({ id, phrase, translation, handleRemove }) => {
     return (
         <li className="list-group-item">
             <div className="list-item-phrase">

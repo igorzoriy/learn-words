@@ -1,8 +1,8 @@
-import * as React from "react"
-import Alert from "../components/Alert"
+import React, { FunctionComponent } from "react"
+import { Alert } from "../components/Alert"
 import PageTitle from "../components/PageTitle"
 
-export const NotFoundPage: React.StatelessComponent = () => {
+export const NotFoundPage: FunctionComponent = () => {
     return (
         <div>
             <PageTitle title="Page not found" />

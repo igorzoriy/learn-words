@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 
-const Preloader: React.StatelessComponent<{}> = () => {
+const Preloader: React.FunctionComponent = () => {
     return (
         <div className="preloader">
             <svg className="preloader-image">

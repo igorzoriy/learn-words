@@ -1,6 +1,6 @@
-import * as React from "react"
+import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
-import Alert from "./Alert"
+import { Alert } from "./Alert"
 import EmptyList from "./EmptyList"
 
 function setup() {

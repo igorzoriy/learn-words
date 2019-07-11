@@ -1,9 +1,9 @@
-import * as React from "react"
+import React from "react"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { ICard, IStoreState, Statuses } from "../types"
 
-import Alert from "../components/Alert"
+import { Alert } from "../components/Alert"
 import EmptyList from "../components/EmptyList"
 import PageTitle from "../components/PageTitle"
 import Preloader from "../components/Preloader"

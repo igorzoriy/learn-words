@@ -1,7 +1,7 @@
 import classnames from "classnames"
-import * as React from "react"
+import React from "react"
 import { Link } from "react-router-dom"
-import * as Swipable from "react-swipeable"
+import Swipable from "react-swipeable"
 import { ICard } from "../types"
 
 interface IProps extends ICard {

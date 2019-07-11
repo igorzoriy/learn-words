@@ -1,5 +1,5 @@
-import * as classnames from "classnames"
-import * as React from "react"
+import classnames from "classnames"
+import React from "react"
 
 export interface IProps {
     modifiers?: string[]
@@ -8,18 +8,17 @@ export interface IProps {
     onClick(e: React.MouseEvent<HTMLButtonElement>): void
 }
 
-const Button: React.StatelessComponent<IProps> = ({ modifiers, onClick, disabled, children }) => {
-    return (
-        <button
-            type="button"
-            className={classnames("btn", modifiers)}
-            onClick={onClick}
-            disabled={disabled}
-        >
-            {children}
-        </button>
-    )
-}
+const Button: React.FunctionComponent<IProps> = ({ modifiers, onClick, disabled, children }) => (
+    <button
+        type="button"
+        className={classnames("btn", modifiers)}
+        onClick={onClick}
+        disabled={disabled}
+    >
+        {children}
+    </button>
+)
+
 Button.defaultProps = {
     modifiers: ["btn-info"],
     disabled: false,

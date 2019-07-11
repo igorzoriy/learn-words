@@ -1,10 +1,10 @@
-import * as React from "react"
+import React from "react"
 
 interface IProps {
     title: string
 }
 
-const PageTitle: React.StatelessComponent<IProps> = ({ title }) => {
+const PageTitle: React.FunctionComponent<IProps> = ({ title }) => {
     return (
         <h1>
             {title}

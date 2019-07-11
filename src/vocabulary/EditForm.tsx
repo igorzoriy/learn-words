@@ -1,4 +1,4 @@
-import * as React from "react"
+import React from "react"
 import FormSubmit from "../components/FormSubmit"
 import Preloader from "../components/Preloader"
 
@@ -12,7 +12,7 @@ export interface IProps {
     translation: string
 }
 
-export const EditForm: React.StatelessComponent<IProps> = ({
+export const EditForm: React.FunctionComponent<IProps> = ({
     phraseRef,
     onPhraseChange,
     onTranslationChange,

@@ -1,5 +1,5 @@
 import { Location } from "history"
-import * as React from "react"
+import React, { FunctionComponent } from "react"
 import { Redirect, Route, RouteProps } from "react-router"
 
 interface IProps extends RouteProps {
@@ -7,7 +7,7 @@ interface IProps extends RouteProps {
     location?: Location
 }
 
-export const PrivateRoute: React.StatelessComponent<IProps> = (props) => {
+export const PrivateRoute: FunctionComponent<IProps> = (props) => {
     if (!props.isLoggedIn) {
         return <Redirect to={{ pathname: "/login", state: { from: props.location } }} />
     }

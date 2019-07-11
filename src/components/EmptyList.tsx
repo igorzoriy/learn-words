@@ -1,7 +1,7 @@
-import * as React from "react"
-import Alert from "./Alert"
+import React from "react"
+import { Alert } from "./Alert"
 
-const EmptyList: React.StatelessComponent = () => {
+const EmptyList: React.FunctionComponent = () => {
     return <Alert type="info" message="Your list of phrases is empty." />
 }
 

@@ -11,7 +11,7 @@ import { FlashcardsPageContainer as FlashcardsPage } from "../flashcards/Flashca
 import { IStoreState } from "../types"
 import { AddItemPageContainer as AddVocabularyItemPage } from "../vocabulary/AddItemPage"
 import { EditItemPageContainer as EditVocabularyItemPage } from "../vocabulary/EditItemPage"
-import ListVocabularyItemsPage from "../vocabulary/ListPage"
+import { ListPageContainer as ListVocabularyItemsPage } from "../vocabulary/ListPage"
 import { Menu } from "./Menu"
 import { NotFoundPage } from "./NotFoundPage"
 import { PrivateRoute } from "./PrivateRoute"

@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FunctionComponent, useEffect } from "react"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { Alert } from "../components/Alert"
@@ -12,56 +12,37 @@ interface IProps {
     dispatch: Dispatch
     status: Statuses
     items: ICard[]
+    getItems: () => void
+    removeItem: (id: string) => void
 }
 
-export class ListPage extends React.PureComponent<IProps> {
-    constructor(props: IProps) {
-        super(props)
-        props.dispatch(getVocabularyItems())
-    }
+export const ListPage: FunctionComponent<IProps> = ({ items, status, getItems, removeItem }) => {
+    useEffect(() => {
+        getItems()
+    }, [])
 
-    public handleRemove = (id: string) => {
-        const { dispatch } = this.props
-        dispatch(removeVocabularyItem(id))
-    }
+    const handleRemove = (id: string) => removeItem(id)
 
-    public renderList(items: ICard[]) {
-        return (
-            <VocabularyList
-                items={items}
-                handleRemove={this.handleRemove}
+    return (
+        <div>
+            <PageTitle title="Vocabulary list" />
+            {status === Statuses.Init && <Preloader key="preloader" />}
+            {status === Statuses.Request && <Preloader key="preloader" />}
+            {status === Statuses.Failure && <Alert
+                key="error"
+                type="danger"
+                message="Failed to load vocabulary list."
+            />}
+            {status === Statuses.Success && <VocabularyList
                 key="list"
-            />
-        )
-    }
-
-    public render() {
-        const { items, status } = this.props
-        const content = []
-
-        switch (status) {
-            case Statuses.Init:
-            case Statuses.Request:
-                content.push(<Preloader key="preloader" />)
-                break
-            case Statuses.Success:
-                content.push(this.renderList(items))
-                break
-            case Statuses.Failure:
-                content.push(<Alert key="error" type="danger" message="Failed to load vocabulary list." />)
-                break
-        }
-
-        return (
-            <div>
-                <PageTitle title="Vocabulary list" />
-                {content}
-            </div>
-        )
-    }
+                items={items}
+                handleRemove={handleRemove}
+            />}
+        </div>
+    )
 }
 
-function mapStateToProps(state: IStoreState) {
+const mapStateToProps = (state: IStoreState) => {
     const { status, ids, hash } = state.vocabulary.entities
     const items = ids.map((id: string) => ({id, ...hash[id]}))
     return {
@@ -70,4 +51,9 @@ function mapStateToProps(state: IStoreState) {
     }
 }
 
-export default connect(mapStateToProps)(ListPage)
+const mapDispatchToProps = (dispatch: Dispatch) => ({
+    getItems: () => dispatch(getVocabularyItems()),
+    removeItem: (id: string) => dispatch(removeVocabularyItem(id)),
+})
+
+export const ListPageContainer = connect(mapStateToProps, mapDispatchToProps)(ListPage)

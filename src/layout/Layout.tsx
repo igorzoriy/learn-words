@@ -1,4 +1,4 @@
-import React from "react"
+import React, { FunctionComponent, MouseEvent, StrictMode, useState } from "react"
 import { connect } from "react-redux"
 import { Redirect, Route, RouteComponentProps, Switch, withRouter } from "react-router"
 import { Link } from "react-router-dom"
@@ -12,95 +12,52 @@ import { IStoreState } from "../types"
 import { AddItemPageContainer as AddVocabularyItemPage } from "../vocabulary/AddItemPage"
 import { EditItemPageContainer as EditVocabularyItemPage } from "../vocabulary/EditItemPage"
 import ListVocabularyItemsPage from "../vocabulary/ListPage"
+import { Menu } from "./Menu"
 import { NotFoundPage } from "./NotFoundPage"
 import { PrivateRoute } from "./PrivateRoute"
 
 interface IProps extends RouteComponentProps {
-    logout: () => void,
-    store: Store,
-    isLoading: boolean,
-    isAnonymous: boolean,
+    logout: () => void
+    store: Store
+    isLoading: boolean
+    isAnonymous: boolean
 }
 
-interface IState {
-    sidebarOpen: boolean,
-}
-
-export class Layout extends React.PureComponent<IProps, IState> {
-    constructor(props: IProps) {
-        super(props)
-        this.state = {
-            sidebarOpen: false,
-        }
-    }
-
-    private handleToggle = () => {
-        this.setState({
-            sidebarOpen: !this.state.sidebarOpen,
-        })
-    }
-
-    private handleMenuItemClick = () => {
-        this.setState({
-            sidebarOpen: false,
-        })
-    }
-
-    private handleLogoutClick = (e: React.MouseEvent) => {
+export const Layout: FunctionComponent<IProps> = ({ logout: wrappedLogout, isAnonymous, isLoading }: IProps) => {
+    const [isSidebarOpened, setIsSidebarOpened] = useState(false)
+    const handleMenuItemClick = () => setIsSidebarOpened(false)
+    const handleToggle = () => setIsSidebarOpened(!isSidebarOpened)
+    const handleLogoutClick = (e: MouseEvent) => {
         e.preventDefault()
-        this.handleMenuItemClick()
-        this.props.logout()
+        setIsSidebarOpened(false)
+        wrappedLogout()
     }
 
-    private renderMenu(isAnonymous: boolean) {
-        const content = []
-        if (!isAnonymous) {
-            content.push(
-                <li className="navbar-nav-item" key="list">
-                    <Link className="nav-link" to="/vocabulary/list" onClick={this.handleMenuItemClick}>
-                        Vocabulary list
-                    </Link>
-                </li>,
-                <li className="navbar-nav-item" key="add">
-                    <Link className="nav-link" to="/vocabulary/add" onClick={this.handleMenuItemClick}>
-                        Add new item
-                    </Link>
-                </li>,
-                <li className="navbar-nav-item" key="flashcards">
-                    <Link className="nav-link" to="/flashcards" onClick={this.handleMenuItemClick}>
-                        Flashcards
-                    </Link>
-                </li>,
-                <li className="navbar-nav-item" key="exercise1">
-                    <Link className="nav-link" to="/exercises/phrase-translation" onClick={this.handleMenuItemClick}>
-                        Phrase-Translation Exercise
-                    </Link>
-                </li>,
-                <li className="navbar-nav-item" key="logout">
-                    <button type="button" className="navbar-nav-item-button" onClick={this.handleLogoutClick}>
-                        Logout
-                    </button>
-                </li>,
-            )
-        } else {
-            content.push(
-                <li className="navbar-nav-item" key="login">
-                    <Link className="nav-link" to="/login">
-                        Login
-                    </Link>
-                </li>,
-            )
-        }
-
-        return (
-            <ul className="nav navbar-nav">
-                {content}
-            </ul>
-        )
+    if (isLoading) {
+        return <Preloader />
     }
 
-    private renderContent(isAnonymous: boolean) {
-        return (
+    return (
+        <StrictMode>
+            <nav className="navbar navbar-dark bg-dark">
+                <button
+                    type="button"
+                    className="navbar-toggler"
+                    onClick={handleToggle}
+                >
+                    <svg className="icon-menu">
+                        <use xlinkHref="#icon-menu" />
+                    </svg>
+                </button>
+                <Link to="/" className="navbar-brand" onClick={handleMenuItemClick}>
+                    Learn Words
+                    </Link>
+                {isSidebarOpened && <Menu
+                    isAnonymous={isAnonymous}
+                    onMenuItemClick={handleMenuItemClick}
+                    onLogoutClick={handleLogoutClick}
+                />}
+            </nav>
             <main className="container-fluid">
                 <Switch>
                     <Redirect exact={true} from="/" to="/vocabulary/list" />
@@ -133,40 +90,8 @@ export class Layout extends React.PureComponent<IProps, IState> {
                     <Route path="*" component={NotFoundPage} />
                 </Switch>
             </main>
-        )
-    }
-
-    public render() {
-        const { isLoading, isAnonymous } = this.props
-        const { sidebarOpen } = this.state
-
-        if (isLoading) {
-            return <Preloader />
-        }
-
-        return (
-            <div>
-            <React.StrictMode>
-                <nav className="navbar navbar-dark bg-dark">
-                    <button
-                        type="button"
-                        className="navbar-toggler"
-                        onClick={this.handleToggle}
-                    >
-                        <svg className="icon-menu">
-                            <use xlinkHref="#icon-menu" />
-                        </svg>
-                    </button>
-                    <Link to="/" className="navbar-brand" onClick={this.handleMenuItemClick}>
-                        Learn Words
-                    </Link>
-                    {sidebarOpen ? this.renderMenu(isAnonymous) : null}
-                </nav>
-                {this.renderContent(isAnonymous)}
-            </React.StrictMode>
-            </div>
-        )
-    }
+        </StrictMode>
+    )
 }
 
 const mapStateToProps = (state: IStoreState) => ({

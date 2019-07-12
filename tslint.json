@@ -15,6 +15,7 @@
             "allow-empty-functions"
         ],
         "no-console": false,
+        "no-default-export": true,
         "member-ordering": false,
         "object-literal-sort-keys": false,
         "jsx-wrap-multiline": false,

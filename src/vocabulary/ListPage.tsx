@@ -6,7 +6,7 @@ import { PageTitle } from "../components/PageTitle"
 import { Preloader } from "../components/Preloader"
 import { ICard, IStoreState, Statuses } from "../types"
 import { getVocabularyItems, removeVocabularyItem } from "./actions"
-import VocabularyList from "./VocabularyList"
+import { VocabularyList } from "./VocabularyList"
 
 interface IProps {
     dispatch: Dispatch

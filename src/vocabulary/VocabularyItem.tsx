@@ -6,7 +6,7 @@ export interface IProps extends ICard {
     handleRemove(id: string): void
 }
 
-const VocabularyItem: React.FunctionComponent<IProps> = ({ id, phrase, translation, handleRemove }) => {
+export const VocabularyItem: React.FunctionComponent<IProps> = ({ id, phrase, translation, handleRemove }) => {
     return (
         <li className="list-group-item">
             <div className="list-item-phrase">
@@ -30,5 +30,3 @@ const VocabularyItem: React.FunctionComponent<IProps> = ({ id, phrase, translati
         </li>
     )
 }
-
-export default VocabularyItem

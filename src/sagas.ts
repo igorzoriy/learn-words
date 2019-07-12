@@ -14,7 +14,7 @@ import {
     removeVocabularyItemSaga,
 } from "./vocabulary/sagas"
 
-export default function* rootSaga() {
+export function* rootSaga() {
     yield all([
         yield fork(watchUpdateUserDataSaga),
         yield takeLatest(AccountActionTypes.Login, loginSaga),

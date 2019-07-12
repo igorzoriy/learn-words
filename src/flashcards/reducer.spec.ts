@@ -1,5 +1,5 @@
 import { ActionTypes } from "./actions"
-import reducer from "./reducer"
+import { flashcardsReducer as reducer } from "./reducer"
 
 const initialState = {
     ids: ["2", "1", "3"],

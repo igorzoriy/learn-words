@@ -24,4 +24,4 @@ const reducerMap = {
     }),
 }
 
-export default createReducer(reducerMap, initialState)
+export const flashcardsReducer = createReducer(reducerMap, initialState)

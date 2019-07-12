@@ -1,9 +1,8 @@
-import { Statuses } from "../types"
 import {
     ActionTypes,
     updateUserData,
 } from "./actions"
-import reducer from "./reducer"
+import { accountReducer as reducer } from "./reducer"
 
 describe("account reducer", () => {
     it("should return initial state", () => {

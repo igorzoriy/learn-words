@@ -1,7 +1,7 @@
 import React from "react"
 import { Link } from "react-router-dom"
 import { createRenderer } from "react-test-renderer/shallow"
-import VocabularyItem from "./VocabularyItem"
+import { VocabularyItem } from "./VocabularyItem"
 
 function setup() {
     const props = {

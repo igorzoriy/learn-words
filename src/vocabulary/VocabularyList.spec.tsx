@@ -2,8 +2,8 @@ import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
 import { EmptyList } from "../components/EmptyList"
 import { ICard } from "../types"
-import VocabularyItem from "./VocabularyItem"
-import VocabularyList from "./VocabularyList"
+import { VocabularyItem } from "./VocabularyItem"
+import { VocabularyList } from "./VocabularyList"
 
 function setup(items: ICard[]) {
     const props = {

@@ -1,14 +1,14 @@
 import React from "react"
 import { EmptyList } from "../components/EmptyList"
 import { ICard } from "../types"
-import VocabularyItem from "./VocabularyItem"
+import { VocabularyItem } from "./VocabularyItem"
 
 export interface IProps {
     items: ICard[]
     handleRemove(id: string): void
 }
 
-const VocabularyList: React.FunctionComponent<IProps> = ({ items, handleRemove }) => {
+export const VocabularyList: React.FunctionComponent<IProps> = ({ items, handleRemove }) => {
     if (items.length === 0) {
         return <EmptyList />
     }
@@ -27,5 +27,3 @@ const VocabularyList: React.FunctionComponent<IProps> = ({ items, handleRemove }
         </ul>
     )
 }
-
-export default VocabularyList

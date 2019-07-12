@@ -40,4 +40,4 @@ const reducerMap = {
     },
 }
 
-export default createReducer(reducerMap, initialState)
+export const exercisesReducer = createReducer(reducerMap, initialState)

@@ -1,6 +1,6 @@
 import { IExerciseItem, IExercisesState as IState } from "../types"
 import { ActionTypes } from "./actions"
-import reducer from "./reducer"
+import { exercisesReducer as reducer } from "./reducer"
 
 let items: IExerciseItem[]
 

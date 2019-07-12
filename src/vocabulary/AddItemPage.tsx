@@ -2,7 +2,7 @@ import React, { FormEvent, FunctionComponent, useEffect, useRef } from "react"
 import { connect } from "react-redux"
 import { Dispatch } from "redux"
 import { Alert } from "../components/Alert"
-import PageTitle from "../components/PageTitle"
+import { PageTitle } from "../components/PageTitle"
 import { IStoreState, Statuses } from "../types"
 import {
     addVocabularyItem,

@@ -1,6 +1,6 @@
 import React from "react"
-import FormSubmit from "../components/FormSubmit"
-import Preloader from "../components/Preloader"
+import { FormSubmit } from "../components/FormSubmit"
+import { Preloader } from "../components/Preloader"
 
 export interface IProps {
     phraseRef: React.RefObject<HTMLInputElement>

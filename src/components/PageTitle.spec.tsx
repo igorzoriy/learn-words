@@ -1,6 +1,6 @@
 import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
-import PageTitle from "./PageTitle"
+import { PageTitle } from "./PageTitle"
 
 function setup(title: string) {
     const props = {

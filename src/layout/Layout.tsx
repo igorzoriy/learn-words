@@ -5,8 +5,10 @@ import { Link } from "react-router-dom"
 import { Dispatch, Store } from "redux"
 import { logout } from "../account/actions"
 import { LoginPageContainer as LoginPage } from "../account/LoginPage"
-import Preloader from "../components/Preloader"
-import { PhraseTranslationPageContainer as PhraseTranslationExercisePage } from "../exercises/PhraseTranslationPage"
+import { Preloader } from "../components/Preloader"
+import {
+    PhraseTranslationPageContainer as PhraseTranslationExercisePage,
+} from "../exercises/PhraseTranslationPage.container"
 import { FlashcardsPageContainer as FlashcardsPage } from "../flashcards/FlashcardsPage"
 import { IStoreState } from "../types"
 import { AddItemPageContainer as AddVocabularyItemPage } from "../vocabulary/AddItemPage"

@@ -1,6 +1,6 @@
 import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
-import Preloader from "./Preloader"
+import { Preloader } from "./Preloader"
 
 function setup() {
     const renderer = createRenderer()

@@ -1,15 +1,11 @@
-import React from "react"
+import React, { FunctionComponent } from "react"
 
 interface IProps {
     title: string
 }
 
-const PageTitle: React.FunctionComponent<IProps> = ({ title }) => {
-    return (
-        <h1>
-            {title}
-        </h1>
-    )
-}
-
-export default PageTitle
+export const PageTitle: FunctionComponent<IProps> = ({ title }) => (
+    <h1>
+        {title}
+    </h1>
+)

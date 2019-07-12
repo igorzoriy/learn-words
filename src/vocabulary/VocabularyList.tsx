@@ -1,5 +1,5 @@
 import React from "react"
-import EmptyList from "../components/EmptyList"
+import { EmptyList } from "../components/EmptyList"
 import { ICard } from "../types"
 import VocabularyItem from "./VocabularyItem"
 

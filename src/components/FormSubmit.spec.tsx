@@ -1,6 +1,6 @@
 import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
-import FormSubmit from "./FormSubmit"
+import { FormSubmit } from "./FormSubmit"
 
 function setup(title: string) {
     const props = {

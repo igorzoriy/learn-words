@@ -1,21 +1,13 @@
 import classnames from "classnames"
-import React from "react"
+import React, { FunctionComponent } from "react"
 
 export interface IProps {
     type?: "info" | "danger" | "success"
     message: string
 }
 
-export const Alert: React.FunctionComponent<IProps> = ({ type, message }) => {
-    const className = classnames("alert", `alert-${ type }`)
-
-    return (
-        <div className={className} role="alert">
-            {message}
-        </div>
-    )
-}
-
-Alert.defaultProps = {
-    type: "info",
-}
+export const Alert: FunctionComponent<IProps> = ({ type = "info", message }) => (
+    <div className={classnames("alert", `alert-${type}`)} role="alert">
+        {message}
+    </div>
+)

@@ -1,7 +1,7 @@
 import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
 import { Alert } from "./Alert"
-import EmptyList from "./EmptyList"
+import { EmptyList } from "./EmptyList"
 
 function setup() {
     const renderer = createRenderer()

@@ -4,9 +4,9 @@ import { Dispatch } from "redux"
 import { ICard, IStoreState, Statuses } from "../types"
 
 import { Alert } from "../components/Alert"
-import EmptyList from "../components/EmptyList"
-import PageTitle from "../components/PageTitle"
-import Preloader from "../components/Preloader"
+import { EmptyList } from "../components/EmptyList"
+import { PageTitle } from "../components/PageTitle"
+import { Preloader } from "../components/Preloader"
 import {
     flipCurrentFlashcard,
     initFlashcards,

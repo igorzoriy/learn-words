@@ -1,6 +1,6 @@
 import React from "react"
 import { createRenderer } from "react-test-renderer/shallow"
-import Button, { IProps } from "./Button"
+import { Button, IProps } from "./Button"
 
 function setup(props: IProps) {
     const renderer = createRenderer()

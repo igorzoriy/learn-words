@@ -1,201 +1,71 @@
-import React from "react"
-import { connect } from "react-redux"
-import { Dispatch } from "redux"
+import React, { FunctionComponent, useEffect } from "react"
 import { Alert } from "../components/Alert"
-import Button from "../components/Button"
-import EmptyList from "../components/EmptyList"
-import PageTitle from "../components/PageTitle"
-import Preloader from "../components/Preloader"
-import { ICard, IExerciseItem, IStoreState, Statuses } from "../types"
-import {
+import { EmptyList } from "../components/EmptyList"
+import { PageTitle } from "../components/PageTitle"
+import { Preloader } from "../components/Preloader"
+import { ICard, IExerciseItem, Statuses } from "../types"
+import { Exercise } from "./Exercise"
+import { Result } from "./Result"
+
+export interface IProps {
+    init: () => void
+    addAnswer: (id: string, variantId: string) => void
+    moveToNextQuestion: () => void
+    calculateResult: () => void
+    status: Statuses
+    result: number
+    items: IExerciseItem[]
+    currentIndex: number
+    current: ICard
+    variants: ICard[]
+}
+
+export const PhraseTranslationPage: FunctionComponent<IProps> = ({
+    status,
+    result,
+    items,
+    currentIndex,
+    current,
+    variants,
+    init,
     addAnswer,
-    calculateResult,
-    initPhraseTranslationExercise,
     moveToNextQuestion,
-} from "./actions"
+    calculateResult,
+}) => {
+    useEffect(() => {
+        init()
+    }, [])
 
-interface IProps {
-    initPhraseTranslationExercise: () => void,
-    addAnswer: (id: string, variantId: string) => void,
-    moveToNextQuestion: () => void,
-    calculateResult: () => void,
-    status: Statuses,
-    result: number,
-    items: IExerciseItem[],
-    currentIndex: number,
-    current: ICard,
-    variants: ICard[],
-}
+    let content: React.ReactElement = null
+    if (status === Statuses.Success) {
+        if (items.length === 0) {
+            content = <EmptyList key="empty" />
+        } else if (result === -1) {
+            const { answer } = items[currentIndex]
 
-export class PhraseTranslationPage extends React.PureComponent<IProps> {
-    constructor(props: IProps) {
-        super(props)
-    }
-
-    public componentDidMount() {
-        this.handleStart()
-    }
-
-    private handleStart = () => {
-        this.props.initPhraseTranslationExercise()
-    }
-
-    private handleAnswer(id: string, variantId: string) {
-        this.props.addAnswer(id, variantId)
-    }
-
-    private handleNext = () => {
-        this.props.moveToNextQuestion()
-    }
-
-    private handleResult = () => {
-        this.props.calculateResult()
-    }
-
-    private renderNextButton = () => {
-        return (
-            <Button
-                modifiers={["btn", "btn-info"]}
-                onClick={this.handleNext}
-                key="next-btn"
-            >
-                Next
-            </Button>
-        )
-    }
-
-    private renderResultButton = () => {
-        return (
-            <Button
-                modifiers={["btn", "btn-info"]}
-                onClick={this.handleResult}
-                key="result-btn"
-            >
-                Result
-            </Button>
-        )
-    }
-
-    private renderExercise(items: IExerciseItem[], currentIndex: number, current: ICard, variants: ICard[]) {
-        const { answer, id: currentId } = items[currentIndex]
-
-        return (
-            <div key="exercise">
-                <div className="exercise-card">
-                    {current.phrase}
-                </div>
-                { variants.map((variant) => {
-                    const classNames = ["btn"]
-                    if (answer && currentId === answer) {
-                        classNames.push(currentId === variant.id ? "btn-success" : "btn-warning")
-                    } else if (answer && currentId !== answer) {
-                        classNames.push(currentId === variant.id ? "btn-success" : "btn-danger")
-                    } else {
-                        classNames.push("btn-warning")
-                    }
-                    return (
-                        <Button
-                            modifiers={classNames}
-                            onClick={this.handleAnswer.bind(this, currentId, variant.id)}
-                            disabled={!!answer}
-                            key={variant.id}
-                        >
-                            {variant.translation}
-                        </Button>
-                    )
-                }) }
-
-                <div className="exercise-counter">
-                    {currentIndex + 1}&nbsp;/&nbsp;{items.length}
-                </div>
-                {currentIndex === items.length - 1 ? this.renderResultButton() : this.renderNextButton()}
-            </div>
-        )
-    }
-
-    public renderResult(result: number) {
-        return (
-            <div key="result">
-                <div className="exercise-card">
-                    Your result is {result} %
-                </div>
-                <Button
-                    modifiers={["btn", "btn-info"]}
-                    onClick={this.handleStart}
-                    key="start-btn"
-                >
-                    Start New Exercise
-                </Button>
-            </div>
-        )
-    }
-
-    public render() {
-        const { status, result, items, currentIndex, current, variants } = this.props
-        const content = []
-
-        switch (status) {
-            case Statuses.Init:
-            case Statuses.Request:
-                content.push(<Preloader key="preloader" />)
-                break
-            case Statuses.Success:
-                if (!items.length) {
-                    content.push(<EmptyList key="empty" />)
-                } else {
-                    content.push(
-                        result === -1
-                            ? this.renderExercise(items, currentIndex, current, variants)
-                        : this.renderResult(result),
-                    )
-                }
-                break
-            case Statuses.Failure:
-                content.push(<Alert key="error" type="danger" message="Failed to load vocabulary items." />)
-                break
+            content = <Exercise
+                card={current}
+                current={currentIndex + 1}
+                total={items.length}
+                variants={variants}
+                answer={answer}
+                addAnswer={addAnswer}
+                moveToNextQuestion={moveToNextQuestion}
+                calculateResult={calculateResult}
+            />
+        } else if (result !== -1) {
+            content = <Result result={result} onClick={init} />
         }
-
-        return (
-            <div>
-                <PageTitle title="Phrase-Translation" />
-                {content}
-            </div>
-        )
     }
+
+    return (
+        <div>
+            <PageTitle title="Phrase-Translation" />
+            {status === Statuses.Init && <Preloader key="preloader" />}
+            {status === Statuses.Request && <Preloader key="preloader" />}
+            {status === Statuses.Failure &&
+                <Alert key="error" type="danger" message="Failed to load vocabulary items." />}
+            {content}
+        </div>
+    )
 }
-
-const mapStateToProps = (state: IStoreState) => {
-    const { status, hash } = state.vocabulary.entities
-    const { items, currentIndex, result } = state.exercises
-
-    let currentId: string
-    let current: ICard
-    let variants: ICard[]
-    if (!items[currentIndex]) {
-        currentId = null
-        current = null
-        variants = []
-    } else {
-        currentId = items[currentIndex].id
-        current = hash[currentId]
-        variants = items[currentIndex].variants.map((id) => hash[id])
-    }
-
-    return {
-        result,
-        status,
-        items,
-        currentIndex,
-        current,
-        variants,
-    }
-}
-
-const mapDispatchToProps = (dispatch: Dispatch) => ({
-    initPhraseTranslationExercise: () => dispatch(initPhraseTranslationExercise()),
-    addAnswer: (id: string, variantId: string) => dispatch(addAnswer(id, variantId)),
-    moveToNextQuestion: () => dispatch(moveToNextQuestion()),
-    calculateResult: () => dispatch(calculateResult()),
-})
-
-export const PhraseTranslationPageContainer = connect(mapStateToProps, mapDispatchToProps)(PhraseTranslationPage)

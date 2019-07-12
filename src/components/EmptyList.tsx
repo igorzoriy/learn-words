@@ -1,8 +1,5 @@
-import React from "react"
+import React, { FunctionComponent } from "react"
 import { Alert } from "./Alert"
 
-const EmptyList: React.FunctionComponent = () => {
-    return <Alert type="info" message="Your list of phrases is empty." />
-}
-
-export default EmptyList
+export const EmptyList: FunctionComponent = () =>
+    <Alert message="Your list of phrases is empty." />

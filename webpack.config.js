@@ -1,4 +1,5 @@
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
+const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
 
 const devMode = process.env.NODE_ENV === 'development'
 
@@ -12,7 +13,7 @@ module.exports = {
         extensions: ['.ts', '.tsx', '.js', '.jsx'],
     },
     mode: process.env.NODE_ENV,
-    devtool: devMode ? 'inline-source-map' : '',
+    devtool: devMode ? 'source-map' : '',
     context: __dirname,
     entry: {
         bundle: './src/index.tsx',
@@ -58,6 +59,17 @@ module.exports = {
                     },
                 ],
             },
+        ],
+    },
+    optimization: {
+        minimizer: [
+            new UglifyJsPlugin({
+                uglifyOptions: {
+                    output: {
+                        comments: false,
+                    },
+                },
+            })
         ],
     },
     devServer: {

@@ -4,3 +4,4 @@ node_modules
 public/bundle.js
 public/styles.js
 public/styles.css
+public/*.map

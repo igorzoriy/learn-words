@@ -1,4 +1,4 @@
-import * as firebase from "firebase"
+import firebase from "firebase/app"
 import { eventChannel } from "redux-saga"
 import { call, put, take } from "redux-saga/effects"
 import { loginFailed, logoutSuccess, updateUserData } from "./actions"

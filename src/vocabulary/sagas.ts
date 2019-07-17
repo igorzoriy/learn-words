@@ -1,4 +1,4 @@
-import * as firebase from "firebase"
+import firebase from "firebase/app"
 import { call, put, select } from "redux-saga/effects"
 import { ICard, IStoreState, Statuses } from "../types"
 import {

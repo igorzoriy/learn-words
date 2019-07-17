@@ -1,6 +1,7 @@
 .firebase
 coverage
 node_modules
+dist
 public/bundle.js
 public/styles.js
 public/styles.css

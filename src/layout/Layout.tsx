@@ -35,9 +35,38 @@ export const Layout: FunctionComponent<IProps> = ({ logout: wrappedLogout, isAno
         wrappedLogout()
     }
 
-    if (isLoading) {
-        return <Preloader />
-    }
+    const pagesSwitcher = (
+        <Switch>
+            <Redirect exact={true} from="/" to="/vocabulary/list" />
+            <Route path="/login" component={LoginPage} />
+            <PrivateRoute
+                path="/vocabulary/list"
+                component={ListVocabularyItemsPage}
+                isLoggedIn={!isAnonymous}
+            />
+            <PrivateRoute
+                path="/vocabulary/add"
+                component={AddVocabularyItemPage}
+                isLoggedIn={!isAnonymous}
+            />
+            <PrivateRoute
+                path="/vocabulary/edit/:id"
+                component={EditVocabularyItemPage}
+                isLoggedIn={!isAnonymous}
+            />
+            <PrivateRoute
+                path="/flashcards"
+                component={FlashcardsPage}
+                isLoggedIn={!isAnonymous}
+            />
+            <PrivateRoute
+                path="/exercises/phrase-translation"
+                component={PhraseTranslationExercisePage}
+                isLoggedIn={!isAnonymous}
+            />
+            <Route path="*" component={NotFoundPage} />
+        </Switch>
+    )
 
     return (
         <StrictMode>
@@ -61,36 +90,7 @@ export const Layout: FunctionComponent<IProps> = ({ logout: wrappedLogout, isAno
                 />}
             </nav>
             <main className="container-fluid">
-                <Switch>
-                    <Redirect exact={true} from="/" to="/vocabulary/list" />
-                    <Route path="/login" component={LoginPage} />
-                    <PrivateRoute
-                        path="/vocabulary/list"
-                        component={ListVocabularyItemsPage}
-                        isLoggedIn={!isAnonymous}
-                    />
-                    <PrivateRoute
-                        path="/vocabulary/add"
-                        component={AddVocabularyItemPage}
-                        isLoggedIn={!isAnonymous}
-                    />
-                    <PrivateRoute
-                        path="/vocabulary/edit/:id"
-                        component={EditVocabularyItemPage}
-                        isLoggedIn={!isAnonymous}
-                    />
-                    <PrivateRoute
-                        path="/flashcards"
-                        component={FlashcardsPage}
-                        isLoggedIn={!isAnonymous}
-                    />
-                    <PrivateRoute
-                        path="/exercises/phrase-translation"
-                        component={PhraseTranslationExercisePage}
-                        isLoggedIn={!isAnonymous}
-                    />
-                    <Route path="*" component={NotFoundPage} />
-                </Switch>
+                {isLoading ? <Preloader /> : pagesSwitcher}
             </main>
         </StrictMode>
     )

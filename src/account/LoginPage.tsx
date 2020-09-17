@@ -31,7 +31,7 @@ export const LoginPage: FunctionComponent<IProps> = ({ login: wrappedLogin, isAn
         <div>
             <PageTitle title="Login" />
             <Button modifiers={["btn-primary", "btn-lg"]} onClick={handleLoginClick}>
-                Using Facebook
+                Using Google
                 </Button>
             {error.length ? <Alert key="error" type="danger" message={error} /> : ""}
         </div>

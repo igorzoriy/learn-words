@@ -16,7 +16,7 @@ export function* watchUpdateUserDataSaga() {
 }
 
 const callLogin = () => {
-    const provider = new firebase.auth.FacebookAuthProvider()
+    const provider = new firebase.auth.GoogleAuthProvider();
     return firebase.auth().signInWithPopup(provider).then(
         (result) => {
             const { user } = result

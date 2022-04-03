@@ -1,7 +1,7 @@
-const MiniCssExtractPlugin = require('mini-css-extract-plugin')
-const UglifyJsPlugin = require('uglifyjs-webpack-plugin')
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const TerserPlugin = require("terser-webpack-plugin");
 
-const devMode = process.env.NODE_ENV === 'development'
+const devMode = process.env.NODE_ENV === "development";
 
 module.exports = {
     plugins: [
@@ -10,72 +10,52 @@ module.exports = {
         }),
     ],
     resolve: {
-        extensions: ['.ts', '.tsx', '.js', '.jsx'],
+        extensions: [".ts", ".tsx", ".js", ".jsx"],
     },
     mode: process.env.NODE_ENV,
-    devtool: devMode ? 'source-map' : '',
+    devtool: devMode ? "source-map" : false,
     context: __dirname,
     entry: {
-        bundle: './src/index.tsx',
+        bundle: "./src/index.tsx",
         styles: `./styles/styles.scss`,
     },
     output: {
         path: `${__dirname}/public`,
-        filename: '[name].js',
-        publicPath: '/',
+        filename: "[name].js",
+        publicPath: "/",
     },
     module: {
         rules: [
             {
                 test: /\.tsx?$/,
-                use: ['awesome-typescript-loader'],
+                use: ["awesome-typescript-loader"],
             },
             {
                 test: /\.scss$/,
                 use: [
                     {
                         loader: MiniCssExtractPlugin.loader,
-                        options: {
-                            sourceMap: devMode,
-                        },
                     },
                     {
-                        loader: 'css-loader',
-                        options: {
-                            sourceMap: devMode,
-                        },
+                        loader: "css-loader",
                     },
                     {
-                        loader: 'postcss-loader',
-                        options: {
-                            sourceMap: devMode,
-                        },
+                        loader: "postcss-loader",
                     },
                     {
-                        loader: 'sass-loader',
-                        options: {
-                            sourceMap: devMode,
-                        },
+                        loader: "sass-loader",
                     },
                 ],
             },
         ],
     },
     optimization: {
-        minimizer: [
-            new UglifyJsPlugin({
-                uglifyOptions: {
-                    output: {
-                        comments: false,
-                    },
-                },
-            })
-        ],
+        minimize: true,
+        minimizer: [new TerserPlugin()],
     },
     devServer: {
-        contentBase: `${__dirname}/public`,
-        host: '0.0.0.0',
+        static: `${__dirname}/public`,
         port: 8888,
         historyApiFallback: true,
     },
-}
+};
